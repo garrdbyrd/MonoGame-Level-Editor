@@ -173,7 +173,6 @@
     <property name="title">
      <string>Edit</string>
     </property>
-    <addaction name="separator"/>
     <addaction name="actionWidth_Height"/>
     <addaction name="separator"/>
     <addaction name="actionPreferences"/>
