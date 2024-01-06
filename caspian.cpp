@@ -1,7 +1,6 @@
 #include "caspian.h"
 #include "./ui_caspian.h"
 
-
 #include <QDir>
 #include <QMainWindow>
 #include <QPushButton>
@@ -18,6 +17,10 @@ Caspian::Caspian(QWidget *parent)
     , ui(new Ui::Caspian)
 {
     ui->setupUi(this);
+
+    QGridLayout *layout = new QGridLayout(ui->tilePickerWidget);
+    ui->tilePickerWidget->setLayout(layout);
+
     populateScrollMenu();
 }
 
@@ -28,18 +31,22 @@ Caspian::~Caspian()
 
 void Caspian::populateScrollMenu()
 {
-    QDir directory("/home/blackbox/Documents/gamedev/caspian-development/Caspian/caspian-local/assets");
+    QDir directory("/home/blackbox/Documents/gamedev/caspian/caspian/caspian-local/assets");
     QStringList subDirs = directory.entryList(QDir::Dirs);
 
-    QVBoxLayout *layout = qobject_cast<QVBoxLayout*>(ui->tilePickerWidget->layout());
+    QGridLayout *layout = qobject_cast<QGridLayout*>(ui->tilePickerWidget->layout());
 
     if (!layout) {
-        qDebug() << "Layout cast failed. Ensure tilePickerWidget has a QVBoxLayout.";
+        qDebug() << "Layout cast failed. Ensure tilePickerWidget has a QGridLayout.";
         return;
     }
-    else{
-        qDebug() << "Everything is good.";
-    }
+
+    layout->setAlignment(Qt::AlignCenter);
+    int row = 0;
+    int column = 0;
+    const int maxColumns = 3;
+    int maxRows = 0;
+    int width;
 
     QLayoutItem *item;
     while ((item = layout -> takeAt(0)) != nullptr) {
@@ -50,14 +57,36 @@ void Caspian::populateScrollMenu()
     foreach (const QString &subDirName, subDirs) {
         QDir subDir(directory.absoluteFilePath(subDirName));
         QStringList pngFiles = subDir.entryList(QStringList() << "*.png", QDir::Files);
-        qDebug() << "PNG files in" << subDir.absolutePath() << ":" << pngFiles;
+        //qDebug() << "PNG files in" << subDir.absolutePath() << ":" << pngFiles;
 
         foreach (const QString &fileName, pngFiles) {
             QLabel *imageLabel = new QLabel;
-            imageLabel->setMinimumSize(100, 100);
+            //int size = 100;
+            // imageLabel->setMinimumSize(size, size);
             QPixmap pixmap(subDir.absoluteFilePath(fileName));
-            imageLabel->setPixmap(pixmap.scaled(100, 100, Qt::KeepAspectRatio));
-            layout->addWidget(imageLabel);
+            //imageLabel->setPixmap(pixmap.scaled(size, size, Qt::KeepAspectRatio));
+
+            imageLabel->setPixmap(pixmap);
+            imageLabel->setScaledContents(true);
+            layout->addWidget(imageLabel, row, column);
+            column++;
+            if (column >= maxColumns) {
+                column = 0;
+                row++;
+                maxRows++;
+            }
         }
     }
+
+    for (int i = 0; i < maxColumns; ++i) {
+        layout->setColumnStretch(i, 1);
+    }
+
+    for (int i = 0; i <= maxRows; ++i) {
+        layout->setRowStretch(i, 1);
+    }
+    //qDebug() << layout->count();
 }
+
+
+
