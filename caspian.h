@@ -19,5 +19,6 @@ public:
 
 private:
     Ui::Caspian *ui;
+    void populateScrollMenu();
 };
 #endif // CASPIAN_H
