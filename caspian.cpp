@@ -15,6 +15,7 @@
 #include <QTimer>
 #include <QDrag>
 #include <QMimeData>
+#include <QGraphicsPixmapItem>
 
 Caspian::Caspian(QWidget *parent)
     : QMainWindow(parent)
@@ -24,6 +25,9 @@ Caspian::Caspian(QWidget *parent)
 
     QGridLayout *layout = new QGridLayout(ui->tilePickerWidget);
     ui->tilePickerWidget->setLayout(layout);
+
+    QGraphicsScene *scene = new QGraphicsScene(this);
+    ui->selectedGraphicsView->setScene(scene);
 
     //populateScrollMenu();
     QTimer::singleShot(0, this, &Caspian::populateScrollMenu);
@@ -36,12 +40,36 @@ Caspian::~Caspian()
 }
 
 void Caspian::labelClicked(selectableLabel *label) {
-    if (currentSelectedLabel || (currentSelectedLabel && currentSelectedLabel != label)) {
+    if (currentSelectedLabel) {
         currentSelectedLabel->setSelected(false);
     }
-    label->setSelected(true);
-    currentSelectedLabel = label;
+
+    if (label != currentSelectedLabel) {
+        label->setSelected(true);
+        currentSelectedLabel = label;
+
+        // Clear existing items in the scene
+        ui->selectedGraphicsView->scene()->clear();
+
+        // Get the copy of the pixmap from the label
+        QPixmap pixmap = label->pixmap(Qt::ReturnByValue);
+
+        // Check if the pixmap is valid
+        if (!pixmap.isNull()) {
+            // Create a QGraphicsPixmapItem with the label's pixmap
+            QGraphicsPixmapItem *item = new QGraphicsPixmapItem(pixmap);
+            item->setScale(3);
+            ui->selectedGraphicsView->scene()->addItem(item);
+            //ui->selectedGraphicsView->fitInView(item, Qt::KeepAspectRatio);
+        }
+    } else {
+        currentSelectedLabel = nullptr;
+        ui->selectedGraphicsView->scene()->clear();  // Clear the scene if deselected
+    }
 }
+
+
+
 
 void Caspian::populateScrollMenu()
 {
