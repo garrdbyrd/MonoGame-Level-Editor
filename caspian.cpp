@@ -134,15 +134,6 @@ void Caspian::populateScrollMenu()
         row++;
     }
 
-    for (int i = 0; i < maxColumns; ++i) {
-        layout->setColumnStretch(i, 1);
-    }
-
-    const int maxRows = layout->rowCount();
-    for (int i = 0; i < maxRows; ++i) {
-        layout->setRowStretch(i, 1);
-    }
-
     //qDebug() << layout->rowCount();
     //qDebug() << layout->columnCount();
     //qDebug() << layout->count();
