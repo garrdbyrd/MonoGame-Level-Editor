@@ -110,6 +110,7 @@ void Caspian::populateScrollMenu()
         // Label
         QLabel *dirLabel = new QLabel(subDirName);
         dirLabel->setAlignment(Qt::AlignLeft);
+        dirLabel->setStyleSheet("font-weight: bold");
         //dirLabel->setAutoFillBackground(true);
         layout->addWidget(dirLabel, row++, 0, 1, -1);
 

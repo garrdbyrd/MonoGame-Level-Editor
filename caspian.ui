@@ -221,6 +221,91 @@
               <string>Property2</string>
              </property>
             </item>
+            <item row="2" column="0">
+             <property name="text">
+              <string>Property3</string>
+             </property>
+            </item>
+            <item row="3" column="0">
+             <property name="text">
+              <string>Property4</string>
+             </property>
+            </item>
+            <item row="4" column="0">
+             <property name="text">
+              <string>Property5</string>
+             </property>
+            </item>
+            <item row="5" column="0">
+             <property name="text">
+              <string>Property6</string>
+             </property>
+            </item>
+            <item row="6" column="0">
+             <property name="text">
+              <string>Property7</string>
+             </property>
+            </item>
+            <item row="7" column="0">
+             <property name="text">
+              <string>Property8</string>
+             </property>
+            </item>
+            <item row="8" column="0">
+             <property name="text">
+              <string>Property9</string>
+             </property>
+            </item>
+            <item row="9" column="0">
+             <property name="text">
+              <string>Property10</string>
+             </property>
+            </item>
+            <item row="10" column="0">
+             <property name="text">
+              <string>Property11</string>
+             </property>
+            </item>
+            <item row="11" column="0">
+             <property name="text">
+              <string>Property12</string>
+             </property>
+            </item>
+            <item row="12" column="0">
+             <property name="text">
+              <string>Property13</string>
+             </property>
+            </item>
+            <item row="13" column="0">
+             <property name="text">
+              <string>Property14</string>
+             </property>
+            </item>
+            <item row="14" column="0">
+             <property name="text">
+              <string>Property15</string>
+             </property>
+            </item>
+            <item row="15" column="0">
+             <property name="text">
+              <string>Property16</string>
+             </property>
+            </item>
+            <item row="16" column="0">
+             <property name="text">
+              <string>Property17</string>
+             </property>
+            </item>
+            <item row="17" column="0">
+             <property name="text">
+              <string>Property18</string>
+             </property>
+            </item>
+            <item row="17" column="1">
+             <property name="text">
+              <string/>
+             </property>
+            </item>
            </widget>
           </item>
          </layout>
