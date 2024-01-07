@@ -36,7 +36,7 @@ Caspian::~Caspian()
 }
 
 void Caspian::labelClicked(selectableLabel *label) {
-    if (currentSelectedLabel) {
+    if (currentSelectedLabel || (currentSelectedLabel && currentSelectedLabel != label)) {
         currentSelectedLabel->setSelected(false);
     }
     label->setSelected(true);
@@ -45,6 +45,7 @@ void Caspian::labelClicked(selectableLabel *label) {
 
 void Caspian::populateScrollMenu()
 {
+    currentSelectedLabel = nullptr; // Keep this or segfault
     QDir directory("/home/blackbox/Documents/gamedev/caspian/caspian/caspian-local/assets");
     QStringList subDirs = directory.entryList(QDir::Dirs);
 
