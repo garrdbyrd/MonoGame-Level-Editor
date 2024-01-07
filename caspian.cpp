@@ -31,7 +31,7 @@ Caspian::Caspian(QWidget *parent)
 
     //populateScrollMenu();
     QTimer::singleShot(0, this, &Caspian::populateScrollMenu);
-
+    setPropertiesTable();
 }
 
 Caspian::~Caspian()
@@ -67,9 +67,6 @@ void Caspian::labelClicked(selectableLabel *label) {
         ui->selectedGraphicsView->scene()->clear();  // Clear the scene if deselected
     }
 }
-
-
-
 
 void Caspian::populateScrollMenu()
 {
@@ -153,5 +150,37 @@ void Caspian::populateScrollMenu()
 void Caspian::resizeEvent(QResizeEvent *event) {
     QMainWindow::resizeEvent(event);
     populateScrollMenu();
+}
+
+void Caspian::setPropertiesTable(){
+    QStringList headers;
+    headers << "Property" << "Value";
+    ui->selectedProperties->setHorizontalHeaderLabels(headers);
+    ui->selectedProperties->horizontalHeader()->setDefaultAlignment(Qt::AlignLeft);
+
+    // Chunk to make column 1 read-only
+    int rowCount = ui->selectedProperties->rowCount();
+    for (int row = 0; row < rowCount; ++row) {
+        QTableWidgetItem *item = ui->selectedProperties->item(row, 0); // Get the item in the first column
+        if (!item) {
+            item = new QTableWidgetItem(); // Create a new item if it doesn't exist
+            ui->selectedProperties->setItem(row, 0, item);
+        }
+        item->setFlags(item->flags() & ~Qt::ItemIsEditable); // Make the item read-only
+    }
+
+    // Chunk for default values in column 2
+    for (int row = 0; row < rowCount; ++row) {
+        // Determine the default value for this row
+        QString defaultValue = QString("Value%1").arg(row); // Replace this with your logic
+
+        QTableWidgetItem *item = ui->selectedProperties->item(row, 1); // Column index 1 for the second column
+        if (!item) {
+            item = new QTableWidgetItem(defaultValue);
+            ui->selectedProperties->setItem(row, 1, item);
+        } else {
+            item->setText(defaultValue);
+        }
+    }
 }
 

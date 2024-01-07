@@ -30,6 +30,7 @@ private:
     Ui::Caspian *ui;
     void populateScrollMenu();
     selectableLabel *currentSelectedLabel = nullptr;
+    void setPropertiesTable();
 };
 
 #endif // CASPIAN_H
