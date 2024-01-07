@@ -73,16 +73,21 @@ void Caspian::labelClicked(selectableLabel *label) {
 
 void Caspian::populateScrollMenu()
 {
-    currentSelectedLabel = nullptr; // Keep this or segfault
-    QDir directory("/home/blackbox/Documents/gamedev/caspian/caspian/caspian-local/assets");
-    QStringList subDirs = directory.entryList(QDir::Dirs);
+    // Keep this or segfault
+    currentSelectedLabel = nullptr;
 
+    // Initial path information
+    QDir directory("/home/blackbox/Documents/gamedev/caspian/caspian/caspian-local/assets");
+    QStringList subDirs = directory.entryList(QDir::Dirs | QDir::NoDotAndDotDot);
     QGridLayout *layout = qobject_cast<QGridLayout*>(ui->tilePickerWidget->layout());
 
+    // Make sure it's not fucking up
     if (!layout) {
         qDebug() << "Layout cast failed. Ensure tilePickerWidget has a QGridLayout.";
         return;
     }
+
+    // Clear existing
     while (QLayoutItem* item = layout->takeAt(0)) {
         if (QWidget* widget = item->widget())
             delete widget;
@@ -105,6 +110,12 @@ void Caspian::populateScrollMenu()
     }
 
     foreach (const QString &subDirName, subDirs) {
+        // Label
+        QLabel *dirLabel = new QLabel(subDirName);
+        dirLabel->setAlignment(Qt::AlignLeft);
+        //dirLabel->setAutoFillBackground(true);
+        layout->addWidget(dirLabel, row++, 0, 1, -1);
+
         QDir subDir(directory.absoluteFilePath(subDirName));
         QStringList pngFiles = subDir.entryList(QStringList() << "*.png", QDir::Files);
         //qDebug() << "PNG files in" << subDir.absolutePath() << ":" << pngFiles;
@@ -122,6 +133,7 @@ void Caspian::populateScrollMenu()
                 row++;
             }
         }
+        row++;
     }
 
     for (int i = 0; i < maxColumns; ++i) {
