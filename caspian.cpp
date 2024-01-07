@@ -130,6 +130,7 @@ void Caspian::populateScrollMenu()
                 row++;
             }
         }
+        column = 0;
         row++;
     }
 
