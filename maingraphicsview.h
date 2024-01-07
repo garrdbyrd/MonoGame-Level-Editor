@@ -15,11 +15,17 @@ public:
 
 protected:
     void mousePressEvent(QMouseEvent *event) override;
+    void mouseMoveEvent(QMouseEvent *event) override;
+    void mouseReleaseEvent(QMouseEvent *event) override;
+    void wheelEvent(QWheelEvent *event) override;
+
 
 private:
     QPixmap currentTexture;
     QVector<QVector<QGraphicsPixmapItem*>> grid;
     int tileSize;
+    bool isDragging;
+    QPoint lastMousePosition;
 };
 
 #endif // MAINGRAPHICSVIEW_H
