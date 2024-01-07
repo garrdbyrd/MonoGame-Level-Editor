@@ -11,6 +11,7 @@
 #include <QPixmap>
 #include <QScrollArea>
 #include <QDebug>
+#include <QTimer>
 
 Caspian::Caspian(QWidget *parent)
     : QMainWindow(parent)
@@ -21,7 +22,8 @@ Caspian::Caspian(QWidget *parent)
     QGridLayout *layout = new QGridLayout(ui->tilePickerWidget);
     ui->tilePickerWidget->setLayout(layout);
 
-    populateScrollMenu();
+    //populateScrollMenu();
+    QTimer::singleShot(0, this, &Caspian::populateScrollMenu);
 }
 
 Caspian::~Caspian()
@@ -40,13 +42,20 @@ void Caspian::populateScrollMenu()
         qDebug() << "Layout cast failed. Ensure tilePickerWidget has a QGridLayout.";
         return;
     }
+    while (QLayoutItem* item = layout->takeAt(0)) {
+        if (QWidget* widget = item->widget())
+            delete widget;
+        delete item;
+    }
 
     layout->setAlignment(Qt::AlignCenter);
     int row = 0;
     int column = 0;
-    const int maxColumns = 3;
-    int maxRows = 0;
-    int width;
+
+    int areaWidth = ui->tilePickerWidget->width();
+    int margin = 6;
+    int maxColumns = 3;
+    int size = (areaWidth - margin * (maxColumns + 1)) / maxColumns;
 
     QLayoutItem *item;
     while ((item = layout -> takeAt(0)) != nullptr) {
@@ -61,19 +70,14 @@ void Caspian::populateScrollMenu()
 
         foreach (const QString &fileName, pngFiles) {
             QLabel *imageLabel = new QLabel;
-            //int size = 100;
-            // imageLabel->setMinimumSize(size, size);
             QPixmap pixmap(subDir.absoluteFilePath(fileName));
-            //imageLabel->setPixmap(pixmap.scaled(size, size, Qt::KeepAspectRatio));
-
-            imageLabel->setPixmap(pixmap);
-            imageLabel->setScaledContents(true);
+            imageLabel->setPixmap(pixmap.scaled(size, size, Qt::KeepAspectRatio));
             layout->addWidget(imageLabel, row, column);
+
             column++;
             if (column >= maxColumns) {
                 column = 0;
                 row++;
-                maxRows++;
             }
         }
     }
@@ -82,11 +86,18 @@ void Caspian::populateScrollMenu()
         layout->setColumnStretch(i, 1);
     }
 
-    for (int i = 0; i <= maxRows; ++i) {
+    const int maxRows = layout->rowCount();
+    for (int i = 0; i < maxRows; ++i) {
         layout->setRowStretch(i, 1);
     }
+
+    //qDebug() << layout->rowCount();
+    //qDebug() << layout->columnCount();
     //qDebug() << layout->count();
 }
 
-
+void Caspian::resizeEvent(QResizeEvent *event) {
+    QMainWindow::resizeEvent(event);
+    populateScrollMenu();
+}
 

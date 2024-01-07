@@ -2,6 +2,7 @@
 #define CASPIAN_H
 
 #include <QMainWindow>
+#include <QResizeEvent>
 
 QT_BEGIN_NAMESPACE
 namespace Ui {
@@ -16,6 +17,9 @@ class Caspian : public QMainWindow
 public:
     Caspian(QWidget *parent = nullptr);
     ~Caspian();
+
+protected:
+    void resizeEvent(QResizeEvent *event) override;
 
 private:
     Ui::Caspian *ui;
