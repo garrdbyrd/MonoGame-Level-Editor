@@ -1,6 +1,6 @@
 #include "caspian.h"
 #include "./ui_caspian.h"
-#include "draggablelabel.h"
+#include "selectablelabel.h"
 
 #include <QDir>
 #include <QMainWindow>
@@ -27,6 +27,7 @@ Caspian::Caspian(QWidget *parent)
 
     //populateScrollMenu();
     QTimer::singleShot(0, this, &Caspian::populateScrollMenu);
+
 }
 
 Caspian::~Caspian()
@@ -34,9 +35,14 @@ Caspian::~Caspian()
     delete ui;
 }
 
-// Classes
+void Caspian::labelClicked(selectableLabel *label) {
+    if (currentSelectedLabel) {
+        currentSelectedLabel->setSelected(false);
+    }
+    label->setSelected(true);
+    currentSelectedLabel = label;
+}
 
-// Functions
 void Caspian::populateScrollMenu()
 {
     QDir directory("/home/blackbox/Documents/gamedev/caspian/caspian/caspian-local/assets");
@@ -75,9 +81,10 @@ void Caspian::populateScrollMenu()
         //qDebug() << "PNG files in" << subDir.absolutePath() << ":" << pngFiles;
 
         foreach (const QString &fileName, pngFiles) {
-            draggableLabel *imageLabel = new draggableLabel;
+            selectableLabel *imageLabel = new selectableLabel;
             QPixmap pixmap(subDir.absoluteFilePath(fileName));
             imageLabel->setPixmap(pixmap.scaled(size, size, Qt::KeepAspectRatio));
+            connect(imageLabel, &selectableLabel::clicked, this, &Caspian::labelClicked);
             layout->addWidget(imageLabel, row, column);
 
             column++;
