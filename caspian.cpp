@@ -1,6 +1,7 @@
 #include "caspian.h"
 #include "./ui_caspian.h"
 #include "selectablelabel.h"
+#include "maingraphicsview.h"
 
 #include <QDir>
 #include <QMainWindow>
@@ -22,6 +23,13 @@ Caspian::Caspian(QWidget *parent)
     , ui(new Ui::Caspian)
 {
     ui->setupUi(this);
+
+    MainGraphicsView *mainGraphicsView = dynamic_cast<MainGraphicsView*>(ui->mainGraphicsView);
+    mainGraphicsView->setupGrid(10, 10, 72); // Setup grid
+
+    // Set a default texture
+    QPixmap defaultTexture("/home/blackbox/Documents/gamedev/caspian/caspian/caspian-local/assets/default/default.png");
+    mainGraphicsView->setCurrentTexture(defaultTexture);
 
     QGridLayout *layout = new QGridLayout(ui->tilePickerWidget);
     ui->tilePickerWidget->setLayout(layout);

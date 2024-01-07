@@ -12,10 +12,12 @@ CONFIG += console
 SOURCES += \
     main.cpp \
     caspian.cpp \
+    maingraphicsview.cpp \
     selectablelabel.cpp
 
 HEADERS += \
     caspian.h \
+    maingraphicsview.h \
     selectablelabel.h
 
 FORMS += \

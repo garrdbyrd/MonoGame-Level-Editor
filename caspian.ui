@@ -105,7 +105,7 @@
            </widget>
           </item>
           <item>
-           <widget class="QGraphicsView" name="mainGraphicsView">
+           <widget class="MainGraphicsView" name="mainGraphicsView">
             <property name="frameShadow">
              <enum>QFrame::Raised</enum>
             </property>
@@ -407,6 +407,13 @@
    </property>
   </action>
  </widget>
+ <customwidgets>
+  <customwidget>
+   <class>MainGraphicsView</class>
+   <extends>QGraphicsView</extends>
+   <header>maingraphicsview.h</header>
+  </customwidget>
+ </customwidgets>
  <resources/>
  <connections/>
 </ui>
