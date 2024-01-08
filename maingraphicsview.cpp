@@ -11,13 +11,17 @@ MainGraphicsView::MainGraphicsView(QWidget *parent)
     setScene(scene);
 }
 
+// Grid setup
+
 void MainGraphicsView::setupGrid(int rows, int cols, int tileSize) {
     this->tileSize = tileSize;
+
     for (int row = 0; row < rows; ++row) {
         QVector<QGraphicsPixmapItem*> gridRow;
         for (int col = 0; col < cols; ++col) {
             QGraphicsPixmapItem *item = scene()->addPixmap(QPixmap());
             item->setPos(col * tileSize, row * tileSize);
+            item->setPixmap(currentTexture.scaled(tileSize, tileSize));
             gridRow.push_back(item);
         }
         grid.push_back(gridRow);
@@ -27,6 +31,8 @@ void MainGraphicsView::setupGrid(int rows, int cols, int tileSize) {
 void MainGraphicsView::setCurrentTexture(const QPixmap &texture) {
     currentTexture = texture;
 }
+
+// Mouse controls
 
 void MainGraphicsView::mousePressEvent(QMouseEvent *event) {
     QPointF scenePoint = mapToScene(event->pos());

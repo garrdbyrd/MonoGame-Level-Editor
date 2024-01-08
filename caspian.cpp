@@ -24,18 +24,17 @@ Caspian::Caspian(QWidget *parent)
 {
     ui->setupUi(this);
 
-    MainGraphicsView *mainGraphicsView = dynamic_cast<MainGraphicsView*>(ui->mainGraphicsView);
-    mainGraphicsView->setupGrid(10, 10, 72); // Setup grid
-
-    // Set a default texture
-    QPixmap defaultTexture("/home/blackbox/Documents/gamedev/caspian/caspian/caspian-local/assets/default/default.png");
-    mainGraphicsView->setCurrentTexture(defaultTexture);
-
     QGridLayout *layout = new QGridLayout(ui->tilePickerWidget);
     ui->tilePickerWidget->setLayout(layout);
 
     QGraphicsScene *scene = new QGraphicsScene(this);
     ui->selectedGraphicsView->setScene(scene);
+
+    MainGraphicsView *mainGraphicsView = dynamic_cast<MainGraphicsView*>(ui->mainGraphicsView);
+    QPixmap defaultTexture("/home/blackbox/Documents/gamedev/caspian/caspian/caspian-local/assets/default/default.png"); //.ini
+    mainGraphicsView->setCurrentTexture(defaultTexture);
+    mainGraphicsView->setupGrid(10, 10, 72);
+    ui->mainGraphicsView->update();
 
     //populateScrollMenu();
     QTimer::singleShot(0, this, &Caspian::populateScrollMenu);
@@ -60,11 +59,16 @@ void Caspian::labelClicked(selectableLabel *label) {
         // Set text in viewer
         ui->selectedTileLabel->setText(label->accessibleName());
 
-        // Clear existing items in the scene
+        // // Clear existing items in the scene
         ui->selectedGraphicsView->scene()->clear();
 
-        // Get the copy of the pixmap from the label
+        // // Get the copy of the pixmap from the label
         QPixmap pixmap = label->pixmap(Qt::ReturnByValue);
+
+        // Get the texture from the label and set it as the current texture in the grid view
+        QPixmap selectedTexture = label->pixmap(Qt::ReturnByValue);
+        MainGraphicsView *mainGraphicsView = dynamic_cast<MainGraphicsView*>(ui->mainGraphicsView);
+        mainGraphicsView->setCurrentTexture(selectedTexture);
 
         // Check if the pixmap is valid
         if (!pixmap.isNull()) {
@@ -72,7 +76,6 @@ void Caspian::labelClicked(selectableLabel *label) {
             QGraphicsPixmapItem *item = new QGraphicsPixmapItem(pixmap);
             item->setScale(3);
             ui->selectedGraphicsView->scene()->addItem(item);
-            //ui->selectedGraphicsView->fitInView(item, Qt::KeepAspectRatio);
         }
     } else {
         currentSelectedLabel = nullptr;
@@ -86,7 +89,7 @@ void Caspian::populateScrollMenu()
     currentSelectedLabel = nullptr;
 
     // Initial path information
-    QDir directory("/home/blackbox/Documents/gamedev/caspian/caspian/caspian-local/assets");
+    QDir directory("/home/blackbox/Documents/gamedev/caspian/caspian/caspian-local/assets"); //.ini
     QStringList subDirs = directory.entryList(QDir::Dirs | QDir::NoDotAndDotDot);
     QGridLayout *layout = qobject_cast<QGridLayout*>(ui->tilePickerWidget->layout());
 
