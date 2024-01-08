@@ -1,7 +1,7 @@
 #include "caspian.h"
 #include "./ui_caspian.h"
-#include "selectablelabel.h"
 #include "maingraphicsview.h"
+#include "selectablelabel.h"
 
 #include <QAction>
 #include <QDebug>
