@@ -50,11 +50,15 @@ Caspian::~Caspian()
 void Caspian::labelClicked(selectableLabel *label) {
     if (currentSelectedLabel) {
         currentSelectedLabel->setSelected(false);
+        ui->selectedTileLabel->setText("");
     }
 
     if (label != currentSelectedLabel) {
         label->setSelected(true);
         currentSelectedLabel = label;
+
+        // Set text in viewer
+        ui->selectedTileLabel->setText(label->accessibleName());
 
         // Clear existing items in the scene
         ui->selectedGraphicsView->scene()->clear();
@@ -127,9 +131,15 @@ void Caspian::populateScrollMenu()
         //qDebug() << "PNG files in" << subDir.absolutePath() << ":" << pngFiles;
 
         foreach (const QString &fileName, pngFiles) {
+            // qDebug() << fileName;
             selectableLabel *imageLabel = new selectableLabel;
+            // imageLabel->setAccessibleName(fileName);
             QPixmap pixmap(subDir.absoluteFilePath(fileName));
             imageLabel->setPixmap(pixmap.scaled(size, size, Qt::KeepAspectRatio));
+
+            QString accessibleName = subDirName + "/" + QFileInfo(fileName).baseName();
+            imageLabel->setAccessibleName(accessibleName);
+
             connect(imageLabel, &selectableLabel::clicked, this, &Caspian::labelClicked);
             layout->addWidget(imageLabel, row, column);
 
