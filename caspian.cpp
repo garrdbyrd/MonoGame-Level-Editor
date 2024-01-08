@@ -3,196 +3,193 @@
 #include "selectablelabel.h"
 #include "maingraphicsview.h"
 
-#include <QDir>
-#include <QMainWindow>
-#include <QPushButton>
-#include <QVBoxLayout>
 #include <QAction>
-#include <QWidget>
-#include <QLabel>
-#include <QPixmap>
-#include <QScrollArea>
 #include <QDebug>
-#include <QTimer>
+#include <QDir>
 #include <QDrag>
-#include <QMimeData>
 #include <QGraphicsPixmapItem>
+#include <QLabel>
+#include <QMainWindow>
+#include <QMimeData>
+#include <QPixmap>
+#include <QPushButton>
+#include <QScrollArea>
+#include <QTimer>
+#include <QVBoxLayout>
+#include <QWidget>
 
-Caspian::Caspian(QWidget *parent)
-    : QMainWindow(parent)
-    , ui(new Ui::Caspian)
-{
-    ui->setupUi(this);
+Caspian::Caspian(QWidget *parent) : QMainWindow(parent), ui(new Ui::Caspian) {
+  ui->setupUi(this);
 
-    QGridLayout *layout = new QGridLayout(ui->tilePickerWidget);
-    ui->tilePickerWidget->setLayout(layout);
+  QGridLayout *layout = new QGridLayout(ui->tilePickerWidget);
+  ui->tilePickerWidget->setLayout(layout);
 
-    QGraphicsScene *scene = new QGraphicsScene(this);
-    ui->selectedGraphicsView->setScene(scene);
+  QGraphicsScene *scene = new QGraphicsScene(this);
+  ui->selectedGraphicsView->setScene(scene);
 
-    MainGraphicsView *mainGraphicsView = dynamic_cast<MainGraphicsView*>(ui->mainGraphicsView);
-    QPixmap defaultTexture("/home/blackbox/Documents/gamedev/caspian/caspian/caspian-local/assets/default/default.png"); //.ini
-    mainGraphicsView->setCurrentTexture(defaultTexture);
-    mainGraphicsView->setupGrid(10, 10, 64); // Change '64' if textures are not 16x16. It should just be a multiple of your texture size.
+  MainGraphicsView *mainGraphicsView =
+      dynamic_cast<MainGraphicsView *>(ui->mainGraphicsView);
+  QPixmap defaultTexture("/home/blackbox/Documents/gamedev/caspian/caspian/"
+                         "caspian-local/assets/default/default.png"); //.ini
+  mainGraphicsView->setCurrentTexture(defaultTexture);
+  mainGraphicsView->setupGrid(
+      10, 10, 64); // Change '64' if textures are not 16x16. It should just be a
+                   // multiple of your texture size.
+  mainGraphicsView->noCurrentTexture();
+
+  QTimer::singleShot(0, this, &Caspian::populateScrollMenu);
+  setPropertiesTable();
+}
+
+Caspian::~Caspian() { delete ui; }
+
+void Caspian::labelClicked(SelectableLabel *label) {
+  MainGraphicsView *mainGraphicsView =
+      dynamic_cast<MainGraphicsView *>(ui->mainGraphicsView);
+  if (currentSelectedLabel) {
+    currentSelectedLabel->setSelected(false);
+    ui->selectedTileLabel->setText("");
     mainGraphicsView->noCurrentTexture();
+  }
 
-    QTimer::singleShot(0, this, &Caspian::populateScrollMenu);
-    setPropertiesTable();
-}
+  if (label != currentSelectedLabel) {
+    label->setSelected(true);
+    currentSelectedLabel = label;
 
-Caspian::~Caspian()
-{
-    delete ui;
-}
+    // Set text in viewer
+    ui->selectedTileLabel->setText(label->accessibleName());
 
-void Caspian::labelClicked(selectableLabel *label) {
-    MainGraphicsView *mainGraphicsView = dynamic_cast<MainGraphicsView*>(ui->mainGraphicsView);
-    if (currentSelectedLabel) {
-        currentSelectedLabel->setSelected(false);
-        ui->selectedTileLabel->setText("");
-        mainGraphicsView->noCurrentTexture();
+    // Clear existing items in the scene
+    ui->selectedGraphicsView->scene()->clear();
+
+    QString texturePath = label->getTextureFilePath();
+    QPixmap originalTexture(texturePath);
+
+    if (mainGraphicsView && !originalTexture.isNull()) {
+      mainGraphicsView->setCurrentTexture(originalTexture);
     }
 
-    if (label != currentSelectedLabel) {
-        label->setSelected(true);
-        currentSelectedLabel = label;
-
-        // Set text in viewer
-        ui->selectedTileLabel->setText(label->accessibleName());
-
-        // Clear existing items in the scene
-        ui->selectedGraphicsView->scene()->clear();
-
-        QString texturePath = label->getTextureFilePath();
-        QPixmap originalTexture(texturePath);
-
-        if (mainGraphicsView && !originalTexture.isNull()) {
-            mainGraphicsView->setCurrentTexture(originalTexture);
-        }
-
-        // Check if the pixmap is valid
-        if (!originalTexture.isNull()) {
-            QGraphicsPixmapItem *item = new QGraphicsPixmapItem(originalTexture);
-            item->setScale(12);
-            ui->selectedGraphicsView->scene()->addItem(item);
-        }
-    } else {
-        currentSelectedLabel = nullptr;
-        ui->selectedGraphicsView->scene()->clear();
+    // Check if the pixmap is valid
+    if (!originalTexture.isNull()) {
+      QGraphicsPixmapItem *item = new QGraphicsPixmapItem(originalTexture);
+      item->setScale(12);
+      ui->selectedGraphicsView->scene()->addItem(item);
     }
-}
-
-void Caspian::populateScrollMenu()
-{
-    // Keep this or segfault
+  } else {
     currentSelectedLabel = nullptr;
+    ui->selectedGraphicsView->scene()->clear();
+  }
+}
 
-    // Initial path information
-    QDir directory("/home/blackbox/Documents/gamedev/caspian/caspian/caspian-local/assets"); //.ini
-    QStringList subDirs = directory.entryList(QDir::Dirs | QDir::NoDotAndDotDot);
-    QGridLayout *layout = qobject_cast<QGridLayout*>(ui->tilePickerWidget->layout());
+void Caspian::populateScrollMenu() {
+  // Keep this or segfault
+  currentSelectedLabel = nullptr;
 
-    // Make sure it's not fucking up
-    if (!layout) {
-        qDebug() << "Layout cast failed. Ensure tilePickerWidget has a QGridLayout.";
-        return;
-    }
+  // Initial path information
+  QDir directory("/home/blackbox/Documents/gamedev/caspian/caspian/"
+                 "caspian-local/assets"); //.ini
+  QStringList subDirs = directory.entryList(QDir::Dirs | QDir::NoDotAndDotDot);
+  QGridLayout *layout =
+      qobject_cast<QGridLayout *>(ui->tilePickerWidget->layout());
 
-    // Clear existing
-    while (QLayoutItem* item = layout->takeAt(0)) {
-        if (QWidget* widget = item->widget())
-            delete widget;
-        delete item;
-    }
+  // Make sure it's not fucking up
+  if (!layout) {
+    qDebug()
+        << "Layout cast failed. Ensure tilePickerWidget has a QGridLayout.";
+    return;
+  }
 
-    layout->setAlignment(Qt::AlignCenter);
-    int row = 0;
-    int column = 0;
+  // Clear existing
+  while (QLayoutItem *item = layout->takeAt(0)) {
+    if (QWidget *widget = item->widget())
+      delete widget;
+    delete item;
+  }
 
-    int areaWidth = ui->tilePickerWidget->width();
-    int margin = 6;
-    int maxColumns = 3;
-    int size = (areaWidth - margin * (maxColumns + 1)) / maxColumns;
+  layout->setAlignment(Qt::AlignCenter);
+  int row = 0;
+  int column = 0;
 
-    QLayoutItem *item;
-    while ((item = layout -> takeAt(0)) != nullptr) {
-        delete item -> widget();
-        delete item;
-    }
+  int areaWidth = ui->tilePickerWidget->width();
+  int margin = 6;
+  int maxColumns = 3;
+  int size = (areaWidth - margin * (maxColumns + 1)) / maxColumns;
 
-    foreach (const QString &subDirName, subDirs) {
-        // Label
-        QLabel *dirLabel = new QLabel(subDirName);
-        dirLabel->setAlignment(Qt::AlignLeft);
-        dirLabel->setStyleSheet("font-weight: bold");
-        //dirLabel->setAutoFillBackground(true);
-        layout->addWidget(dirLabel, row++, 0, 1, -1);
+  QLayoutItem *item;
+  while ((item = layout->takeAt(0)) != nullptr) {
+    delete item->widget();
+    delete item;
+  }
 
-        QDir subDir(directory.absoluteFilePath(subDirName));
-        QStringList pngFiles = subDir.entryList(QStringList() << "*.png", QDir::Files);
-        //qDebug() << "PNG files in" << subDir.absolutePath() << ":" << pngFiles;
+  foreach (const QString &subDirName, subDirs) {
+    QLabel *dirLabel = new QLabel(subDirName);
+    dirLabel->setAlignment(Qt::AlignLeft);
+    dirLabel->setStyleSheet("font-weight: bold");
+    layout->addWidget(dirLabel, row++, 0, 1, -1);
 
-        foreach (const QString &fileName, pngFiles) {
-            selectableLabel *imageLabel = new selectableLabel;
-            QPixmap pixmap(subDir.absoluteFilePath(fileName));
-            imageLabel->setPixmap(pixmap.scaled(size, size, Qt::KeepAspectRatio));
-            imageLabel->setTextureFilePath(subDir.absoluteFilePath(fileName));
+    QDir subDir(directory.absoluteFilePath(subDirName));
+    QStringList pngFiles =
+        subDir.entryList(QStringList() << "*.png", QDir::Files);
 
-            QString accessibleName = subDirName + "/" + QFileInfo(fileName).baseName();
-            imageLabel->setAccessibleName(accessibleName);
+    foreach (const QString &fileName, pngFiles) {
+      SelectableLabel *imageLabel = new SelectableLabel;
+      QPixmap pixmap(subDir.absoluteFilePath(fileName));
+      imageLabel->setPixmap(pixmap.scaled(size, size, Qt::KeepAspectRatio));
+      imageLabel->setTextureFilePath(subDir.absoluteFilePath(fileName));
 
-            connect(imageLabel, &selectableLabel::clicked, this, &Caspian::labelClicked);
-            layout->addWidget(imageLabel, row, column);
+      QString accessibleName =
+          subDirName + "/" + QFileInfo(fileName).baseName();
+      imageLabel->setAccessibleName(accessibleName);
 
-            column++;
-            if (column >= maxColumns) {
-                column = 0;
-                row++;
-            }
-        }
+      connect(imageLabel, &SelectableLabel::clicked, this,
+              &Caspian::labelClicked);
+      layout->addWidget(imageLabel, row, column);
+
+      column++;
+      if (column >= maxColumns) {
         column = 0;
         row++;
+      }
     }
-
-    //qDebug() << layout->rowCount();
-    //qDebug() << layout->columnCount();
-    //qDebug() << layout->count();
+    column = 0;
+    row++;
+  }
 }
 
 void Caspian::resizeEvent(QResizeEvent *event) {
-    QMainWindow::resizeEvent(event);
-    populateScrollMenu();
+  QMainWindow::resizeEvent(event);
+  populateScrollMenu();
 }
 
-void Caspian::setPropertiesTable(){
-    QStringList headers;
-    headers << "Property" << "Value";
-    ui->selectedProperties->setHorizontalHeaderLabels(headers);
-    ui->selectedProperties->horizontalHeader()->setDefaultAlignment(Qt::AlignLeft);
+void Caspian::setPropertiesTable() {
+  QStringList headers;
+  headers << "Property"
+          << "Value";
+  ui->selectedProperties->setHorizontalHeaderLabels(headers);
+  ui->selectedProperties->horizontalHeader()->setDefaultAlignment(
+      Qt::AlignLeft);
 
-    // Chunk to make column 1 read-only
-    int rowCount = ui->selectedProperties->rowCount();
-    for (int row = 0; row < rowCount; ++row) {
-        QTableWidgetItem *item = ui->selectedProperties->item(row, 0); // Get the item in the first column
-        if (!item) {
-            item = new QTableWidgetItem(); // Create a new item if it doesn't exist
-            ui->selectedProperties->setItem(row, 0, item);
-        }
-        item->setFlags(item->flags() & ~Qt::ItemIsEditable); // Make the item read-only
+  // Chunk to make column 1 read-only
+  int rowCount = ui->selectedProperties->rowCount();
+  for (int row = 0; row < rowCount; ++row) {
+    QTableWidgetItem *item = ui->selectedProperties->item(row, 0);
+    if (!item) {
+      item = new QTableWidgetItem();
+      ui->selectedProperties->setItem(row, 0, item);
     }
+    item->setFlags(item->flags() & ~Qt::ItemIsEditable);
+  }
 
-    // Chunk for default values in column 2
-    for (int row = 0; row < rowCount; ++row) {
-        // Determine the default value for this row
-        QString defaultValue = QString("Value%1").arg(row); // Replace this with your logic
+  // Chunk for default values in column 2
+  for (int row = 0; row < rowCount; ++row) {
+    QString defaultValue = QString("Value%1").arg(row);
 
-        QTableWidgetItem *item = ui->selectedProperties->item(row, 1); // Column index 1 for the second column
-        if (!item) {
-            item = new QTableWidgetItem(defaultValue);
-            ui->selectedProperties->setItem(row, 1, item);
-        } else {
-            item->setText(defaultValue);
-        }
+    QTableWidgetItem *item = ui->selectedProperties->item(row, 1);
+    if (!item) {
+      item = new QTableWidgetItem(defaultValue);
+      ui->selectedProperties->setItem(row, 1, item);
+    } else {
+      item->setText(defaultValue);
     }
+  }
 }
-

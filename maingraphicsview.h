@@ -3,6 +3,7 @@
 
 #include <QGraphicsView>
 #include <QGraphicsPixmapItem>
+#include <QInputEvent>
 
 class MainGraphicsView : public QGraphicsView {
     Q_OBJECT
@@ -25,7 +26,8 @@ private:
     QPixmap nullTexture = QPixmap();
     QVector<QVector<QGraphicsPixmapItem*>> grid;
     int tileSize;
-    bool isDragging;
+    bool isLeftDragging;
+    bool isMiddleDragging;
     QPoint lastMousePosition;
 };
 

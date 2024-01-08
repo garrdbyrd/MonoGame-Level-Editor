@@ -6,13 +6,14 @@
 
 MainGraphicsView::MainGraphicsView(QWidget *parent)
     : QGraphicsView(parent) {
-    isDragging = false;
+    isMiddleDragging = false;
     QGraphicsScene *scene = new QGraphicsScene(this);
     setScene(scene);
 }
 
-// Grid setup
-
+////////////////
+// Grid setup //
+////////////////
 void MainGraphicsView::setupGrid(int rows, int cols, int tileSize) {
     this->tileSize = tileSize;
 
@@ -36,8 +37,9 @@ void MainGraphicsView::noCurrentTexture(){
     currentTexture = nullTexture;
 }
 
-// Mouse controls
-
+////////////////////
+// Mouse controls //
+////////////////////
 void MainGraphicsView::mousePressEvent(QMouseEvent *event) {
     QPointF scenePoint = mapToScene(event->pos());
     int row = static_cast<int>(scenePoint.y()) / tileSize;
@@ -45,13 +47,14 @@ void MainGraphicsView::mousePressEvent(QMouseEvent *event) {
 
     // Left Click on grid
     if (event->button() == Qt::LeftButton && row >= 0 && row < grid.size() && col >= 0 && col < grid[row].size() && !currentTexture.isNull()) {
+        isLeftDragging = true;
         QGraphicsPixmapItem *item = grid[row][col];
         item->setPixmap(currentTexture.scaled(tileSize, tileSize, Qt::KeepAspectRatio));
     }
 
     // Middle click
     if (event->button() == Qt::MiddleButton) {
-        isDragging = true;
+        isMiddleDragging = true;
         lastMousePosition = event->pos();
         setCursor(Qt::ClosedHandCursor);
     }
@@ -64,7 +67,7 @@ void MainGraphicsView::wheelEvent(QWheelEvent *event) {
     const double scaleFactor = 1.15; // Adjust scaling factor as needed  //.ini
 
     // Ignore if dragging
-    if (isDragging) {
+    if (isMiddleDragging) {
         // Ignore the wheel event if middle mouse button is pressed
         event->ignore();
         return;
@@ -93,7 +96,14 @@ void MainGraphicsView::wheelEvent(QWheelEvent *event) {
 }
 
 void MainGraphicsView::mouseMoveEvent(QMouseEvent *event) {
-    if (isDragging) {
+    QPointF scenePoint = mapToScene(event->pos());
+    int row = static_cast<int>(scenePoint.y()) / tileSize;
+    int col = static_cast<int>(scenePoint.x()) / tileSize;
+    if (isLeftDragging && !currentTexture.isNull()) {
+        QGraphicsPixmapItem *item = grid[row][col];
+        item->setPixmap(currentTexture.scaled(tileSize, tileSize, Qt::KeepAspectRatio));
+    }
+    if (isMiddleDragging) {
         QPoint delta = event->pos() - lastMousePosition;
         lastMousePosition = event->pos();
         horizontalScrollBar()->setValue(horizontalScrollBar()->value() - delta.x());
@@ -102,8 +112,12 @@ void MainGraphicsView::mouseMoveEvent(QMouseEvent *event) {
 }
 
 void MainGraphicsView::mouseReleaseEvent(QMouseEvent *event) {
+    if (event->button() == Qt::LeftButton){
+        isLeftDragging = false;
+    }
+
     if (event->button() == Qt::MiddleButton) {
-        isDragging = false;
+        isMiddleDragging = false;
         setCursor(Qt::ArrowCursor);
     }
 }

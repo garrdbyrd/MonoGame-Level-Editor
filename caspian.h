@@ -12,25 +12,24 @@ class Caspian;
 }
 QT_END_NAMESPACE
 
-class Caspian : public QMainWindow
-{
-    Q_OBJECT
+class Caspian : public QMainWindow {
+  Q_OBJECT
 
 public:
-    Caspian(QWidget *parent = nullptr);
-    ~Caspian();
+  Caspian(QWidget *parent = nullptr);
+  ~Caspian();
 
 protected:
-    void resizeEvent(QResizeEvent *event) override;
+  void resizeEvent(QResizeEvent *event) override;
 
 private slots:
-    void labelClicked(selectableLabel *label);
+  void labelClicked(SelectableLabel *label);
 
 private:
-    Ui::Caspian *ui;
-    void populateScrollMenu();
-    selectableLabel *currentSelectedLabel = nullptr;
-    void setPropertiesTable();
+  Ui::Caspian *ui;
+  void populateScrollMenu();
+  SelectableLabel *currentSelectedLabel = nullptr;
+  void setPropertiesTable();
 };
 
 #endif // CASPIAN_H

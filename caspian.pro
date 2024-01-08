@@ -13,12 +13,12 @@ SOURCES += \
     main.cpp \
     caspian.cpp \
     maingraphicsview.cpp \
-    selectablelabel.cpp
+	selectablelabel.cpp
 
 HEADERS += \
     caspian.h \
     maingraphicsview.h \
-    selectablelabel.h
+	selectablelabel.h
 
 FORMS += \
     caspian.ui
