@@ -12,6 +12,12 @@ public:
 
     void setSelected(bool selected);
     bool isSelected() const;
+    void setTextureFilePath(const QString& filePath) {
+        textureFilePath = filePath;
+    }
+    QString getTextureFilePath() const {
+        return textureFilePath;
+    }
 
 signals:
     void clicked(selectableLabel *label);
@@ -21,6 +27,7 @@ protected:
 
 private:
     bool selected;
+    QString textureFilePath;
 };
 
 #endif // SELECTABLELABEL_H

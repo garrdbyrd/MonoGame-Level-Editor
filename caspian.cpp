@@ -34,9 +34,7 @@ Caspian::Caspian(QWidget *parent)
     QPixmap defaultTexture("/home/blackbox/Documents/gamedev/caspian/caspian/caspian-local/assets/default/default.png"); //.ini
     mainGraphicsView->setCurrentTexture(defaultTexture);
     mainGraphicsView->setupGrid(10, 10, 72);
-    ui->mainGraphicsView->update();
 
-    //populateScrollMenu();
     QTimer::singleShot(0, this, &Caspian::populateScrollMenu);
     setPropertiesTable();
 }
@@ -66,9 +64,14 @@ void Caspian::labelClicked(selectableLabel *label) {
         QPixmap pixmap = label->pixmap(Qt::ReturnByValue);
 
         // Get the texture from the label and set it as the current texture in the grid view
-        QPixmap selectedTexture = label->pixmap(Qt::ReturnByValue);
+        // QPixmap selectedTexture = label->pixmap(Qt::ReturnByValue);
+        QString texturePath = label->getTextureFilePath();
+        QPixmap originalTexture(texturePath);
         MainGraphicsView *mainGraphicsView = dynamic_cast<MainGraphicsView*>(ui->mainGraphicsView);
-        mainGraphicsView->setCurrentTexture(selectedTexture);
+        //mainGraphicsView->setCurrentTexture(selectedTexture);
+        if (mainGraphicsView && !originalTexture.isNull()) {
+            mainGraphicsView->setCurrentTexture(originalTexture);
+        }
 
         // Check if the pixmap is valid
         if (!pixmap.isNull()) {
@@ -134,11 +137,10 @@ void Caspian::populateScrollMenu()
         //qDebug() << "PNG files in" << subDir.absolutePath() << ":" << pngFiles;
 
         foreach (const QString &fileName, pngFiles) {
-            // qDebug() << fileName;
             selectableLabel *imageLabel = new selectableLabel;
-            // imageLabel->setAccessibleName(fileName);
             QPixmap pixmap(subDir.absoluteFilePath(fileName));
             imageLabel->setPixmap(pixmap.scaled(size, size, Qt::KeepAspectRatio));
+            imageLabel->setTextureFilePath(subDir.absoluteFilePath(fileName));
 
             QString accessibleName = subDirName + "/" + QFileInfo(fileName).baseName();
             imageLabel->setAccessibleName(accessibleName);
