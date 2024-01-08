@@ -33,7 +33,7 @@ Caspian::Caspian(QWidget *parent)
     MainGraphicsView *mainGraphicsView = dynamic_cast<MainGraphicsView*>(ui->mainGraphicsView);
     QPixmap defaultTexture("/home/blackbox/Documents/gamedev/caspian/caspian/caspian-local/assets/default/default.png"); //.ini
     mainGraphicsView->setCurrentTexture(defaultTexture);
-    mainGraphicsView->setupGrid(10, 10, 64);
+    mainGraphicsView->setupGrid(10, 10, 64); // Change '64' if textures are not 16x16. It should just be a multiple of your texture size.
 
     QTimer::singleShot(0, this, &Caspian::populateScrollMenu);
     setPropertiesTable();
@@ -76,8 +76,8 @@ void Caspian::labelClicked(selectableLabel *label) {
         // Check if the pixmap is valid
         if (!pixmap.isNull()) {
             // Create a QGraphicsPixmapItem with the label's pixmap
-            QGraphicsPixmapItem *item = new QGraphicsPixmapItem(pixmap);
-            item->setScale(3);
+            QGraphicsPixmapItem *item = new QGraphicsPixmapItem(originalTexture);
+            item->setScale(12);
             ui->selectedGraphicsView->scene()->addItem(item);
         }
     } else {
