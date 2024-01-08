@@ -8,4 +8,6 @@ This is made with Qt. This will not have its own dev diary, that is also in Peve
 Disclaimer: I am extremely new to Qt and don't really know how it works.
 
 # To-do list
-- [ ] Create tabs so the user can edit multiple levels at once
+- [ ] Implement tabs so the user can edit multiple levels at once
+- [ ] Implement primary/secondary color system*
+- [ ] *Implement palette
