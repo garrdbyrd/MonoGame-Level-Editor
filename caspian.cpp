@@ -34,6 +34,7 @@ Caspian::Caspian(QWidget *parent)
     QPixmap defaultTexture("/home/blackbox/Documents/gamedev/caspian/caspian/caspian-local/assets/default/default.png"); //.ini
     mainGraphicsView->setCurrentTexture(defaultTexture);
     mainGraphicsView->setupGrid(10, 10, 64); // Change '64' if textures are not 16x16. It should just be a multiple of your texture size.
+    mainGraphicsView->noCurrentTexture();
 
     QTimer::singleShot(0, this, &Caspian::populateScrollMenu);
     setPropertiesTable();
@@ -45,9 +46,11 @@ Caspian::~Caspian()
 }
 
 void Caspian::labelClicked(selectableLabel *label) {
+    MainGraphicsView *mainGraphicsView = dynamic_cast<MainGraphicsView*>(ui->mainGraphicsView);
     if (currentSelectedLabel) {
         currentSelectedLabel->setSelected(false);
         ui->selectedTileLabel->setText("");
+        mainGraphicsView->noCurrentTexture();
     }
 
     if (label != currentSelectedLabel) {
@@ -60,29 +63,23 @@ void Caspian::labelClicked(selectableLabel *label) {
         // // Clear existing items in the scene
         ui->selectedGraphicsView->scene()->clear();
 
-        // // Get the copy of the pixmap from the label
-        QPixmap pixmap = label->pixmap(Qt::ReturnByValue);
-
         // Get the texture from the label and set it as the current texture in the grid view
-        // QPixmap selectedTexture = label->pixmap(Qt::ReturnByValue);
         QString texturePath = label->getTextureFilePath();
         QPixmap originalTexture(texturePath);
-        MainGraphicsView *mainGraphicsView = dynamic_cast<MainGraphicsView*>(ui->mainGraphicsView);
-        //mainGraphicsView->setCurrentTexture(selectedTexture);
+
         if (mainGraphicsView && !originalTexture.isNull()) {
             mainGraphicsView->setCurrentTexture(originalTexture);
         }
 
         // Check if the pixmap is valid
-        if (!pixmap.isNull()) {
-            // Create a QGraphicsPixmapItem with the label's pixmap
+        if (!originalTexture.isNull()) {
             QGraphicsPixmapItem *item = new QGraphicsPixmapItem(originalTexture);
             item->setScale(12);
             ui->selectedGraphicsView->scene()->addItem(item);
         }
     } else {
         currentSelectedLabel = nullptr;
-        ui->selectedGraphicsView->scene()->clear();  // Clear the scene if deselected
+        ui->selectedGraphicsView->scene()->clear();
     }
 }
 

@@ -11,6 +11,7 @@ public:
     MainGraphicsView(QWidget *parent = nullptr);
 
     void setCurrentTexture(const QPixmap &texture);
+    void noCurrentTexture();
     void setupGrid(int rows, int cols, int tileSize);
 
 protected:
@@ -19,9 +20,9 @@ protected:
     void mouseReleaseEvent(QMouseEvent *event) override;
     void wheelEvent(QWheelEvent *event) override;
 
-
 private:
     QPixmap currentTexture;
+    QPixmap nullTexture = QPixmap();
     QVector<QVector<QGraphicsPixmapItem*>> grid;
     int tileSize;
     bool isDragging;
