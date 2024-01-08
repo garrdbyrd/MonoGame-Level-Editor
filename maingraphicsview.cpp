@@ -5,7 +5,7 @@
 #include <QScrollBar>
 
 MainGraphicsView::MainGraphicsView(QWidget *parent)
-    : QGraphicsView(parent), tileSize(72) {
+    : QGraphicsView(parent) {
     isDragging = false;
     QGraphicsScene *scene = new QGraphicsScene(this);
     setScene(scene);
@@ -41,7 +41,7 @@ void MainGraphicsView::mousePressEvent(QMouseEvent *event) {
 
     if (row >= 0 && row < grid.size() && col >= 0 && col < grid[row].size() && event->button() == Qt::LeftButton) {
         QGraphicsPixmapItem *item = grid[row][col];
-        item->setPixmap(currentTexture.scaled(tileSize, tileSize));
+        item->setPixmap(currentTexture.scaled(tileSize, tileSize, Qt::KeepAspectRatio));
     }
 
     if (event->button() == Qt::MiddleButton) {

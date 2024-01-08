@@ -33,7 +33,7 @@ Caspian::Caspian(QWidget *parent)
     MainGraphicsView *mainGraphicsView = dynamic_cast<MainGraphicsView*>(ui->mainGraphicsView);
     QPixmap defaultTexture("/home/blackbox/Documents/gamedev/caspian/caspian/caspian-local/assets/default/default.png"); //.ini
     mainGraphicsView->setCurrentTexture(defaultTexture);
-    mainGraphicsView->setupGrid(10, 10, 72);
+    mainGraphicsView->setupGrid(10, 10, 64);
 
     QTimer::singleShot(0, this, &Caspian::populateScrollMenu);
     setPropertiesTable();
