@@ -43,12 +43,10 @@ void MainGraphicsView::mousePressEvent(QMouseEvent *event) {
   int col = static_cast<int>(scenePoint.x()) / tileSize;
 
   // Left Click on grid
-  if (event->button() == Qt::LeftButton && row >= 0 && row < grid.size() &&
-      col >= 0 && col < grid[row].size() && !currentTexture.isNull()) {
+  if (event->button() == Qt::LeftButton && row >= 0 && row < grid.size() && col >= 0 && col < grid[row].size() && !currentTexture.isNull()) {
     isLeftDragging = true;
     QGraphicsPixmapItem *item = grid[row][col];
-    item->setPixmap(
-        currentTexture.scaled(tileSize, tileSize, Qt::KeepAspectRatio));
+    item->setPixmap(currentTexture.scaled(tileSize, tileSize, Qt::KeepAspectRatio));
   }
 
   // Middle click
@@ -102,10 +100,9 @@ void MainGraphicsView::mouseMoveEvent(QMouseEvent *event) {
   QPointF scenePoint = mapToScene(event->pos());
   int row = static_cast<int>(scenePoint.y()) / tileSize;
   int col = static_cast<int>(scenePoint.x()) / tileSize;
-  if (isLeftDragging && !currentTexture.isNull()) {
+  if (isLeftDragging && row >= 0 && row < grid.size() && col >= 0 && col < grid[row].size() && !currentTexture.isNull()) {
     QGraphicsPixmapItem *item = grid[row][col];
-    item->setPixmap(
-        currentTexture.scaled(tileSize, tileSize, Qt::KeepAspectRatio));
+    item->setPixmap(currentTexture.scaled(tileSize, tileSize, Qt::KeepAspectRatio));
   }
   if (isMiddleDragging) {
     QPoint delta = event->pos() - lastMousePosition;
