@@ -74,7 +74,8 @@ void Caspian::labelClicked(SelectableLabel *label) {
     // Check if the pixmap is valid
     if (!originalTexture.isNull()) {
       QGraphicsPixmapItem *item = new QGraphicsPixmapItem(originalTexture);
-      item->setScale(12);
+      int applicationHeight = qobject_cast<QLabel*>(sender())->window()->height();;
+      item->setScale(12 * applicationHeight/1080);
       ui->selectedGraphicsView->scene()->addItem(item);
     }
   } else {
