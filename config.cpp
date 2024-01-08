@@ -7,4 +7,5 @@ Config::Config() : settings("caspian-local/preferences.ini", QSettings::IniForma
     // Constants
     scrollSpeed = settings.value("Constants/ScrollSpeed", 72).toInt();
     zoomScale = settings.value("Constants/ZoomScale", 1.15).toDouble();
+    tileMenuColumns = settings.value("Constants/TileMenuColumns", 4).toInt();
 }

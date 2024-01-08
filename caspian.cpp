@@ -46,8 +46,7 @@ Caspian::Caspian(QWidget *parent) : QMainWindow(parent), ui(new Ui::Caspian) {
 Caspian::~Caspian() { delete ui; }
 
 void Caspian::labelClicked(SelectableLabel *label) {
-  MainGraphicsView *mainGraphicsView =
-      dynamic_cast<MainGraphicsView *>(ui->mainGraphicsView);
+  MainGraphicsView *mainGraphicsView = dynamic_cast<MainGraphicsView *>(ui->mainGraphicsView);
   if (currentSelectedLabel) {
     currentSelectedLabel->setSelected(false);
     ui->selectedTileLabel->setText("");
@@ -86,13 +85,13 @@ void Caspian::labelClicked(SelectableLabel *label) {
 
 void Caspian::populateScrollMenu() {
   // Import settings
-  Config *settings = new Config;
+  Config settings;
 
   // Keep this or segfault
   currentSelectedLabel = nullptr;
 
   // Initial path information
-  QDir directory(settings->assetPath); //.ini
+  QDir directory(settings.assetPath); //.ini
   QStringList subDirs = directory.entryList(QDir::Dirs | QDir::NoDotAndDotDot);
   QGridLayout *layout =
       qobject_cast<QGridLayout *>(ui->tilePickerWidget->layout());
@@ -117,7 +116,7 @@ void Caspian::populateScrollMenu() {
 
   int areaWidth = ui->tilePickerWidget->width();
   int margin = 6;
-  int maxColumns = 3;
+  int maxColumns = settings.tileMenuColumns;
   int size = (areaWidth - margin * (maxColumns + 1)) / maxColumns;
 
   QLayoutItem *item;

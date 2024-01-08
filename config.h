@@ -14,6 +14,7 @@ public:
     // Constants
     int scrollSpeed;
     double zoomScale;
+    int tileMenuColumns;
 
 private:
     QSettings settings;
