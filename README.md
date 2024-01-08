@@ -8,4 +8,4 @@ This is made with Qt. This will not have its own dev diary, that is also in Peve
 Disclaimer: I am extremely new to Qt and don't really know how it works.
 
 # To-do list
-- [ ] Create tabs so the user can edit multiple levels at once[Title](https://www.youtube.com/watch?v%253DOG3RlC2eQuY)
+- [ ] Create tabs so the user can edit multiple levels at once
