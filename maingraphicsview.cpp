@@ -48,16 +48,32 @@ void MainGraphicsView::mousePressEvent(QMouseEvent *event) {
 }
 
 void MainGraphicsView::wheelEvent(QWheelEvent *event) {
-    const double scaleFactor = 1.15; // Adjust scaling factor as needed
+    const int scrollAmount = 72; // Adjust the scrolling speed as needed //.ini
+    const double scaleFactor = 1.15; // Adjust scaling factor as needed  //.ini
+
+    // Ignore if dragging
+    if (isDragging) {
+        // Ignore the wheel event if middle mouse button is pressed
+        event->ignore();
+        return;
+    }
+
     // Set the anchor to zoom on the mouse position
     setTransformationAnchor(QGraphicsView::AnchorUnderMouse);
 
-    if (event->angleDelta().y() > 0) {
-        // Zoom in
-        scale(scaleFactor, scaleFactor);
+    if (event->modifiers() & Qt::ControlModifier) {
+        // Zooming with Ctrl + scroll
+        if (event->angleDelta().y() > 0) {
+            scale(scaleFactor, scaleFactor);
+        } else {
+            scale(1.0 / scaleFactor, 1.0 / scaleFactor);
+        }
+    } else if (event->modifiers() & Qt::ShiftModifier) {
+        // Horizontal scrolling with Shift + scroll
+        horizontalScrollBar()->setValue(horizontalScrollBar()->value() - (event->angleDelta().y() / 120) * scrollAmount);
     } else {
-        // Zoom out
-        scale(1.0 / scaleFactor, 1.0 / scaleFactor);
+        // Vertical scrolling without modifiers
+        verticalScrollBar()->setValue(verticalScrollBar()->value() - (event->angleDelta().y() / 120) * scrollAmount);
     }
 
     // Reset the anchor to the default
