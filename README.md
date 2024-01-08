@@ -9,4 +9,3 @@ Disclaimer: I am extremely new to Qt and don't really know how it works.
 
 # To-do list
 - [ ] Create tabs so the user can edit multiple levels at once
-- [ ] Clean up syntax, comments, etc.
