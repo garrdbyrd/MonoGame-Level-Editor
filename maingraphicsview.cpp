@@ -41,8 +41,8 @@ void MainGraphicsView::noCurrentTexture() { currentTexture = nullTexture; }
 ////////////////////
 void MainGraphicsView::mousePressEvent(QMouseEvent *event) {
   QPointF scenePoint = mapToScene(event->pos());
-  int row = static_cast<int>(scenePoint.y()) / tileSize;
-  int col = static_cast<int>(scenePoint.x()) / tileSize;
+  int row = static_cast<uint>(scenePoint.y()) / tileSize;
+  int col = static_cast<uint>(scenePoint.x()) / tileSize;
 
   // Left Click on grid
   if (event->button() == Qt::LeftButton && row >= 0 && row < grid.size() && col >= 0 && col < grid[row].size() && !currentTexture.isNull()) {
@@ -63,8 +63,8 @@ void MainGraphicsView::mousePressEvent(QMouseEvent *event) {
 
 void MainGraphicsView::wheelEvent(QWheelEvent *event) {
   Config settings;
-  const int scrollAmount = settings.scrollSpeed; // Adjust the scrolling speed as needed //.ini
-  const double scaleFactor = settings.zoomScale; // Adjust scaling factor as needed  //.ini
+  const int scrollAmount = settings.scrollSpeed;
+  const double scaleFactor = settings.zoomScale;
 
   // Ignore if dragging
   if (isMiddleDragging) {
@@ -101,8 +101,8 @@ void MainGraphicsView::wheelEvent(QWheelEvent *event) {
 
 void MainGraphicsView::mouseMoveEvent(QMouseEvent *event) {
   QPointF scenePoint = mapToScene(event->pos());
-  int row = static_cast<int>(scenePoint.y()) / tileSize;
-  int col = static_cast<int>(scenePoint.x()) / tileSize;
+  int row = static_cast<uint>(scenePoint.y()) / tileSize;
+  int col = static_cast<uint>(scenePoint.x()) / tileSize;
   if (isLeftDragging && row >= 0 && row < grid.size() && col >= 0 && col < grid[row].size() && !currentTexture.isNull()) {
     QGraphicsPixmapItem *item = grid[row][col];
     item->setPixmap(currentTexture.scaled(tileSize, tileSize, Qt::KeepAspectRatio));
