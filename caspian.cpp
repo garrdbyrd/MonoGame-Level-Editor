@@ -60,10 +60,9 @@ void Caspian::labelClicked(selectableLabel *label) {
         // Set text in viewer
         ui->selectedTileLabel->setText(label->accessibleName());
 
-        // // Clear existing items in the scene
+        // Clear existing items in the scene
         ui->selectedGraphicsView->scene()->clear();
 
-        // Get the texture from the label and set it as the current texture in the grid view
         QString texturePath = label->getTextureFilePath();
         QPixmap originalTexture(texturePath);
 
