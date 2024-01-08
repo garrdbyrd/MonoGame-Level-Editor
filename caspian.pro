@@ -10,6 +10,7 @@ CONFIG += console
 #DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
 
 SOURCES += \
+    config.cpp \
     main.cpp \
     caspian.cpp \
     maingraphicsview.cpp \
@@ -17,6 +18,7 @@ SOURCES += \
 
 HEADERS += \
     caspian.h \
+    config.h \
     maingraphicsview.h \
 	selectablelabel.h
 
@@ -30,3 +32,5 @@ else: unix:!android: target.path = /opt/$${TARGET}/bin
 
 DISTFILES += \
     caspian.png
+
+DESTDIR = $$PWD

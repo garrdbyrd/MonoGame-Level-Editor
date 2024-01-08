@@ -2,6 +2,7 @@
 #include "./ui_caspian.h"
 #include "maingraphicsview.h"
 #include "selectablelabel.h"
+#include "config.h"
 
 #include <QAction>
 #include <QDebug>
@@ -17,9 +18,11 @@
 #include <QTimer>
 #include <QVBoxLayout>
 #include <QWidget>
+#include <QString>
 
 Caspian::Caspian(QWidget *parent) : QMainWindow(parent), ui(new Ui::Caspian) {
   ui->setupUi(this);
+  Config settings;
 
   QGridLayout *layout = new QGridLayout(ui->tilePickerWidget);
   ui->tilePickerWidget->setLayout(layout);
@@ -29,8 +32,7 @@ Caspian::Caspian(QWidget *parent) : QMainWindow(parent), ui(new Ui::Caspian) {
 
   MainGraphicsView *mainGraphicsView =
       dynamic_cast<MainGraphicsView *>(ui->mainGraphicsView);
-  QPixmap defaultTexture("/home/blackbox/Documents/gamedev/caspian/caspian/"
-                         "caspian-local/assets/default/default.png"); //.ini
+  QPixmap defaultTexture(settings.defaultTexturePath);
   mainGraphicsView->setCurrentTexture(defaultTexture);
   mainGraphicsView->setupGrid(
       10, 10, 64); // Change '64' if textures are not 16x16. It should just be a
@@ -82,12 +84,14 @@ void Caspian::labelClicked(SelectableLabel *label) {
 }
 
 void Caspian::populateScrollMenu() {
+  // Import settings
+  Config *settings = new Config;
+
   // Keep this or segfault
   currentSelectedLabel = nullptr;
 
   // Initial path information
-  QDir directory("/home/blackbox/Documents/gamedev/caspian/caspian/"
-                 "caspian-local/assets"); //.ini
+  QDir directory(settings->assetPath); //.ini
   QStringList subDirs = directory.entryList(QDir::Dirs | QDir::NoDotAndDotDot);
   QGridLayout *layout =
       qobject_cast<QGridLayout *>(ui->tilePickerWidget->layout());

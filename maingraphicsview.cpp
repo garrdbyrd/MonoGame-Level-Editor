@@ -1,4 +1,6 @@
 #include "maingraphicsview.h"
+#include "config.h"
+
 #include <QGraphicsScene>
 #include <QMouseEvent>
 #include <QScrollBar>
@@ -60,8 +62,9 @@ void MainGraphicsView::mousePressEvent(QMouseEvent *event) {
 }
 
 void MainGraphicsView::wheelEvent(QWheelEvent *event) {
-  const int scrollAmount = 72; // Adjust the scrolling speed as needed //.ini
-  const double scaleFactor = 1.15; // Adjust scaling factor as needed  //.ini
+  Config settings;
+  const int scrollAmount = settings.scrollSpeed; // Adjust the scrolling speed as needed //.ini
+  const double scaleFactor = settings.zoomScale; // Adjust scaling factor as needed  //.ini
 
   // Ignore if dragging
   if (isMiddleDragging) {
