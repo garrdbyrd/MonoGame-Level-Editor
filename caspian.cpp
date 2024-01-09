@@ -3,6 +3,7 @@
 #include "maingraphicsview.h"
 #include "selectablelabel.h"
 #include "config.h"
+#include "preferencesdialog.h"
 
 #include <QAction>
 #include <QDebug>
@@ -22,6 +23,11 @@
 
 Caspian::Caspian(QWidget *parent) : QMainWindow(parent), ui(new Ui::Caspian) {
   ui->setupUi(this);
+
+  // Setup other windows
+  connect(ui->actionPreferences, &QAction::triggered, this, &Caspian::onPreferencesTriggered);
+
+  // Boot logic
   Config settings;
 
   QGridLayout *layout = new QGridLayout(ui->tilePickerWidget);
@@ -196,4 +202,10 @@ void Caspian::setPropertiesTable() {
       item->setText(defaultValue);
     }
   }
+}
+
+// Other windows
+void Caspian::onPreferencesTriggered() {
+  preferencesDialog dialog(this);
+  dialog.exec();
 }

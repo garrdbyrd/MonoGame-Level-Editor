@@ -30,6 +30,7 @@ private:
   void populateScrollMenu();
   SelectableLabel *currentSelectedLabel = nullptr;
   void setPropertiesTable();
+  void onPreferencesTriggered();
 };
 
 #endif // CASPIAN_H

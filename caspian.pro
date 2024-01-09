@@ -14,16 +14,19 @@ SOURCES += \
     main.cpp \
     caspian.cpp \
     maingraphicsview.cpp \
+    preferencesdialog.cpp \
 	selectablelabel.cpp
 
 HEADERS += \
     caspian.h \
     config.h \
     maingraphicsview.h \
+    preferencesdialog.h \
 	selectablelabel.h
 
 FORMS += \
-    caspian.ui
+    caspian.ui \
+    preferencesdialog.ui
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin
