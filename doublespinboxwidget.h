@@ -11,8 +11,12 @@ class DoubleSpinBoxWidget : public QWidget {
 
 public:
     explicit DoubleSpinBoxWidget(QWidget* parent = nullptr);
-    int value() const;
-    void setValue(int val);
+    double value() const;
+    void setValue(double val);
+    void setRange(double minValue, double maxValue);
+    void setMinimum(double minValue);
+    void setMaximum(double maxValue);
+    void stepSize(double stepSize);
 
 private:
     QDoubleSpinBox* doubleSpinBox;
