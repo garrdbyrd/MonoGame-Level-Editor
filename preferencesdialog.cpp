@@ -1,8 +1,10 @@
 #include "preferencesdialog.h"
 #include "config.h"
 #include "ui_preferencesdialog.h"
+#include "filebrowsewidget.h"
 
 #include <QVBoxLayout>
+#include <QFormLayout>
 #include <QCheckBox>
 #include <QDebug>
 #include <QSpacerItem>
@@ -27,7 +29,7 @@ void preferencesDialog::populatePreferences() {
     for (QString& sectionName : config.childGroups()){
         QScrollArea* scrollArea = new QScrollArea;
         QWidget* scrollWidget = new QWidget;
-        QVBoxLayout* layout = new QVBoxLayout(scrollWidget);
+        QFormLayout* layout = new QFormLayout(scrollWidget);
 
         scrollArea->setWidgetResizable(true);
         scrollArea->setFrameShadow(QFrame::Raised);
@@ -36,12 +38,11 @@ void preferencesDialog::populatePreferences() {
         // auto settingsMap = config.getSettings(sectionName);
 
         config.beginGroup(sectionName);
-        qDebug() << config.group();
         foreach (const QString &key, config.allKeys()) {
-            qDebug() << key;
-            QWidget* settingWidget = config.getSettingWidget(key);
+            // QWidget* settingWidget = config.getSettingWidget(key);
+            FileBrowseWidget* settingWidget = dynamic_cast<FileBrowseWidget*>(config.getSettingWidget(key));
             if (settingWidget != nullptr) {
-                layout->addWidget(settingWidget);
+                layout->addRow(QString(key), settingWidget->getLineEdit());
             } else {
                 QCheckBox* checkBox = new QCheckBox(key);
                 layout->addWidget(checkBox);
@@ -49,8 +50,8 @@ void preferencesDialog::populatePreferences() {
         }
         config.endGroup();
 
-        QSpacerItem* verticalSpacer = new QSpacerItem(0, 0, QSizePolicy::Maximum, QSizePolicy::Expanding);
-        layout->addSpacerItem(verticalSpacer);
+        // QSpacerItem* verticalSpacer = new QSpacerItem(0, 0, QSizePolicy::Maximum, QSizePolicy::Expanding);
+        // layout->addSpacerItem(verticalSpacer);
         ui->preferencesTabs->addTab(scrollArea, sectionName);
     }
 }

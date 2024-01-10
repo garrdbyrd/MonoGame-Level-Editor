@@ -16,7 +16,8 @@ Config::Config() : QSettings("caspian-local/preferences.ini", QSettings::IniForm
     tileMenuColumns = this->value("Constants/TileMenuColumns", 4).toInt();
 
     // Set map
-    dialogMap["AssetPath"] = new FileBrowseWidget;
+    dialogMap["AssetPath"] = new FileBrowseWidget("AssetPath");
+    dialogMap["DefaultTexture"] = new FileBrowseWidget("DefaultTexture");
 }
 
 QMap<QString, QVariant> Config::getSettings(const QString& section) {

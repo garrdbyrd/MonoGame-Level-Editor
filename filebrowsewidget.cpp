@@ -1,11 +1,12 @@
 #include "filebrowsewidget.h"
 #include <QFileDialog>
 
-FileBrowseWidget::FileBrowseWidget(QWidget *parent)
-    : QWidget(parent), lineEdit(new QLineEdit(this)), browseButton(new QPushButton("Browse", this)) {
+FileBrowseWidget::FileBrowseWidget(const QString& labelText, QWidget *parent)
+    : QWidget(parent), lineEdit(new QLineEdit(this)), browseButton(new QPushButton("Browse", this)), label(new QLabel(labelText, this)) {
 
     // Set up the layout
     QHBoxLayout *layout = new QHBoxLayout(this);
+    layout->addWidget(label);
     layout->addWidget(lineEdit);
     layout->addWidget(browseButton);
 
@@ -26,4 +27,12 @@ void FileBrowseWidget::onBrowseButtonClicked() {
     if (!selectedFile.isEmpty()) {
         lineEdit->setText(selectedFile);
     }
+}
+
+void FileBrowseWidget::setLabelText(const QString &text) {
+    label->setText(text);
+}
+
+QLineEdit* FileBrowseWidget::getLineEdit() const {
+    return lineEdit;
 }
