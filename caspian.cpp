@@ -31,7 +31,9 @@ Caspian::Caspian(QWidget *parent) : QMainWindow(parent), ui(new Ui::Caspian) {
   // Boot logic
   Config settings;
 
-  CustomToolBar *toolbar = new CustomToolBar("My Toolbar");
+  // ToolBar
+  CustomToolBar *toolbar = new CustomToolBar("ToolBar", this);
+  connect(toolbar, &CustomToolBar::tilePickerRefresh, this, &Caspian::populateScrollMenu);
   this->addToolBar(toolbar);
 
   QGridLayout *layout = new QGridLayout(ui->tilePickerWidget);

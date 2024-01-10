@@ -8,6 +8,11 @@ class CustomToolBar : public QToolBar {
 
 public:
     explicit CustomToolBar(const QString &title, QWidget *parent = nullptr);
+    void addTilePickerRefreshAction();
+
+signals:
+    void tilePickerRefresh();
+
 private:
 
 };
