@@ -66,16 +66,3 @@ void preferencesDialog::populatePreferences() {
         ui->preferencesTabs->addTab(preferenceTabScrollArea, sectionName);
     }
 }
-
-// QWidget* createBottomAlignedLabel(const QString& labelText) {
-//     QLabel* bottomLabel = new QLabel(labelText);
-//     QWidget* bottomContainer = new QWidget;
-//     QVBoxLayout* bottomLayout = new QVBoxLayout(bottomContainer);
-
-//     bottomLayout->addStretch();  // Add stretchable space at the top
-//     bottomLayout->addWidget(bottomLabel);  // Add the label at the bottom
-//     bottomLayout->setAlignment(bottomLabel, Qt::AlignBottom);  // Align the label to the bottom
-//     bottomLayout->setContentsMargins(0, 0, 0, 0);  // Remove margins, adjust as needed
-
-//     return bottomContainer;
-// }
