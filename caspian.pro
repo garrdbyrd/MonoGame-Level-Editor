@@ -11,6 +11,7 @@ CONFIG += console
 
 SOURCES += \
     config.cpp \
+    filebrowsewidget.cpp \
     main.cpp \
     caspian.cpp \
     maingraphicsview.cpp \
@@ -20,6 +21,7 @@ SOURCES += \
 HEADERS += \
     caspian.h \
     config.h \
+    filebrowsewidget.h \
     maingraphicsview.h \
     preferencesdialog.h \
 	selectablelabel.h

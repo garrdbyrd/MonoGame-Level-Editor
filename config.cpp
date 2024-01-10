@@ -1,4 +1,7 @@
 #include "config.h"
+#include "filebrowsewidget.h"
+
+#include <QLineEdit>
 
 Config::Config() : QSettings("caspian-local/preferences.ini", QSettings::IniFormat) {
     // Main
@@ -11,6 +14,9 @@ Config::Config() : QSettings("caspian-local/preferences.ini", QSettings::IniForm
     scrollSpeed = this->value("Constants/ScrollSpeed", 72).toInt();
     zoomScale = this->value("Constants/ZoomScale", 1.15).toDouble();
     tileMenuColumns = this->value("Constants/TileMenuColumns", 4).toInt();
+
+    // Set map
+    dialogMap["AssetPath"] = new FileBrowseWidget;
 }
 
 QMap<QString, QVariant> Config::getSettings(const QString& section) {
@@ -28,4 +34,8 @@ QMap<QString, QVariant> Config::getSettings(const QString& section) {
     this->endGroup();
 
     return settingsMap;
+}
+
+QWidget* Config::getSettingWidget(const QString& settingName) {
+    return dialogMap.value(settingName, nullptr);
 }

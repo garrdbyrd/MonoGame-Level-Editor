@@ -30,16 +30,24 @@ void preferencesDialog::populatePreferences() {
         QVBoxLayout* layout = new QVBoxLayout(scrollWidget);
 
         scrollArea->setWidgetResizable(true);
+        scrollArea->setFrameShadow(QFrame::Raised);
         scrollArea->setWidget(scrollWidget);
 
-        auto settingsMap = config.getSettings(sectionName);
-        for(auto item = settingsMap.begin(); item != settingsMap.end(); ++item) {
-            QCheckBox* checkBox = new QCheckBox(item.key());
-            checkBox->setChecked(item.value().toBool());
-            layout->addWidget(checkBox);
+        // auto settingsMap = config.getSettings(sectionName);
 
-            // connect(checkBox, &QCheckBox::toggled, this, &preferencesDialog::onSettingChanged);
+        config.beginGroup(sectionName);
+        qDebug() << config.group();
+        foreach (const QString &key, config.allKeys()) {
+            qDebug() << key;
+            QWidget* settingWidget = config.getSettingWidget(key);
+            if (settingWidget != nullptr) {
+                layout->addWidget(settingWidget);
+            } else {
+                QCheckBox* checkBox = new QCheckBox(key);
+                layout->addWidget(checkBox);
+            }
         }
+        config.endGroup();
 
         QSpacerItem* verticalSpacer = new QSpacerItem(0, 0, QSizePolicy::Maximum, QSizePolicy::Expanding);
         layout->addSpacerItem(verticalSpacer);

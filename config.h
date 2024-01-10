@@ -15,7 +15,11 @@ public:
     int scrollSpeed;
     double zoomScale;
     int tileMenuColumns;
+    // Methods
     QMap<QString, QVariant> getSettings(const QString& section);
+    QWidget* getSettingWidget(const QString& settingName);
+private:
+    QMap<QString, QWidget*> dialogMap;
 };
 
 #endif // CONFIG_H
