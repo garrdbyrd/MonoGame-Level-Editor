@@ -8,6 +8,19 @@ This is made with Qt. This will not have its own dev diary, that is also in Peve
 Disclaimer: I am extremely new to Qt and don't really know how it works.
 
 # To-do list
+- [ ] Implement primary/secondary color system
+- [ ] Add undo/redo (drag commands; not single tiles)
+- [ ] Refresh button for tile picker menu
+- [ ] Open recents
+- [ ] "Restore defaults" button in preferences tabs
+
+# Harder to-do list
+- [ ] Implement palette
+- [ ] Add all standard shortcuts (cut, copy, paste, ctrl + left click, save, etc)
+- [ ] Autosave functionality
 - [ ] Implement tabs so the user can edit multiple levels at once
-- [ ] Implement primary/secondary color system*
-- [ ] *Implement palette
+- [ ] Export image (.png, .jpg, .tif) (checkbox: ignore default)
+
+# Nightmare to-do list
+- [ ] Read/write proprietary `.level` and `.chunk` file types
+- [ ] Inspect tiles in main graphics view (change properties of particular tiles) (and everything else having to do with the properties menu)
