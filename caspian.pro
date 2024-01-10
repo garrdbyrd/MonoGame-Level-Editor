@@ -11,20 +11,24 @@ CONFIG += console
 
 SOURCES += \
     config.cpp \
+    doublespinboxwidget.cpp \
     filebrowsewidget.cpp \
     main.cpp \
     caspian.cpp \
     maingraphicsview.cpp \
     preferencesdialog.cpp \
-	selectablelabel.cpp
+	selectablelabel.cpp \
+    spinboxwidget.cpp
 
 HEADERS += \
     caspian.h \
     config.h \
+    doublespinboxwidget.h \
     filebrowsewidget.h \
     maingraphicsview.h \
     preferencesdialog.h \
-	selectablelabel.h
+	selectablelabel.h \
+    spinboxwidget.h
 
 FORMS += \
     caspian.ui \
