@@ -6,6 +6,7 @@
 #include <QCheckBox>
 #include <QDebug>
 #include <QSpacerItem>
+#include <QScrollArea>
 
 preferencesDialog::preferencesDialog(QWidget *parent)
     : QDialog(parent)
@@ -22,21 +23,26 @@ preferencesDialog::~preferencesDialog()
 
 void preferencesDialog::populatePreferences() {
     Config config;
-    QVBoxLayout* completeLayout = new QVBoxLayout();
 
     for (QString& sectionName : config.childGroups()){
+        QScrollArea* scrollArea = new QScrollArea;
+        QWidget* scrollWidget = new QWidget;
+        QVBoxLayout* layout = new QVBoxLayout(scrollWidget);
+
+        scrollArea->setWidgetResizable(true);
+        scrollArea->setWidget(scrollWidget);
+
         auto settingsMap = config.getSettings(sectionName);
         for(auto item = settingsMap.begin(); item != settingsMap.end(); ++item) {
             QCheckBox* checkBox = new QCheckBox(item.key());
             checkBox->setChecked(item.value().toBool());
-            completeLayout->addWidget(checkBox);
+            layout->addWidget(checkBox);
 
             // connect(checkBox, &QCheckBox::toggled, this, &preferencesDialog::onSettingChanged);
         }
+
+        QSpacerItem* verticalSpacer = new QSpacerItem(0, 0, QSizePolicy::Maximum, QSizePolicy::Expanding);
+        layout->addSpacerItem(verticalSpacer);
+        ui->preferencesTabs->addTab(scrollArea, sectionName);
     }
-
-    QSpacerItem* verticalSpacer = new QSpacerItem(0, 0, QSizePolicy::Maximum, QSizePolicy::Expanding);
-    completeLayout->addSpacerItem(verticalSpacer);
-
-    ui->preferencesScrollWidget->setLayout(completeLayout);
 }
