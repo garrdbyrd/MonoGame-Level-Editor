@@ -4,7 +4,7 @@
 #include <QSettings>
 #include <QString>
 
-class Config
+class Config : public QSettings
 {
 public:
     Config();
@@ -15,9 +15,7 @@ public:
     int scrollSpeed;
     double zoomScale;
     int tileMenuColumns;
-
-private:
-    QSettings settings;
+    QMap<QString, QVariant> getSettings(const QString& section);
 };
 
 #endif // CONFIG_H

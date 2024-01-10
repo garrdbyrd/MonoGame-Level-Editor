@@ -17,6 +17,7 @@ public:
 
 private:
     Ui::preferencesDialog *ui;
+    void populatePreferences();
 };
 
 #endif // PREFERENCESDIALOG_H

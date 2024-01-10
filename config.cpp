@@ -1,11 +1,31 @@
 #include "config.h"
 
-Config::Config() : settings("caspian-local/preferences.ini", QSettings::IniFormat) {
+Config::Config() : QSettings("caspian-local/preferences.ini", QSettings::IniFormat) {
+    // Main
+    QSettings::setDefaultFormat(QSettings::IniFormat);
+    QSettings::setPath(QSettings::IniFormat, QSettings::UserScope, "caspian-local");
     // Paths
-    assetPath = settings.value("caspian-local/assets", "caspian-local/assets").toString();
-    defaultTexturePath = settings.value("caspian-local/assets/default/default.png", "caspian-local/assets/default/default.png").toString();
+    assetPath = this->value("caspian-local/assets", "caspian-local/assets").toString();
+    defaultTexturePath = this->value("caspian-local/assets/default/default.png", "caspian-local/assets/default/default.png").toString();
     // Constants
-    scrollSpeed = settings.value("Constants/ScrollSpeed", 72).toInt();
-    zoomScale = settings.value("Constants/ZoomScale", 1.15).toDouble();
-    tileMenuColumns = settings.value("Constants/TileMenuColumns", 4).toInt();
+    scrollSpeed = this->value("Constants/ScrollSpeed", 72).toInt();
+    zoomScale = this->value("Constants/ZoomScale", 1.15).toDouble();
+    tileMenuColumns = this->value("Constants/TileMenuColumns", 4).toInt();
+}
+
+QMap<QString, QVariant> Config::getSettings(const QString& section) {
+    QMap<QString, QVariant> settingsMap;
+
+    // Begin reading from the specified section
+    this->beginGroup(section);
+
+    // Iterate over all keys in the section
+    foreach (const QString &key, this->allKeys()) {
+        settingsMap.insert(key, this->value(key));
+    }
+
+    // End reading from the section
+    this->endGroup();
+
+    return settingsMap;
 }
