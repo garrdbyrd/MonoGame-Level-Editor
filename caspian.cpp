@@ -1,5 +1,6 @@
 #include "caspian.h"
 #include "./ui_caspian.h"
+#include "customtoolbar.h"
 #include "maingraphicsview.h"
 #include "selectablelabel.h"
 #include "config.h"
@@ -29,6 +30,9 @@ Caspian::Caspian(QWidget *parent) : QMainWindow(parent), ui(new Ui::Caspian) {
 
   // Boot logic
   Config settings;
+
+  CustomToolBar *toolbar = new CustomToolBar("My Toolbar");
+  this->addToolBar(toolbar);
 
   QGridLayout *layout = new QGridLayout(ui->tilePickerWidget);
   ui->tilePickerWidget->setLayout(layout);

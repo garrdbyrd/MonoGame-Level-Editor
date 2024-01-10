@@ -11,6 +11,7 @@ CONFIG += console
 
 SOURCES += \
     config.cpp \
+    customtoolbar.cpp \
     doublespinboxwidget.cpp \
     filebrowsewidget.cpp \
     main.cpp \
@@ -23,6 +24,7 @@ SOURCES += \
 HEADERS += \
     caspian.h \
     config.h \
+    customtoolbar.h \
     doublespinboxwidget.h \
     filebrowsewidget.h \
     maingraphicsview.h \
