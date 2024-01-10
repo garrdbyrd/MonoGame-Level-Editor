@@ -1,6 +1,7 @@
 #ifndef PREFERENCESDIALOG_H
 #define PREFERENCESDIALOG_H
 
+#include <QWidget>
 #include <QDialog>
 
 namespace Ui {
