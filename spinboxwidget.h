@@ -10,7 +10,7 @@ class SpinBoxWidget : public QWidget {
     Q_OBJECT
 
 public:
-    explicit SpinBoxWidget(QWidget* parent = nullptr);
+    explicit SpinBoxWidget(int minValue = 0, int maxValue = 100, int stepSize = 1, QWidget* parent = nullptr);
     int value() const;
     void setValue(int val);
     void setRange(int minValue, int maxValue);

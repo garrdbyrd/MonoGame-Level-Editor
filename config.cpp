@@ -1,5 +1,7 @@
 #include "config.h"
+#include "doublespinboxwidget.h"
 #include "filebrowsewidget.h"
+#include "spinboxwidget.h"
 
 #include <QLineEdit>
 
@@ -15,9 +17,14 @@ Config::Config() : QSettings("caspian-local/preferences.ini", QSettings::IniForm
     zoomScale = this->value("Constants/ZoomScale", 1.15).toDouble();
     tileMenuColumns = this->value("Constants/TileMenuColumns", 4).toInt();
 
-    // Set map
+    // Set maps
+    // FilePaths
     dialogMap["AssetPath"] = new FileBrowseWidget();
     dialogMap["DefaultTexture"] = new FileBrowseWidget();
+    // Constants
+    dialogMap["ScrollSpeed"] = new SpinBoxWidget(0,960,8);
+    dialogMap["ZoomScale"] = new DoubleSpinBoxWidget(1,16,0.05);
+    dialogMap["TileMenuColumns"] = new SpinBoxWidget(1,8,1);
 }
 
 QMap<QString, QVariant> Config::getSettings(const QString& section) {

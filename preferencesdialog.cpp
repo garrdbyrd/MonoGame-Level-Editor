@@ -31,7 +31,7 @@ void preferencesDialog::populatePreferences() {
         QScrollArea* preferenceTabScrollArea = new QScrollArea;
         QWidget* scrollWidget = new QWidget;
         QFormLayout* layout = new QFormLayout(scrollWidget);
-        layout->setLabelAlignment(Qt::AlignBaseline | Qt::AlignBaseline);
+        layout->setLabelAlignment(Qt::AlignBaseline);
         //layout->setSizeConstraint(QLayout::SetNoConstraint);
 
         preferenceTabScrollArea->setWidgetResizable(true);
@@ -45,15 +45,21 @@ void preferencesDialog::populatePreferences() {
             QWidget* settingWidget = config.getSettingWidget(key);
             // FileBrowseWidget* settingWidget = dynamic_cast<FileBrowseWidget*>(config.getSettingWidget(key));
             if (settingWidget != nullptr) {
-                QLabel* bottomLabel = new QLabel(key);
-                QWidget* bottomContainer = new QWidget;
-                QVBoxLayout* bottomLayout = new QVBoxLayout(bottomContainer);
+                // Left widget (label)
+                QLabel* leftLabel = new QLabel(key);
+                QWidget* leftContainer = new QWidget;
+                QVBoxLayout* leftLayout = new QVBoxLayout(leftContainer);
+                leftLayout->addWidget(leftLabel);
+                leftLayout->setAlignment(Qt::AlignBottom);
+                leftLayout->setContentsMargins(0, 0, 0, 0);
+                // Right widget (custom widget)
+                QWidget* rightContainer = new QWidget;
+                QVBoxLayout* rightLayout = new QVBoxLayout(rightContainer);
+                rightLayout->addWidget(settingWidget);
+                rightLayout->setAlignment(Qt::AlignRight);
+                rightLayout->setContentsMargins(0, 0, 0, 0);
 
-                bottomLayout->addWidget(bottomLabel);
-                bottomLayout->setAlignment(Qt::AlignBottom);
-                bottomLayout->setContentsMargins(0, 0, 0, 0);
-
-                layout->addRow(bottomContainer, settingWidget);
+                layout->addRow(leftContainer, rightContainer);
             } else {
                 QCheckBox* checkBox = new QCheckBox(key);
                 layout->addWidget(checkBox);

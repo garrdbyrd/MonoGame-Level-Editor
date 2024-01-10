@@ -1,10 +1,13 @@
 #include "spinboxwidget.h"
 
-SpinBoxWidget::SpinBoxWidget(QWidget *parent)
+SpinBoxWidget::SpinBoxWidget(int minValue, int maxValue, int stepSize, QWidget *parent)
     : QWidget(parent), spinBox(new QSpinBox(this)) {
 
     QHBoxLayout *layout = new QHBoxLayout(this);
     layout->addWidget(spinBox);
+    spinBox->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Preferred);
+    spinBox->setRange(minValue, maxValue);
+    spinBox->setSingleStep(stepSize);
 }
 
 int SpinBoxWidget::value() const {

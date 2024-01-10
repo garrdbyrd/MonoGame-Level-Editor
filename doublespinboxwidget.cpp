@@ -1,10 +1,13 @@
 #include "doublespinboxwidget.h"
 
-DoubleSpinBoxWidget::DoubleSpinBoxWidget(QWidget *parent)
+DoubleSpinBoxWidget::DoubleSpinBoxWidget(double minValue, double maxValue, double stepSize, QWidget *parent)
     : QWidget(parent), doubleSpinBox(new QDoubleSpinBox(this)) {
 
     QHBoxLayout *layout = new QHBoxLayout(this);
     layout->addWidget(doubleSpinBox);
+    doubleSpinBox->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Preferred);
+    doubleSpinBox->setRange(minValue, maxValue);
+    doubleSpinBox->setSingleStep(stepSize);
 }
 
 double DoubleSpinBoxWidget::value() const {
@@ -30,4 +33,3 @@ void DoubleSpinBoxWidget::setMaximum(double maxValue) {
 void DoubleSpinBoxWidget::stepSize(double stepSize){
     doubleSpinBox->setSingleStep(stepSize);
 }
-
