@@ -31,6 +31,9 @@ Caspian::Caspian(QWidget *parent) : QMainWindow(parent), ui(new Ui::Caspian) {
   // Boot logic
   Config settings;
 
+  // MenuBar
+
+
   // ToolBar
   CustomToolBar *toolbar = new CustomToolBar("ToolBar", this);
   connect(toolbar, &CustomToolBar::tilePickerRefresh, this, &Caspian::populateScrollMenu);

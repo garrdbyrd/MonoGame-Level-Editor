@@ -10,8 +10,9 @@ Config::Config() : QSettings("caspian-local/preferences.ini", QSettings::IniForm
     QSettings::setDefaultFormat(QSettings::IniFormat);
     QSettings::setPath(QSettings::IniFormat, QSettings::UserScope, "caspian-local");
     // Paths
-    assetPath = this->value("caspian-local/assets", "caspian-local/assets").toString();
-    defaultTexturePath = this->value("caspian-local/assets/default/default.png", "caspian-local/assets/default/default.png").toString();
+    assetPath = this->value("FilePaths/AssetPath", "caspian-local/assets").toString();
+    defaultTexturePath = this->value("FilePaths/DefaultTexture", "caspian-local/assets/default/default.png").toString();
+    iconsPath = this->value("FilePaths/IconsPath","/usr/share/icons/breeze-dark").toString();
     // Constants
     scrollSpeed = this->value("Constants/ScrollSpeed", 72).toInt();
     zoomScale = this->value("Constants/ZoomScale", 1.15).toDouble();
@@ -21,6 +22,7 @@ Config::Config() : QSettings("caspian-local/preferences.ini", QSettings::IniForm
     // FilePaths
     dialogMap["AssetPath"] = new FileBrowseWidget();
     dialogMap["DefaultTexture"] = new FileBrowseWidget();
+    dialogMap["IconsPath"] = new FileBrowseWidget();
     // Constants
     dialogMap["ScrollSpeed"] = new SpinBoxWidget(0,960,8);
     dialogMap["ZoomScale"] = new DoubleSpinBoxWidget(1,16,0.05);

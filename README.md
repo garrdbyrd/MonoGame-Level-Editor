@@ -13,6 +13,7 @@ Disclaimer: I am extremely new to Qt and don't really know how it works.
 - [ ] Refresh button for tile picker menu
 - [ ] Open recents
 - [ ] "Restore defaults" button in preferences tabs
+- [ ] Fullscreen mainGraphicsView
 
 # Harder to-do list
 - [ ] Implement palette

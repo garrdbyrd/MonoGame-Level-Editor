@@ -11,6 +11,7 @@ public:
     // Paths
     QString assetPath;
     QString defaultTexturePath;
+    QString iconsPath;
     // Constants
     int scrollSpeed;
     double zoomScale;
