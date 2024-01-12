@@ -1,6 +1,8 @@
 #ifndef MAINGRAPHICSVIEW_H
 #define MAINGRAPHICSVIEW_H
 
+#include "command.h"
+
 #include <QGraphicsPixmapItem>
 #include <QGraphicsView>
 #include <QInputEvent>
@@ -10,7 +12,7 @@ class MainGraphicsView : public QGraphicsView {
 
 public:
   MainGraphicsView(QWidget *parent = nullptr);
-
+  void update();
   void setCurrentTexture(const QPixmap &texture);
   void noCurrentTexture();
   void setupGrid(int rows, int cols, int tileSize);
@@ -29,6 +31,16 @@ private:
   bool isLeftDragging;
   bool isMiddleDragging;
   QPoint lastMousePosition;
+  // Paint commands
+  bool isPainting = false;
+  QList<QGraphicsPixmapItem*> paintedItems;
+  QList<QPixmap> prevPixmaps;
+  void startPainting();
+  void applyPaint(QGraphicsPixmapItem* item);
+  void endPainting();
+
+signals:
+  void executeCommand(Command* command);
 };
 
 #endif // MAINGRAPHICSVIEW_H

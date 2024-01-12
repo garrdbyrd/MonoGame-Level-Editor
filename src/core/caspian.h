@@ -2,6 +2,8 @@
 #define CASPIAN_H
 
 #include <selectablelabel.h>
+#include <maingraphicsview.h>
+#include <commandhistory.h>
 
 #include <QMainWindow>
 #include <QResizeEvent>
@@ -22,15 +24,24 @@ public:
 protected:
   void resizeEvent(QResizeEvent *event) override;
 
+private:
+  Ui::Caspian *ui;
+  SelectableLabel *currentSelectedLabel = nullptr;
+  CommandHistory commandHistory;
+
+  // Methods
+  void populateScrollMenu();
+  void setPropertiesTable();
+  void onPreferencesTriggered();
+
+public slots:
+  void undo();
+  void redo();
+  void recordCommand(Command* command);
+
 private slots:
   void labelClicked(SelectableLabel *label);
 
-private:
-  Ui::Caspian *ui;
-  void populateScrollMenu();
-  SelectableLabel *currentSelectedLabel = nullptr;
-  void setPropertiesTable();
-  void onPreferencesTriggered();
 };
 
 #endif // CASPIAN_H

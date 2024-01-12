@@ -16,12 +16,12 @@ INCLUDEPATH += $$PWD/src/preferences
 SOURCES += \
     $$PWD/src/command/*.cpp \
 	$$PWD/src/core/*.cpp \
-	$$PWD/src/preferences/*.cpp
+	$$PWD/src/preferences/*.cpp \
 
 HEADERS += \
     $$PWD/src/command/*.h \
 	$$PWD/src/core/*.h \
-	$$PWD/src/preferences/*.h
+	$$PWD/src/preferences/*.h \
 
 FORMS += \
     # $$PWD/src/command/*.ui \

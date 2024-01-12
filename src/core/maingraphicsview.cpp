@@ -1,5 +1,8 @@
 #include "maingraphicsview.h"
 #include "config.h"
+#include "paintcommand.h"
+#include "compoundpaintcommand.h"
+#include "qdebug.h"
 
 #include <QGraphicsScene>
 #include <QMouseEvent>
@@ -36,6 +39,16 @@ void MainGraphicsView::setCurrentTexture(const QPixmap &texture) {
 
 void MainGraphicsView::noCurrentTexture() { currentTexture = nullTexture; }
 
+// void MainGraphicsView::update(){
+//   for (int row = 0; row < rows; ++row) {
+//     QVector<QGraphicsPixmapItem *> gridRow;
+//     for (int col = 0; col < cols; ++col) {
+//       QGraphicsPixmapItem *item = scene()->addPixmap(nullTexture);
+//       item->setPos(col * tileSize, row * tileSize);
+//       item->setPixmap(grid[row][col]->pixmap().scaled(tileSize, tileSize));
+//     }
+// }
+
 ////////////////////
 // Mouse controls //
 ////////////////////
@@ -47,8 +60,13 @@ void MainGraphicsView::mousePressEvent(QMouseEvent *event) {
   // Left Click on grid
   if (event->button() == Qt::LeftButton && row >= 0 && row < grid.size() && col >= 0 && col < grid[row].size() && !currentTexture.isNull()) {
     isLeftDragging = true;
-    QGraphicsPixmapItem *item = grid[row][col];
-    item->setPixmap(currentTexture.scaled(tileSize, tileSize, Qt::KeepAspectRatio));
+    isPainting = true;
+    startPainting();
+    applyPaint(grid[row][col]);
+    // QGraphicsPixmapItem *item = grid[row][col];
+    // QPixmap prevPixmap = item->pixmap();
+    // PaintCommand* paintCommand = new PaintCommand(item, prevPixmap, currentTexture.scaled(tileSize, tileSize, Qt::KeepAspectRatio));
+    // emit executeCommand(paintCommand);
   }
 
   // Middle click
@@ -104,8 +122,14 @@ void MainGraphicsView::mouseMoveEvent(QMouseEvent *event) {
   int row = static_cast<uint>(scenePoint.y()) / tileSize;
   int col = static_cast<uint>(scenePoint.x()) / tileSize;
   if (isLeftDragging && row >= 0 && row < grid.size() && col >= 0 && col < grid[row].size() && !currentTexture.isNull()) {
-    QGraphicsPixmapItem *item = grid[row][col];
-    item->setPixmap(currentTexture.scaled(tileSize, tileSize, Qt::KeepAspectRatio));
+    // QGraphicsPixmapItem *item = grid[row][col];
+    // QPixmap prevPixmap = item->pixmap();
+    // item->setPixmap(currentTexture.scaled(tileSize, tileSize, Qt::KeepAspectRatio));
+    // PaintCommand* paintCommand = new PaintCommand(item, prevPixmap, currentTexture.scaled(tileSize, tileSize, Qt::KeepAspectRatio));
+    // emit executeCommand(paintCommand);
+    // isPainting = true;
+    // startPainting();
+    applyPaint(grid[row][col]);
   }
   if (isMiddleDragging) {
     QPoint delta = event->pos() - lastMousePosition;
@@ -118,10 +142,38 @@ void MainGraphicsView::mouseMoveEvent(QMouseEvent *event) {
 void MainGraphicsView::mouseReleaseEvent(QMouseEvent *event) {
   if (event->button() == Qt::LeftButton) {
     isLeftDragging = false;
+    if (isPainting) {
+      endPainting();
+      isPainting = false;
+    }
   }
 
   if (event->button() == Qt::MiddleButton) {
     isMiddleDragging = false;
     setCursor(Qt::ArrowCursor);
+  }
+}
+
+// Paint
+void MainGraphicsView::startPainting() {
+  paintedItems.clear();
+  prevPixmaps.clear();
+}
+
+void MainGraphicsView::applyPaint(QGraphicsPixmapItem* item) {
+  if (!paintedItems.contains(item)) {
+    paintedItems.append(item);
+    prevPixmaps.append(item->pixmap());
+    item->setPixmap(currentTexture.scaled(tileSize, tileSize, Qt::KeepAspectRatio));
+  }
+}
+
+void MainGraphicsView::endPainting() {
+  if (!paintedItems.isEmpty()) {
+    QList<QPixmap> newPixmaps;
+    for (auto item : qAsConst(paintedItems)) {
+      newPixmaps.append(item->pixmap());
+    }
+    emit executeCommand(new CompoundPaintCommand(paintedItems, prevPixmaps, newPixmaps));
   }
 }
