@@ -31,9 +31,6 @@ Caspian::Caspian(QWidget *parent) : QMainWindow(parent), ui(new Ui::Caspian) {
   // Boot logic
   Config settings;
 
-  // MenuBar
-
-
   // ToolBar
   CustomToolBar *toolbar = new CustomToolBar("ToolBar", this);
   connect(toolbar, &CustomToolBar::tilePickerRefresh, this, &Caspian::populateScrollMenu);
@@ -50,7 +47,7 @@ Caspian::Caspian(QWidget *parent) : QMainWindow(parent), ui(new Ui::Caspian) {
   QPixmap defaultTexture(settings.defaultTexturePath);
   mainGraphicsView->setCurrentTexture(defaultTexture);
   mainGraphicsView->setupGrid(
-      10, 10, 64); // Change '64' if textures are not 16x16. It should just be a
+      12, 20, 64); // Change '64' if textures are not 16x16. It should just be a
                    // multiple of your texture size.
   mainGraphicsView->noCurrentTexture();
 

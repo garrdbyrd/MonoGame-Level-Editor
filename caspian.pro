@@ -7,34 +7,26 @@ CONFIG += console
 
 # You can make your code fail to compile if it uses deprecated APIs.
 # In order to do so, uncomment the following line.
-#DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
+DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
+
+INCLUDEPATH += $$PWD/src/command
+INCLUDEPATH += $$PWD/src/core
+INCLUDEPATH += $$PWD/src/preferences
 
 SOURCES += \
-    config.cpp \
-    customtoolbar.cpp \
-    doublespinboxwidget.cpp \
-    filebrowsewidget.cpp \
-    main.cpp \
-    caspian.cpp \
-    maingraphicsview.cpp \
-    preferencesdialog.cpp \
-	selectablelabel.cpp \
-    spinboxwidget.cpp
+    $$PWD/src/command/*.cpp \
+	$$PWD/src/core/*.cpp \
+	$$PWD/src/preferences/*.cpp
 
 HEADERS += \
-    caspian.h \
-    config.h \
-    customtoolbar.h \
-    doublespinboxwidget.h \
-    filebrowsewidget.h \
-    maingraphicsview.h \
-    preferencesdialog.h \
-	selectablelabel.h \
-    spinboxwidget.h
+    $$PWD/src/command/*.h \
+	$$PWD/src/core/*.h \
+	$$PWD/src/preferences/*.h
 
 FORMS += \
-    caspian.ui \
-    preferencesdialog.ui
+    # $$PWD/src/command/*.ui \
+	$$PWD/src/core/*.ui \
+	$$PWD/src/preferences/*.ui
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin
@@ -42,6 +34,6 @@ else: unix:!android: target.path = /opt/$${TARGET}/bin
 !isEmpty(target.path): INSTALLS += target
 
 DISTFILES += \
-    caspian.png
+    $$PWD/build-assets/caspian.png
 
 DESTDIR = $$PWD
