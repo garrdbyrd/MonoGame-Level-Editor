@@ -1,7 +1,7 @@
 #include "customtoolbar.h"
 #include "config.h"
 
-CustomToolBar::CustomToolBar(const QString &title, QWidget *parent)
+CustomToolBar::CustomToolBar(QWidget *parent)
     : QToolBar(parent) {
     this->setStyleSheet(
         "QToolBar {"

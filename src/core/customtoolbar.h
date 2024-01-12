@@ -7,7 +7,7 @@ class CustomToolBar : public QToolBar {
     Q_OBJECT
 
 public:
-    explicit CustomToolBar(const QString &title, QWidget *parent = nullptr);
+    explicit CustomToolBar(QWidget *parent = nullptr);
     void addTilePickerRefreshAction();
 
 signals:

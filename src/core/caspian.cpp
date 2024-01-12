@@ -33,7 +33,7 @@ Caspian::Caspian(QWidget *parent) : QMainWindow(parent), ui(new Ui::Caspian) {
   Config settings;
 
   // ToolBar
-  CustomToolBar *toolbar = new CustomToolBar("ToolBar", this);
+  CustomToolBar *toolbar = new CustomToolBar(this);
   connect(toolbar, &CustomToolBar::tilePickerRefresh, this, &Caspian::populateScrollMenu);
   this->addToolBar(toolbar);
 
