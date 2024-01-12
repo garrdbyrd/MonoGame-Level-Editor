@@ -58,7 +58,7 @@ void MainGraphicsView::mousePressEvent(QMouseEvent *event) {
   int col = static_cast<uint>(scenePoint.x()) / tileSize;
 
   // Left Click on grid
-  if (event->button() == Qt::LeftButton && row >= 0 && row < grid.size() && col >= 0 && col < grid[row].size() && !currentTexture.isNull()) {
+  if (event->button() == Qt::LeftButton && row >= 0 && row < grid.size() && col >= 0 && col < grid[row].size() && !currentTexture.isNull() && grid[row][col]->pixmap().toImage() != currentTexture.scaled(tileSize, tileSize, Qt::KeepAspectRatio).toImage()) {
     isLeftDragging = true;
     isPainting = true;
     startPainting();
@@ -121,7 +121,7 @@ void MainGraphicsView::mouseMoveEvent(QMouseEvent *event) {
   QPointF scenePoint = mapToScene(event->pos());
   int row = static_cast<uint>(scenePoint.y()) / tileSize;
   int col = static_cast<uint>(scenePoint.x()) / tileSize;
-  if (isLeftDragging && row >= 0 && row < grid.size() && col >= 0 && col < grid[row].size() && !currentTexture.isNull()) {
+  if (isLeftDragging && row >= 0 && row < grid.size() && col >= 0 && col < grid[row].size() && !currentTexture.isNull() && grid[row][col]->pixmap().toImage() != currentTexture.scaled(tileSize, tileSize, Qt::KeepAspectRatio).toImage()) {
     // QGraphicsPixmapItem *item = grid[row][col];
     // QPixmap prevPixmap = item->pixmap();
     // item->setPixmap(currentTexture.scaled(tileSize, tileSize, Qt::KeepAspectRatio));
