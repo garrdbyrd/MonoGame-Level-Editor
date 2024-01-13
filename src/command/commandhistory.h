@@ -12,6 +12,8 @@ public:
     void executeCommand(Command* command);
     void undo();
     void redo();
+    bool isUndoStackEmpty();
+    bool isRedoStackEmpty();
 
 private:
     std::stack<Command*> undoStack;

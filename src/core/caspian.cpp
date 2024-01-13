@@ -27,22 +27,23 @@
 Caspian::Caspian(QWidget *parent) : QMainWindow(parent), ui(new Ui::Caspian) {
   ui->setupUi(this);
 
-  // Setup other windows
-  connect(ui->actionPreferences, &QAction::triggered, this,
-          &Caspian::onPreferencesTriggered);
-
   // Boot logic
   Config settings;
 
   // ToolBar
   CustomToolBar *toolbar = new CustomToolBar(this);
-  connect(toolbar, &CustomToolBar::tilePickerRefresh, this,
-          &Caspian::populateScrollMenu);
+  connect(toolbar, &CustomToolBar::tilePickerRefresh, this, &Caspian::populateScrollMenu);
   this->addToolBar(toolbar);
 
-  // Actions
+  // Actions / Shortcutes
   new QShortcut(Qt::CTRL + Qt::Key_Z, this, SLOT(undo()));
   new QShortcut(Qt::CTRL + Qt::Key_Y, this, SLOT(redo()));
+
+  // Setup other windows and menu bar shortcuts
+  connect(ui->actionPreferences, &QAction::triggered, this, &Caspian::onPreferencesTriggered);
+  connect(ui->actionUndo, &QAction::triggered, this, &Caspian::undo);
+  connect(ui->actionRedo, &QAction::triggered, this, &Caspian::redo);
+  updateActionStates();
 
   // Other
   QGridLayout *layout = new QGridLayout(ui->tilePickerWidget);
@@ -231,10 +232,16 @@ void Caspian::onPreferencesTriggered() {
 }
 
 // Actions/shortcuts
-void Caspian::undo() { commandHistory.undo(); }
+void Caspian::undo() { commandHistory.undo(); updateActionStates();}
 
-void Caspian::redo() { commandHistory.redo(); }
+void Caspian::redo() { commandHistory.redo(); updateActionStates();}
 
 void Caspian::recordCommand(Command *command) {
   commandHistory.executeCommand(command);
+  updateActionStates();
+}
+
+void Caspian::updateActionStates() {
+  ui->actionUndo->setEnabled(!commandHistory.isUndoStackEmpty());
+  ui->actionRedo->setEnabled(!commandHistory.isRedoStackEmpty());
 }

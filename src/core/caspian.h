@@ -33,6 +33,7 @@ private:
   void populateScrollMenu();
   void setPropertiesTable();
   void onPreferencesTriggered();
+  void updateActionStates();
 
 public slots:
   void undo();

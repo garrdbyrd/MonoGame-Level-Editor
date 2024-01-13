@@ -35,3 +35,11 @@ void CommandHistory::clearStack(std::stack<Command*>& stack) {
         stack.pop();
     }
 }
+
+bool CommandHistory::isUndoStackEmpty(){
+    return undoStack.empty();
+}
+
+bool CommandHistory::isRedoStackEmpty(){
+    return redoStack.empty();
+}
