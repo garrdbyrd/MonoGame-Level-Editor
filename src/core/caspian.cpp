@@ -1,10 +1,4 @@
 #include "caspian.h"
-#include "./ui_caspian.h"
-#include "customtoolbar.h"
-#include "maingraphicsview.h"
-#include "selectablelabel.h"
-#include "config.h"
-#include "preferencesdialog.h"
 
 #include <QAction>
 #include <QDebug>
@@ -17,24 +11,33 @@
 #include <QPixmap>
 #include <QPushButton>
 #include <QScrollArea>
+#include <QShortcut>
+#include <QString>
 #include <QTimer>
 #include <QVBoxLayout>
 #include <QWidget>
-#include <QString>
-#include <QShortcut>
+
+#include "./ui_caspian.h"
+#include "config.h"
+#include "customtoolbar.h"
+#include "maingraphicsview.h"
+#include "preferencesdialog.h"
+#include "selectablelabel.h"
 
 Caspian::Caspian(QWidget *parent) : QMainWindow(parent), ui(new Ui::Caspian) {
   ui->setupUi(this);
 
   // Setup other windows
-  connect(ui->actionPreferences, &QAction::triggered, this, &Caspian::onPreferencesTriggered);
+  connect(ui->actionPreferences, &QAction::triggered, this,
+          &Caspian::onPreferencesTriggered);
 
   // Boot logic
   Config settings;
 
   // ToolBar
   CustomToolBar *toolbar = new CustomToolBar(this);
-  connect(toolbar, &CustomToolBar::tilePickerRefresh, this, &Caspian::populateScrollMenu);
+  connect(toolbar, &CustomToolBar::tilePickerRefresh, this,
+          &Caspian::populateScrollMenu);
   this->addToolBar(toolbar);
 
   // Actions
@@ -48,14 +51,16 @@ Caspian::Caspian(QWidget *parent) : QMainWindow(parent), ui(new Ui::Caspian) {
   QGraphicsScene *scene = new QGraphicsScene(this);
   ui->selectedGraphicsView->setScene(scene);
 
-  MainGraphicsView *mainGraphicsView = dynamic_cast<MainGraphicsView *>(ui->mainGraphicsView);
-  connect(mainGraphicsView, &MainGraphicsView::executeCommand, this, &Caspian::recordCommand);
+  MainGraphicsView *mainGraphicsView =
+      dynamic_cast<MainGraphicsView *>(ui->mainGraphicsView);
+  connect(mainGraphicsView, &MainGraphicsView::executeCommand, this,
+          &Caspian::recordCommand);
 
   QPixmap defaultTexture(settings.defaultTexturePath);
   mainGraphicsView->setCurrentTexture(defaultTexture);
   mainGraphicsView->setupGrid(
-      12, 20, 64); // Change '64' if textures are not 16x16. It should just be a
-                   // multiple of your texture size.
+      12, 20, 16);  // Change '64' if textures are not 16x16. It should just be
+                    // a multiple of your texture size.
   mainGraphicsView->noCurrentTexture();
 
   QTimer::singleShot(0, this, &Caspian::populateScrollMenu);
@@ -65,7 +70,8 @@ Caspian::Caspian(QWidget *parent) : QMainWindow(parent), ui(new Ui::Caspian) {
 Caspian::~Caspian() { delete ui; }
 
 void Caspian::labelClicked(SelectableLabel *label) {
-  MainGraphicsView *mainGraphicsView = dynamic_cast<MainGraphicsView *>(ui->mainGraphicsView);
+  MainGraphicsView *mainGraphicsView =
+      dynamic_cast<MainGraphicsView *>(ui->mainGraphicsView);
   if (currentSelectedLabel) {
     currentSelectedLabel->setSelected(false);
     ui->selectedTileLabel->setText("");
@@ -92,8 +98,10 @@ void Caspian::labelClicked(SelectableLabel *label) {
     // Check if the pixmap is valid
     if (!originalTexture.isNull()) {
       QGraphicsPixmapItem *item = new QGraphicsPixmapItem(originalTexture);
-      int applicationHeight = qobject_cast<QLabel*>(sender())->window()->height();;
-      item->setScale(12 * applicationHeight/1080);
+      int applicationHeight =
+          qobject_cast<QLabel *>(sender())->window()->height();
+      ;
+      item->setScale(12 * applicationHeight / 1080);
       ui->selectedGraphicsView->scene()->addItem(item);
     }
   } else {
@@ -110,7 +118,7 @@ void Caspian::populateScrollMenu() {
   currentSelectedLabel = nullptr;
 
   // Initial path information
-  QDir directory(settings.assetPath); //.ini
+  QDir directory(settings.assetPath);  //.ini
   QStringList subDirs = directory.entryList(QDir::Dirs | QDir::NoDotAndDotDot);
   QGridLayout *layout =
       qobject_cast<QGridLayout *>(ui->tilePickerWidget->layout());
@@ -124,8 +132,7 @@ void Caspian::populateScrollMenu() {
 
   // Clear existing
   while (QLayoutItem *item = layout->takeAt(0)) {
-    if (QWidget *widget = item->widget())
-      delete widget;
+    if (QWidget *widget = item->widget()) delete widget;
     delete item;
   }
 
@@ -186,7 +193,8 @@ void Caspian::resizeEvent(QResizeEvent *event) {
 
 void Caspian::setPropertiesTable() {
   QStringList headers;
-  headers << "Property" << "Value";
+  headers << "Property"
+          << "Value";
   ui->selectedProperties->setHorizontalHeaderLabels(headers);
   ui->selectedProperties->horizontalHeader()->setDefaultAlignment(
       Qt::AlignLeft);
@@ -223,13 +231,10 @@ void Caspian::onPreferencesTriggered() {
 }
 
 // Actions/shortcuts
-void Caspian::undo() {
-  commandHistory.undo();
-}
+void Caspian::undo() { commandHistory.undo(); }
 
-void Caspian::redo() {
-  commandHistory.redo();
-}
-void Caspian::recordCommand(Command* command) {
+void Caspian::redo() { commandHistory.redo(); }
+
+void Caspian::recordCommand(Command *command) {
   commandHistory.executeCommand(command);
 }

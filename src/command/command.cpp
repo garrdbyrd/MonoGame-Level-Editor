@@ -20,6 +20,7 @@ public:
             delete redoStack.top();
             redoStack.pop();
         }
+        clearStack(redoStack);
     }
 
     void undo() {
