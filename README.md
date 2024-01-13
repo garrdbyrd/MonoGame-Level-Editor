@@ -9,7 +9,7 @@ Disclaimer: I am extremely new to Qt and don't really know how it works.
 
 # To-do list
 - [ ] Implement primary/secondary color system
-- [ ] Add undo/redo (drag commands; not single tiles)
+- [x] Add undo/redo (drag commands; not single tiles)
 - [ ] Refresh button for tile picker menu
 - [ ] Open recents
 - [ ] "Restore defaults" button in preferences tabs
