@@ -1,6 +1,6 @@
 #include "maingraphicsview.h"
-#include "config.h"
 #include "compoundpaintcommand.h"
+#include "config.h"
 
 #include <QGraphicsScene>
 #include <QMouseEvent>
@@ -29,7 +29,6 @@ void MainGraphicsView::setupGrid(int rows, int cols, int tileSize) {
     }
     grid.push_back(gridRow);
   }
-  fitInViewGrid();
 }
 
 void MainGraphicsView::setCurrentTexture(const QPixmap &texture) {
@@ -47,7 +46,11 @@ void MainGraphicsView::mousePressEvent(QMouseEvent *event) {
   int col = static_cast<uint>(scenePoint.x()) / tileSize;
 
   // Left Click on grid
-  if (event->button() == Qt::LeftButton && row >= 0 && row < grid.size() && col >= 0 && col < grid[row].size() && !currentTexture.isNull() && grid[row][col]->pixmap().toImage() != currentTexture.scaled(tileSize, tileSize, Qt::KeepAspectRatio).toImage()) {
+  if (event->button() == Qt::LeftButton && row >= 0 && row < grid.size() &&
+      col >= 0 && col < grid[row].size() && !currentTexture.isNull() &&
+      grid[row][col]->pixmap().toImage() !=
+          currentTexture.scaled(tileSize, tileSize, Qt::KeepAspectRatio)
+              .toImage()) {
     isLeftDragging = true;
     isPainting = true;
     startPainting();
@@ -106,7 +109,11 @@ void MainGraphicsView::mouseMoveEvent(QMouseEvent *event) {
   QPointF scenePoint = mapToScene(event->pos());
   int row = static_cast<uint>(scenePoint.y()) / tileSize;
   int col = static_cast<uint>(scenePoint.x()) / tileSize;
-  if (isLeftDragging && row >= 0 && row < grid.size() && col >= 0 && col < grid[row].size() && !currentTexture.isNull() && grid[row][col]->pixmap().toImage() != currentTexture.scaled(tileSize, tileSize, Qt::KeepAspectRatio).toImage()) {
+  if (isLeftDragging && row >= 0 && row < grid.size() && col >= 0 &&
+      col < grid[row].size() && !currentTexture.isNull() &&
+      grid[row][col]->pixmap().toImage() !=
+          currentTexture.scaled(tileSize, tileSize, Qt::KeepAspectRatio)
+              .toImage()) {
     applyPaint(grid[row][col]);
   }
   if (isMiddleDragging) {
@@ -138,11 +145,12 @@ void MainGraphicsView::startPainting() {
   prevPixmaps.clear();
 }
 
-void MainGraphicsView::applyPaint(QGraphicsPixmapItem* item) {
+void MainGraphicsView::applyPaint(QGraphicsPixmapItem *item) {
   if (!paintedItems.contains(item)) {
     paintedItems.append(item);
     prevPixmaps.append(item->pixmap());
-    item->setPixmap(currentTexture.scaled(tileSize, tileSize, Qt::KeepAspectRatio));
+    item->setPixmap(
+        currentTexture.scaled(tileSize, tileSize, Qt::KeepAspectRatio));
   }
 }
 
@@ -152,17 +160,19 @@ void MainGraphicsView::endPainting() {
     for (auto item : qAsConst(paintedItems)) {
       newPixmaps.append(item->pixmap());
     }
-    emit executeCommand(new CompoundPaintCommand(paintedItems, prevPixmaps, newPixmaps));
+    emit executeCommand(
+        new CompoundPaintCommand(paintedItems, prevPixmaps, newPixmaps));
   }
 }
 
-void MainGraphicsView::resizeEvent(QResizeEvent* event) {
-  QGraphicsView::resizeEvent(event); // 1
-  fitInViewGrid();                   // 2
+void MainGraphicsView::resizeEvent(QResizeEvent *event) {
+  QGraphicsView::resizeEvent(event);
 }
 
+// Unused for now
 void MainGraphicsView::fitInViewGrid() {
-  if (grid.isEmpty() || grid[0].isEmpty()) return;
+  if (grid.isEmpty() || grid[0].isEmpty())
+    return;
 
   const int padding = tileSize;
 
