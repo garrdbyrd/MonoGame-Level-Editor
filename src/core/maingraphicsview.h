@@ -38,6 +38,8 @@ private:
   void startPainting();
   void applyPaint(QGraphicsPixmapItem* item);
   void endPainting();
+  void fitInViewGrid();
+  void resizeEvent(QResizeEvent* event) override;
 
 signals:
   void executeCommand(Command* command);

@@ -29,6 +29,7 @@ void MainGraphicsView::setupGrid(int rows, int cols, int tileSize) {
     }
     grid.push_back(gridRow);
   }
+  fitInViewGrid();
 }
 
 void MainGraphicsView::setCurrentTexture(const QPixmap &texture) {
@@ -153,4 +154,35 @@ void MainGraphicsView::endPainting() {
     }
     emit executeCommand(new CompoundPaintCommand(paintedItems, prevPixmaps, newPixmaps));
   }
+}
+
+void MainGraphicsView::resizeEvent(QResizeEvent* event) {
+  QGraphicsView::resizeEvent(event); // 1
+  fitInViewGrid();                   // 2
+}
+
+void MainGraphicsView::fitInViewGrid() {
+  if (grid.isEmpty() || grid[0].isEmpty()) return;
+
+  const int padding = tileSize;
+
+  // Calculate the size of the entire grid
+  int gridWidth = grid[0].size() * tileSize + 2 * padding;
+  int gridHeight = grid.size() * tileSize + 2 * padding;
+
+  // Get the size of the view
+  QRectF viewRect = this->viewport()->rect();
+  viewRect.adjust(padding, padding, -padding, -padding);
+
+  // Calculate scale factors for width and height
+  qreal scaleX = viewRect.width() / gridWidth;
+  qreal scaleY = viewRect.height() / gridHeight;
+
+  // Use the smaller scale factor to ensure the entire grid fits
+  qreal scaleFactor = qMin(scaleX, scaleY);
+
+  // Reset the view transformation and scale the view
+  this->resetTransform();
+  this->scale(scaleFactor, scaleFactor);
+  this->centerOn(gridWidth / 2.0, gridHeight / 2.0);
 }
