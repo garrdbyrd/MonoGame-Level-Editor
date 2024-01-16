@@ -1,2 +1,6 @@
 caspian
 icons/
+test/levelwriter
+test/*.level
+test/chunkwriter
+test/*.chunk

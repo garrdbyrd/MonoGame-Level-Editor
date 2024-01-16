@@ -2,6 +2,7 @@
 
 // Known incorrect warning on following line
 // see: https://github.com/clangd/clangd/issues/1167
+#pragma clang diagnostic ignored "-Wpragma-pack"
 #pragma pack(push, 1)
 struct ChunkHeader {
   uint8_t magicNumbers[8];
