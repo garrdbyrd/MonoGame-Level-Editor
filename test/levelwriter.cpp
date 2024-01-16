@@ -20,6 +20,10 @@ int main() {
   header.versionBugfix = 0;
   // Timestamp
   header.timestamp = static_cast<uint64_t>(time(nullptr));
+  // Title
+  header.setLevelTitle("Example Level Title");
+  header.width = 16;
+  header.height = 9;
 
   // Open a file in binary mode
   std::ofstream outputFile("example.level", std::ios::binary);
