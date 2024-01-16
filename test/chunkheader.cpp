@@ -1,5 +1,7 @@
 #include <cstdint>
 
+// Known incorrect warning on following line
+// see: https://github.com/clangd/clangd/issues/1167
 #pragma pack(push, 1)
 struct ChunkHeader {
   uint8_t magicNumbers[8];
