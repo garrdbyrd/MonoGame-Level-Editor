@@ -9,5 +9,6 @@ struct LevelHeader {
   uint8_t versionMinor;
   uint8_t versionBugfix;
   uint64_t timestamp;
+  char levelTitle[128]; // Arbitrary length for title
 };
 #pragma pack(pop)
