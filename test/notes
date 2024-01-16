@@ -1,0 +1,1 @@
+g++ -g levelwriter.cpp -o levelwriter && g++ -g chunkwriter.cpp -o chunkwriter && ./levelwriter && ./chunkwriter
