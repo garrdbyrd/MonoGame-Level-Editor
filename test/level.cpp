@@ -6,8 +6,6 @@
 
 #include "level.h"
 
-Level::Level() {}
-
 bool Level::readFromFile(const std::string &filename) {
   std::ifstream file(filename, std::ios::binary);
   if (!file) {
@@ -27,6 +25,11 @@ bool Level::readFromFile(const std::string &filename) {
 
   if (!readLevelTitle(file)) {
     std::cerr << "Failed to read level title." << std::endl;
+    return false;
+  }
+
+  if (!readWidthHeight(file)) {
+    std::cerr << "Failed to read width/height" << std::endl;
     return false;
   }
 
@@ -75,6 +78,21 @@ bool Level::readLevelTitle(std::ifstream &file) {
     std::cerr << "Failed to read levelTitle from file." << std::endl;
     return false;
   }
+
+  return true;
+}
+
+bool Level::readWidthHeight(std::ifstream &file) {
+  file.seekg(147, std::ios::beg);
+  if (!file) {
+    std::cerr << "Failed to seek to the width/height position in the file."
+              << std::endl;
+    return false;
+  }
+
+  // Read the levelTitle
+  file.read(reinterpret_cast<char *>(&width), sizeof(width));
+  file.read(reinterpret_cast<char *>(&height), sizeof(height));
 
   return true;
 }

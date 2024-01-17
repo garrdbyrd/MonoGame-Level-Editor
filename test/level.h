@@ -10,8 +10,8 @@
 class Level {
 public:
   // Constructor/Destructor
-  Level();
-  ~Level();
+  Level() = default;
+  ~Level() = default;
 
   // Header
   const std::vector<uint8_t> levelMagicNumbers = {
@@ -27,13 +27,14 @@ public:
   uint16_t height;
 
   // Methods
+  bool readFromFile(const std::string &filename);
 
 private:
   // Methods
-  bool readFromFile(const std::string &filename);
   bool isValidMagicNumber(std::ifstream &file);
   bool readVersionInfo(std::ifstream &file);
   bool readLevelTitle(std::ifstream &file);
+  bool readWidthHeight(std::ifstream &file);
 };
 
 #endif // LEVEL_H
