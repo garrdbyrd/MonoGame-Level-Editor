@@ -31,7 +31,7 @@ public:
 
 private:
   // Methods
-  bool isValidMagicNumber(std::ifstream &file);
+  bool readMagicNumber(std::ifstream &file);
   bool readVersionInfo(std::ifstream &file);
   bool readLevelTitle(std::ifstream &file);
   bool readWidthHeight(std::ifstream &file);

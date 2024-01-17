@@ -13,7 +13,7 @@ bool Level::readFromFile(const std::string &filename) {
     return false;
   }
 
-  if (!isValidMagicNumber(file)) {
+  if (!readMagicNumber(file)) {
     std::cerr << "Invalid file format (magic number mismatch)." << std::endl;
     return false;
   }
@@ -36,7 +36,7 @@ bool Level::readFromFile(const std::string &filename) {
   return true;
 }
 
-bool Level::isValidMagicNumber(std::ifstream &file) {
+bool Level::readMagicNumber(std::ifstream &file) {
   std::vector<uint8_t> fileMagicNumber(levelMagicNumber.size());
 
   file.read(reinterpret_cast<char *>(fileMagicNumber.data()),
