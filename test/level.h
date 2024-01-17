@@ -14,7 +14,7 @@ public:
   ~Level() = default;
 
   // Header
-  const std::vector<uint8_t> levelMagicNumbers = {
+  const std::vector<uint8_t> levelMagicNumber = {
       0x44, 0x4F, 0x54, 0x4C, 0x45, 0x56, 0x45, 0x4C,
   };
   uint8_t versionMajor;

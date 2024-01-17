@@ -37,7 +37,7 @@ bool Level::readFromFile(const std::string &filename) {
 }
 
 bool Level::isValidMagicNumber(std::ifstream &file) {
-  std::vector<uint8_t> fileMagicNumber(levelMagicNumbers.size());
+  std::vector<uint8_t> fileMagicNumber(levelMagicNumber.size());
 
   file.read(reinterpret_cast<char *>(fileMagicNumber.data()),
             fileMagicNumber.size());
@@ -46,7 +46,7 @@ bool Level::isValidMagicNumber(std::ifstream &file) {
     return false;
   }
 
-  return fileMagicNumber == levelMagicNumbers;
+  return fileMagicNumber == levelMagicNumber;
 }
 
 bool Level::readVersionInfo(std::ifstream &file) {
