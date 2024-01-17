@@ -1,0 +1,12 @@
+BasedOnStyle: LLVM
+IndentWidth: 4
+TabWidth: 4
+ColumnLimit: 200
+UseTab: ForContinuationAndIndentation
+InsertTrailingCommas: None
+AlignTrailingComments: true
+AlignAfterOpenBracket: BlockIndent
+AlignConsecutiveAssignments: true
+
+# or add it to settings:
+# -style={BasedOnStyle: LLVM, IndentWidth: 4, TabWidth: 4, ColumnLimit: 200, UseTab: ForContinuationAndIndentation, InsertTrailingCommas: None, AlignTrailingComments: true, AlignAfterOpenBracket: BlockIndent, AlignConsecutiveAssignments: true}

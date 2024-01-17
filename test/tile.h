@@ -22,11 +22,15 @@ public:
   bool icy = false;
 
   // Methods
-  bool readFromFile();
+  bool readFromFile(const std::string &filename, u_int32_t offset);
 
 private:
   // Methods
-  bool readCollision;
+  bool readXCoordinate(std::ifstream &file);
+  bool readYCoordinate(std::ifstream &file);
+  bool readCollision(std::ifstream &file);
+  bool readFriction(std::ifstream &file);
+  bool readIcy(std::ifstream &file);
 };
 
 #endif // TILE_H
