@@ -1,37 +1,28 @@
 #include "filebrowsewidget.h"
 #include <QFileDialog>
 
-FileBrowseWidget::FileBrowseWidget(QWidget *parent)
-    : QWidget(parent), lineEdit(new QLineEdit(this)), browseButton(new QPushButton("Browse", this)) {
+FileBrowseWidget::FileBrowseWidget(QWidget *parent) : QWidget(parent), lineEdit(new QLineEdit(this)), browseButton(new QPushButton("Browse", this)) {
 
-    // Set up the layout
-    QHBoxLayout *layout = new QHBoxLayout(this);
-    layout->addWidget(lineEdit);
-    layout->addWidget(browseButton);
+	// Set up the layout
+	QHBoxLayout *layout = new QHBoxLayout(this);
+	layout->addWidget(lineEdit);
+	layout->addWidget(browseButton);
 
-    // Connect the browse button signal to the slot
-    connect(browseButton, &QPushButton::clicked, this, &FileBrowseWidget::onBrowseButtonClicked);
+	// Connect the browse button signal to the slot
+	connect(browseButton, &QPushButton::clicked, this, &FileBrowseWidget::onBrowseButtonClicked);
 }
 
-QString FileBrowseWidget::filePath() const {
-    return lineEdit->text();
-}
+QString FileBrowseWidget::filePath() const { return lineEdit->text(); }
 
-void FileBrowseWidget::setFilePath(const QString &path) {
-    lineEdit->setText(path);
-}
+void FileBrowseWidget::setFilePath(const QString &path) { lineEdit->setText(path); }
 
 void FileBrowseWidget::onBrowseButtonClicked() {
-    QString selectedFile = QFileDialog::getOpenFileName(this, tr("Select File"));
-    if (!selectedFile.isEmpty()) {
-        lineEdit->setText(selectedFile);
-    }
+	QString selectedFile = QFileDialog::getOpenFileName(this, tr("Select File"));
+	if (!selectedFile.isEmpty()) {
+		lineEdit->setText(selectedFile);
+	}
 }
 
-QLineEdit* FileBrowseWidget::getLineEdit() const {
-    return lineEdit;
-}
+QLineEdit *FileBrowseWidget::getLineEdit() const { return lineEdit; }
 
-QPushButton* FileBrowseWidget::getBrowseButton() const {
-    return browseButton;
-}
+QPushButton *FileBrowseWidget::getBrowseButton() const { return browseButton; }
