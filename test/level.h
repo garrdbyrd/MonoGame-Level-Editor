@@ -7,6 +7,8 @@
 #include <iostream>
 #include <vector>
 
+#include "tile.h"
+
 class Level {
 public:
   // Constructor/Destructor
@@ -25,9 +27,11 @@ public:
   char levelTitle[128];
   uint16_t width;
   uint16_t height;
+  std::vector<std::vector<Tile>> grid;
 
   // Methods
   bool readFromFile(const std::string &filename);
+  void initializeGrid(const Tile &defaultTile);
 
 private:
   // Methods
