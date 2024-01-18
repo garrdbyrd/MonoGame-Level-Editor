@@ -1,7 +1,6 @@
 #include <cstdint>
 #include <cstring>
-#include <fstream>
-#include <iostream>
+#include <string>
 #include <vector>
 
 // Known incorrect warning on following line

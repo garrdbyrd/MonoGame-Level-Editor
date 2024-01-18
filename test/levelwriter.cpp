@@ -2,7 +2,7 @@
 #include <fstream>
 #include <iostream>
 
-#include "levelheader.cpp"
+#include "../src/level/levelheader.cpp"
 
 int main() {
 	// Header
@@ -25,7 +25,7 @@ int main() {
 	header.height = 9;
 
 	// Open a file in binary mode
-	std::ofstream outputFile("example.level", std::ios::binary);
+	std::ofstream outputFile("test/example.level", std::ios::binary);
 
 	if (!outputFile) {
 		std::cerr << "Error opening file for writing.\n";
