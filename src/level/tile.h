@@ -25,6 +25,8 @@ class Tile {
 	bool collision        = true;      //   1	// 137	// 136
 	float friction        = 1.0f;      //   1 	// 138	// 137
 	bool icy              = false;     //   1	// 139	// 138
+	// Padding
+	uint8_t padding[1024 - 139];
 
 	// Methods
 	bool readFromFile(const std::string &filename, u_int32_t offset);

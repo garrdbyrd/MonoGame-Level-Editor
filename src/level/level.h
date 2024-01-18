@@ -7,6 +7,7 @@
 #include <iostream>
 #include <vector>
 
+#include "levelheader.h"
 #include "tile.h"
 
 class Level {
