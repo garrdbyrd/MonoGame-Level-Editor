@@ -32,6 +32,9 @@ class Level {
 	char levelTitle[128];  // 128  // 147  //  19
 	uint16_t width;        //   2  // 149  // 147
 	uint16_t height;       //   2  // 151  // 149
+	// Header padding
+	uint8_t padding[1024 - 151];
+
 	// Main
 	std::vector<std::vector<Tile>> grid;
 
