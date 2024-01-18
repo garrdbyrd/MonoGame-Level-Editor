@@ -2,27 +2,27 @@
 #include <fstream>
 #include <iostream>
 
-#include "../src/level/levelheader.h"
+#include "../src/level/level.h"
 
 int main() {
 	// Header
-	LevelHeader header;
+	Level level;
 
 	// DOTLEVEL magic number
 	const uint8_t magicNumber[] = {
 		0x44, 0x4F, 0x54, 0x4C, 0x45, 0x56, 0x45, 0x4C,
 	};
-	std::copy(std::begin(magicNumber), std::end(magicNumber), std::begin(header.magicNumber));
+	std::copy(std::begin(magicNumber), std::end(magicNumber), std::begin(level.magicNumber));
 	// Version
-	header.versionMajor  = 0;
-	header.versionMinor  = 1;
-	header.versionBugfix = 0;
+	level.versionMajor  = 0;
+	level.versionMinor  = 1;
+	level.versionBugfix = 0;
 	// Timestamp
-	header.timestamp = static_cast<uint64_t>(time(nullptr));
+	level.timestamp = static_cast<uint64_t>(time(nullptr));
 	// Title
-	header.setLevelTitle("Example Level Title");
-	header.width  = 16;
-	header.height = 9;
+	level.setLevelTitle("Example Level Title");
+	level.width  = 16;
+	level.height = 9;
 
 	// Open a file in binary mode
 	std::ofstream outputFile("test/example.level", std::ios::binary);
@@ -33,7 +33,7 @@ int main() {
 	}
 
 	// Write the header
-	outputFile.write(reinterpret_cast<const char *>(&header), sizeof(header));
+	outputFile.write(reinterpret_cast<const char *>(&level), sizeof(level));
 
 	// Check for write errors
 	if (!outputFile) {

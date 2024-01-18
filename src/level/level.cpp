@@ -46,15 +46,15 @@ bool Level::readFromFile(const std::string &filename) {
 }
 
 bool Level::readMagicNumber(std::ifstream &file) {
-	std::vector<uint8_t> fileMagicNumber(levelMagicNumber.size());
+	uint8_t fileMagicNumber[8];
 
-	file.read(reinterpret_cast<char *>(fileMagicNumber.data()), fileMagicNumber.size());
+	file.read(reinterpret_cast<char *>(fileMagicNumber), sizeof(fileMagicNumber));
 	if (!file) {
 		std::cerr << "Failed to read magic number from file." << std::endl;
 		return false;
 	}
 
-	return fileMagicNumber == levelMagicNumber;
+	return std::memcmp(fileMagicNumber, magicNumber, sizeof(fileMagicNumber)) == 0;
 }
 
 bool Level::readVersionInfo(std::ifstream &file) {
@@ -100,4 +100,13 @@ bool Level::readWidthHeight(std::ifstream &file) {
 	file.read(reinterpret_cast<char *>(&height), sizeof(height));
 
 	return true;
+}
+
+void Level::setLevelTitle(const std::string &title) {
+	// Clear the existing title
+	std::fill(std::begin(this->levelTitle), std::end(this->levelTitle), '\0');
+
+	// Copy the new title, ensuring it's not longer than the buffer
+	std::strncpy(this->levelTitle, title.c_str(), 128 - 1);
+	this->levelTitle[128 - 1] = '\0'; // Explicit null termination
 }
