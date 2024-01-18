@@ -38,7 +38,7 @@ bool Level::readFromFile(const std::string &filename) {
 	}
 
 	if (!readWidthHeight(file)) {
-		std::cerr << "Failed to read width/height" << std::endl;
+		std::cerr << "Failed to read width/height." << std::endl;
 		return false;
 	}
 

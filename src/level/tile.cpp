@@ -1,31 +1,128 @@
-#include <cstdint>
 #include <fstream>
 #include <iostream>
 #include <vector>
 
-#include "level.h"
 #include "tile.h"
 
-bool readFromFile(const std::string &filename, u_int32_t offset) {
+bool Tile::readFromFile(const std::string &filename, u_int32_t offset) {
 	std::ifstream file(filename, std::ios::binary);
 	if (!file) {
 		std::cerr << "Error opening file: " << filename << std::endl;
 		return false;
 	}
 
-	uint16_t headerOffset = 1024;                                // Header is 1kb
-	uint16_t tileSize     = 1024;                                // Tiles are 1kb
-	std::vector<char> buffer(tileSize);                          // Buffer for tiles
-	file.seekg(tileSize * offset + headerOffset, std::ios::beg); // Offset for other tiles
+	std::vector<char> buffer(tileSize());                            // Buffer for tiles
+	file.seekg(tileSize() * offset + headerOffset(), std::ios::beg); // Offset for other tiles
 
 	if (!file) {
 		std::cerr << "Error seeking to offset in file: " << offset << std::endl;
 		return false;
 	}
+
+	if (!readXCoordinate(file)) {
+		std::cerr << "Failed to read xCoordinate." << std::endl;
+		return false;
+	}
+
+	if (!readYCoordinate(file)) {
+		std::cerr << "Failed to read yCoordinate." << std::endl;
+		return false;
+	}
+
+	if (!readTileType(file)) {
+		std::cerr << "Failed to read tileType." << std::endl;
+		return false;
+	}
+
+	if (!readCollision(file)) {
+		std::cerr << "Failed to read collision." << std::endl;
+		return false;
+	}
+
+	if (!readFriction(file)) {
+		std::cerr << "Failed to read friction." << std::endl;
+		return false;
+	}
+
+	if (!readIcy(file)) {
+		std::cerr << "Failed to read icy." << std::endl;
+		return false;
+	}
+
+	return true;
 }
 
-bool readXCoordinate(std::ifstream &file);
-bool readYCoordinate(std::ifstream &file);
-bool readCollision(std::ifstream &file);
-bool readFriction(std::ifstream &file);
-bool readIcy(std::ifstream &file);
+int Tile::headerOffset() { return 1024; }
+
+int Tile::tileSize() { return 1024; }
+
+bool Tile::readXCoordinate(std::ifstream &file) {
+	int offset = headerOffset();
+	file.seekg(offset, std::ios::beg);
+	if (!file) {
+		std::cerr << "Failed to read xCoordinate from file.";
+		return false;
+	}
+	file.read(reinterpret_cast<char *>(&xCoordinate), sizeof(xCoordinate));
+	return true;
+}
+
+bool Tile::readYCoordinate(std::ifstream &file) {
+	int offset = headerOffset() + 4;
+	file.seekg(offset, std::ios::beg);
+	if (!file) {
+		std::cerr << "Failed to read yCoordinate from file.";
+		return false;
+	}
+	file.read(reinterpret_cast<char *>(&yCoordinate), sizeof(yCoordinate));
+	return true;
+}
+
+bool Tile::readTileType(std::ifstream &file) {
+	int offset = headerOffset() + 8;
+	file.seekg(offset, std::ios::beg);
+	if (!file) {
+		std::cerr << "Failed to read tileType from file.";
+		return false;
+	}
+	file.read(tileType, sizeof(tileType));
+	if (!file) {
+		std::cerr << "Failed to read tileType from file." << std::endl;
+		return false;
+	}
+
+	return true;
+}
+
+bool Tile::readCollision(std::ifstream &file) {
+	int offset = headerOffset() + 136;
+	file.seekg(offset, std::ios::beg);
+	if (!file) {
+		std::cerr << "Failed to read collision from file.";
+		return false;
+	}
+	file.read(reinterpret_cast<char *>(&collision), sizeof(collision));
+	return true;
+}
+
+bool Tile::readFriction(std::ifstream &file) {
+	int offset = headerOffset() + 137;
+	file.seekg(offset, std::ios::beg);
+	if (!file) {
+		std::cerr << "Failed to read friction from file.";
+		return false;
+	}
+	file.read(reinterpret_cast<char *>(&friction), sizeof(friction));
+	return true;
+}
+
+bool Tile::readIcy(std::ifstream &file) {
+	int offset = headerOffset() + 138;
+	file.seekg(offset, std::ios::beg);
+	if (!file) {
+		std::cerr << "Failed to read icy from file.";
+		return false;
+	}
+	file.read(reinterpret_cast<char *>(&icy), sizeof(icy));
+	return true;
+}
