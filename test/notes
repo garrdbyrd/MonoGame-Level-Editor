@@ -1,5 +1,5 @@
-g++ -g test/levelwriter.cpp -o test/levelwriter && ./test/levelwriter
+g++ -g test/levelwriter.cpp src/level/levelheader.cpp -o test/levelwriter && ./test/levelwriter
 g++ -g test/levelparser.cpp src/level/level.cpp -o test/levelparser && ./test/levelparser
 
-clang++ -g test/levelwriter.cpp -o test/levelwriter && ./test/levelwriter
+clang++ -g test/levelwriter.cpp src/level/levelheader.cpp -o test/levelwriter && ./test/levelwriter
 clang++ -g test/levelparser.cpp src/level/level.cpp -o test/levelparser && ./test/levelparser

@@ -2,7 +2,7 @@
 #include <fstream>
 #include <iostream>
 
-#include "../src/level/levelheader.cpp"
+#include "../src/level/levelheader.h"
 
 int main() {
 	// Header
