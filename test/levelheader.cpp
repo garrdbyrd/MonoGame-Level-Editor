@@ -9,7 +9,7 @@
 #pragma clang diagnostic ignored "-Wpragma-pack"
 #pragma pack(push, 1)
 struct LevelHeader {
-	// ------------------------ this   total
+	// ----------------------- this   total
 	uint8_t magicNumber[8]; // 8   // 8
 	uint8_t versionMajor;   // 1   // 9
 	uint8_t versionMinor;   // 1   // 10

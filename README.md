@@ -7,7 +7,7 @@ This is made with Qt. This will not have its own dev diary, that is also in Peve
 
 Disclaimer: I am extremely new to Qt and don't really know how it works.
 
-# To-do list
+## To-do list
 - [ ] Implement primary/secondary color system
 - [x] Add undo/redo (drag commands; not single tiles)
 - [x] Refresh button for tile picker menu
@@ -15,13 +15,33 @@ Disclaimer: I am extremely new to Qt and don't really know how it works.
 - [ ] "Restore defaults" button in preferences tabs
 - [ ] Fullscreen mainGraphicsView
 
-# Harder to-do list
+## Harder to-do list
 - [ ] Implement palette
 - [ ] Add all standard shortcuts (cut, copy, paste, ctrl + left click, save, etc)
 - [ ] Autosave functionality
 - [ ] Implement tabs so the user can edit multiple levels at once
 - [ ] Export image (.png, .jpg, .tif) (checkbox: ignore default)
 
-# Nightmare to-do list
+## Nightmare to-do list
 - [ ] Read/write proprietary `.level` and `.chunk` file types
 - [ ] Inspect tiles in main graphics view (change properties of particular tiles) (and everything else having to do with the properties menu)
+
+# `.level` Specification
+This project utilizes a custom filetype to store/exchange level information. Appropriately, the extension of this filetype is `.level`. The dot level specification is provided in the following tables:
+
+### First kilobyte:
+
+| Value                 | Type       | Size               | Byte offset | About                                                                                                                                           |
+|-----------------------|------------|--------------------|-------------|-------------------------------------------------------------------------------------------------------------------------------------------------|
+| Magic Number          | uint8[8]   | 8                  | 0           | 44 4F 54 4C 45 56 45 4C                                                                                                                         |
+| Major Version Number  | uint8      | 1                  | 8           | Major version number of .level specification                                                                                                    |
+| Minor Version Number  | uint8      | 1                  | 9           | Minor version number of .level specification                                                                                                    |
+| Bugfix Version Number | 25         | 1                  | 10          | Bugfix/patch version number of .level specification                                                                                             |
+| Timestamp             | uint64     | 8                  | 11          | Timestamp of file creation                                                                                                                      |
+| Level Title           | char[128]  | 128                | 19          | Title of the level                                                                                                                              |
+| Level Width           | uint16     | 2                  | 147         | Number of tiles that span the width of the level                                                                                                |
+| Level Height          | uint16     | 2                  | 149         | Number of tiles that span the height of the level                                                                                               |
+| Padding               | uint8[...] | 1024 - byte offset | 151         | First kilobyte is reserved for file metadata. The size of this padding may reduce as the specification changes and more fields are added above. |
+
+### Remaining kilobytes:
+Each remaining kilobyte corresponds to a tile within the level, which will be specified here when the tile specification is developed.
