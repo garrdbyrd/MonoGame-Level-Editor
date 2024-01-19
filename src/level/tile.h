@@ -21,14 +21,14 @@ class Tile {
 	~Tile() = default;
 
 	// Main
-	//								   this	    total	offset
-	u_int16_t xCoordinate = 0;         //   2	//    2	//   0
-	u_int16_t yCoordinate = 0;         //   2	//    4	//   2
-	u_int32_t uniqueID    = 0;         //   4	//    8	//   4
-	char tileType[128]    = "default"; // 128	//  136	//   8
-	bool collision        = true;      //   1	//  137	// 136
-	float friction        = 1.0f;      //   4 	//  141	// 137
-	bool icy              = false;     //   1	//  142	// 141
+	//								this	total	offset
+	u_int16_t xCoordinate;          //   2	//    2	//   0
+	u_int16_t yCoordinate;          //   2	//    4	//   2
+	u_int32_t uniqueID;             //   4	//    8	//   4
+	char tileType[128] = "default"; // 128	//  136	//   8
+	bool collision     = true;      //   1	//  137	// 136
+	float friction     = 1.0f;      //   4 	//  141	// 137
+	bool icy           = false;     //   1	//  142	// 141
 	// Padding
 	uint8_t padding[1024 - 142];
 

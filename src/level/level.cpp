@@ -8,10 +8,20 @@
 
 void Level::initializeGrid(const Tile &defaultTile) {
 	this->grid.resize(this->height, std::vector<Tile>(this->width));
+	uint16_t x  = 0;
+	uint16_t y  = 0;
+	uint32_t id = 0;
 	for (auto &row : this->grid) {
+		x = 0;
 		for (Tile &tile : row) {
-			tile = defaultTile;
+			tile             = defaultTile;
+			tile.xCoordinate = x;
+			tile.yCoordinate = y;
+			tile.uniqueID    = id;
+			id++;
+			x++;
 		}
+		y++;
 	}
 }
 
