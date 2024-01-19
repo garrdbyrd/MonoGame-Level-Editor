@@ -38,7 +38,6 @@ class Level {
 
 	// Main
 	std::vector<std::vector<Tile>> grid;
-	static_assert(sizeof(grid) == sizeof(std::vector<std::vector<Tile>>), "`grid` vector is not 24 bytes.");
 
 	// Methods
 	void setLevelTitle(const std::string &title);
