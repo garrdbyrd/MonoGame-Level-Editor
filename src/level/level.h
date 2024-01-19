@@ -1,6 +1,7 @@
 #ifndef LEVEL_H
 #define LEVEL_H
 
+#include <cstddef>
 #include <cstdint>
 #include <cstring>
 #include <fstream>
@@ -36,7 +37,8 @@ class Level {
 	uint8_t padding[1024 - 151];
 
 	// Main
-	std::vector<std::vector<Tile>> grid;
+	// std::vector<std::vector<Tile>> grid;
+	Tile *grid;
 
 	// Methods
 	void setLevelTitle(const std::string &title);
@@ -51,5 +53,7 @@ class Level {
 	bool readWidthHeight(std::ifstream &file);
 };
 #pragma pack(pop)
+
+static_assert(offsetof(Level, grid) == 1024, "`grid` offset is not 1024 bytes.");
 
 #endif // LEVEL_H
