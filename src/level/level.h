@@ -38,7 +38,7 @@ class Level {
 
 	// Main
 	// std::vector<std::vector<Tile>> grid;
-	Tile *grid;
+	Tile grid;
 
 	// Methods
 	void setLevelTitle(const std::string &title);
