@@ -34,11 +34,11 @@ class Level {
 	uint16_t width;        //   2  // 149  // 147
 	uint16_t height;       //   2  // 151  // 149
 	// Header padding
-	uint8_t padding[1024 - 151];
+	uint8_t padding[1024 - 151 - sizeof(std::vector<std::vector<Tile>>)];
 
 	// Main
-	// std::vector<std::vector<Tile>> grid;
-	Tile grid;
+	std::vector<std::vector<Tile>> grid;
+	static_assert(sizeof(grid) == sizeof(std::vector<std::vector<Tile>>), "`grid` vector is not 24 bytes.");
 
 	// Methods
 	void setLevelTitle(const std::string &title);
@@ -54,6 +54,7 @@ class Level {
 };
 #pragma pack(pop)
 
-static_assert(offsetof(Level, grid) == 1024, "`grid` offset is not 1024 bytes.");
+// 1000 bytes instead of 1024 because final 24 bytes is grid vector
+static_assert(offsetof(Level, grid) == 1024 - sizeof(std::vector<std::vector<Tile>>), "`grid` offset is not 1024 bytes.");
 
 #endif // LEVEL_H

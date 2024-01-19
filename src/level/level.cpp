@@ -6,15 +6,14 @@
 #include "level.h"
 #include "tile.h"
 
-// void Level::initializeGrid(const Tile &defaultTile) {
-// 	// this->grid = new Tile[width * height];
-// 	this->grid->resize(this->height, std::vector<Tile>(this->width));
-// 	for (auto &row : this->grid) {
-// 		for (Tile &tile : row) {
-// 			tile = defaultTile;
-// 		}
-// 	}
-// }
+void Level::initializeGrid(const Tile &defaultTile) {
+	this->grid.resize(this->height, std::vector<Tile>(this->width));
+	for (auto &row : this->grid) {
+		for (Tile &tile : row) {
+			tile = defaultTile;
+		}
+	}
+}
 
 bool Level::readFromFile(const std::string &filename) {
 	std::ifstream file(filename, std::ios::binary);

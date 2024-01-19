@@ -3,6 +3,7 @@
 #include <iostream>
 
 #include "../src/level/level.h"
+#include "../src/level/tile.h"
 
 int main() {
 	// Header
@@ -32,8 +33,18 @@ int main() {
 		return 1;
 	}
 
-	// Write the header
+	// Init grid
+	Tile tempTile;
+	level.initializeGrid(tempTile);
+
+	// Write the level
+	// Header + vector
 	outputFile.write(reinterpret_cast<const char *>(&level), sizeof(level));
+	for (const auto &row : level.grid) {
+		for (const auto &tile : row) {
+			outputFile.write(reinterpret_cast<const char *>(&tile), sizeof(tile));
+		}
+	}
 
 	// Check for write errors
 	if (!outputFile) {
