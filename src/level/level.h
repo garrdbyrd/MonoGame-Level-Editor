@@ -10,6 +10,35 @@
 
 #include "tile.h"
 
+struct levelHeaderOffsets {
+	// Sizes (in bytes)
+	static const int magicNumberSize    = sizeof(uint8_t[8]);
+	static const int versionMajorSize   = sizeof(uint8_t);
+	static const int versionMinorSize   = sizeof(uint8_t);
+	static const int versionBugfixSize  = sizeof(uint8_t);
+	static const int versionPaddingSize = sizeof(uint8_t[5]);
+	static const int timestampSize      = sizeof(uint64_t);
+	static const int levelTitleSize     = 8 + 128; // alignment + arbitrary
+	static const int widthSize          = sizeof(uint16_t);
+	static const int heightSize         = sizeof(uint16_t);
+	static const int headerSize         = 1024;
+
+	// Main
+	static const int magicNumberOffset    = 0;
+	static const int versionMajorOffset   = magicNumberSize;
+	static const int versionMinorOffset   = versionMajorOffset + versionMajorSize;
+	static const int versionBugfixOffset  = versionMinorOffset + versionMinorSize;
+	static const int versionPaddingOffset = versionBugfixOffset + versionBugfixSize;
+	static const int timestampOffset      = versionPaddingOffset + versionPaddingSize;
+	static const int levelTitleOffset     = timestampOffset + timestampSize;
+	static const int widthOffset          = levelTitleOffset + levelTitleSize;
+	static const int heightOffset         = widthOffset + widthSize;
+
+	// Padding
+	static const int paddingOffset = heightOffset + heightSize; // Update when other properties are added
+	static const int paddingSize   = headerSize - paddingOffset;
+};
+
 // Known incorrect warning on following line
 // see: https://github.com/clangd/clangd/issues/1167
 #pragma clang diagnostic ignored "-Wpragma-pack"
@@ -24,17 +53,16 @@ class Level {
 	uint8_t magicNumber[8] = {
 		0x44, 0x4F, 0x54, 0x4C, 0x45, 0x56, 0x45, 0x4C,
 	};
-	// 					   this	   total   offset
-	//      magicNumber    //   8  //   8  //   0
-	uint8_t versionMajor;  //   1  //   9  //   8
-	uint8_t versionMinor;  //   1  //  10  //   9
-	uint8_t versionBugfix; //   1  //  11  //  10
-	uint64_t timestamp;    //   8  //  19  //  11
-	char levelTitle[128];  // 128  // 147  //  19
-	uint16_t width;        //   2  // 149  // 147
-	uint16_t height;       //   2  // 151  // 149
+	uint8_t versionMajor;
+	uint8_t versionMinor;
+	uint8_t versionBugfix;
+	uint8_t versionPadding[5]; // Padding to align timestamp
+	uint64_t timestamp;
+	char levelTitle[levelHeaderOffsets::levelTitleSize];
+	uint16_t width;
+	uint16_t height;
 	// Header padding
-	uint8_t padding[1024 - 151 - sizeof(std::vector<std::vector<Tile>>)];
+	uint8_t padding[levelHeaderOffsets::headerSize - levelHeaderOffsets::paddingOffset - sizeof(std::vector<std::vector<Tile>>)];
 
 	// Main
 	std::vector<std::vector<Tile>> grid;
@@ -53,6 +81,6 @@ class Level {
 };
 #pragma pack(pop)
 
-static_assert(offsetof(Level, grid) == 1024 - sizeof(std::vector<std::vector<Tile>>), "`grid` offset is not 1024 bytes.");
+static_assert(offsetof(Level, grid) == levelHeaderOffsets::headerSize - sizeof(std::vector<std::vector<Tile>>));
 
 #endif // LEVEL_H

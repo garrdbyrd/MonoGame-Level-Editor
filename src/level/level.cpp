@@ -68,7 +68,7 @@ bool Level::readMagicNumber(std::ifstream &file) {
 }
 
 bool Level::readVersionInfo(std::ifstream &file) {
-	file.seekg(8, std::ios::beg); // 8 bytes offset
+	file.seekg(levelHeaderOffsets::versionMajorOffset, std::ios::beg);
 	if (!file) {
 		std::cerr << "Failed to seek to the version info position in the file." << std::endl;
 		return false;
@@ -82,7 +82,7 @@ bool Level::readVersionInfo(std::ifstream &file) {
 
 bool Level::readLevelTitle(std::ifstream &file) {
 	// Seek to the position of levelTitle
-	file.seekg(19, std::ios::beg); // 19 bytes offset
+	file.seekg(levelHeaderOffsets::levelTitleOffset, std::ios::beg);
 	if (!file) {
 		std::cerr << "Failed to seek to the levelTitle position in the file." << std::endl;
 		return false;
@@ -99,7 +99,7 @@ bool Level::readLevelTitle(std::ifstream &file) {
 }
 
 bool Level::readWidthHeight(std::ifstream &file) {
-	file.seekg(147, std::ios::beg); // 147 bytes offset
+	file.seekg(levelHeaderOffsets::widthOffset, std::ios::beg);
 	if (!file) {
 		std::cerr << "Failed to seek to the width/height position in the file." << std::endl;
 		return false;
