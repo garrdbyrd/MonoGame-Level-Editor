@@ -53,7 +53,6 @@ class Level {
 };
 #pragma pack(pop)
 
-// 1000 bytes instead of 1024 because final 24 bytes is grid vector
 static_assert(offsetof(Level, grid) == 1024 - sizeof(std::vector<std::vector<Tile>>), "`grid` offset is not 1024 bytes.");
 
 #endif // LEVEL_H
