@@ -44,7 +44,7 @@ bool Tile::readFromFile(const std::string &filename, u_int32_t offset) {
 		return false;
 	}
 
-	if (!readIcy(file)) {
+	if (!readFrictionBool(file)) {
 		std::cerr << "Failed to read icy." << std::endl;
 		return false;
 	}
@@ -68,7 +68,7 @@ bool Tile::readXCoordinate(std::ifstream &file) {
 }
 
 bool Tile::readYCoordinate(std::ifstream &file) {
-	int offset = headerOffset() + 4;
+	int offset = headerOffset() + tileOffsets::yCoordinateOffset;
 	file.seekg(offset, std::ios::beg);
 	if (!file) {
 		std::cerr << "Failed to read yCoordinate from file.";
@@ -79,7 +79,7 @@ bool Tile::readYCoordinate(std::ifstream &file) {
 }
 
 bool Tile::readTileType(std::ifstream &file) {
-	int offset = headerOffset() + 8;
+	int offset = headerOffset() + tileOffsets::tileTypeOffset;
 	file.seekg(offset, std::ios::beg);
 	if (!file) {
 		std::cerr << "Failed to read tileType from file.";
@@ -95,7 +95,7 @@ bool Tile::readTileType(std::ifstream &file) {
 }
 
 bool Tile::readCollision(std::ifstream &file) {
-	int offset = headerOffset() + 136;
+	int offset = headerOffset() + tileOffsets::collisionOffset;
 	file.seekg(offset, std::ios::beg);
 	if (!file) {
 		std::cerr << "Failed to read collision from file.";
@@ -106,7 +106,7 @@ bool Tile::readCollision(std::ifstream &file) {
 }
 
 bool Tile::readFriction(std::ifstream &file) {
-	int offset = headerOffset() + 137;
+	int offset = headerOffset() + tileOffsets::frictionOffset;
 	file.seekg(offset, std::ios::beg);
 	if (!file) {
 		std::cerr << "Failed to read friction from file.";
@@ -116,13 +116,13 @@ bool Tile::readFriction(std::ifstream &file) {
 	return true;
 }
 
-bool Tile::readIcy(std::ifstream &file) {
-	int offset = headerOffset() + 138;
+bool Tile::readFrictionBool(std::ifstream &file) {
+	int offset = headerOffset() + tileOffsets::frictionBoolOffset;
 	file.seekg(offset, std::ios::beg);
 	if (!file) {
-		std::cerr << "Failed to read icy from file.";
+		std::cerr << "Failed to read frictionBool from file.";
 		return false;
 	}
-	file.read(reinterpret_cast<char *>(&icy), sizeof(icy));
+	file.read(reinterpret_cast<char *>(&frictionBool), sizeof(frictionBool));
 	return true;
 }

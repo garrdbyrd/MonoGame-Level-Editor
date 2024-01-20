@@ -21,7 +21,8 @@ struct levelHeaderOffsets {
 	static const int levelTitleSize     = 8 + 128; // alignment + arbitrary
 	static const int widthSize          = sizeof(uint16_t);
 	static const int heightSize         = sizeof(uint16_t);
-	static const int headerSize         = 1024;
+	// Header size
+	static const int headerSize = 1024;
 
 	// Main
 	static const int magicNumberOffset    = 0;
