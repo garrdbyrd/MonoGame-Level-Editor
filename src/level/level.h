@@ -18,7 +18,7 @@ struct levelHeaderOffsets {
 	static const int versionBugfixSize  = sizeof(uint8_t);
 	static const int versionPaddingSize = sizeof(uint8_t[5]);
 	static const int timestampSize      = sizeof(uint64_t);
-	static const int levelTitleSize     = 8 + 128; // alignment + arbitrary
+	static const int levelTitleSize     = 128; // arbitrary
 	static const int widthSize          = sizeof(uint16_t);
 	static const int heightSize         = sizeof(uint16_t);
 	// Header size

@@ -94,17 +94,6 @@ bool Tile::readTileType(std::ifstream &file) {
 	return true;
 }
 
-bool Tile::readCollision(std::ifstream &file) {
-	int offset = headerOffset() + tileOffsets::collisionOffset;
-	file.seekg(offset, std::ios::beg);
-	if (!file) {
-		std::cerr << "Failed to read collision from file.";
-		return false;
-	}
-	file.read(reinterpret_cast<char *>(&collision), sizeof(collision));
-	return true;
-}
-
 bool Tile::readFriction(std::ifstream &file) {
 	int offset = headerOffset() + tileOffsets::frictionOffset;
 	file.seekg(offset, std::ios::beg);
@@ -113,6 +102,17 @@ bool Tile::readFriction(std::ifstream &file) {
 		return false;
 	}
 	file.read(reinterpret_cast<char *>(&friction), sizeof(friction));
+	return true;
+}
+
+bool Tile::readCollision(std::ifstream &file) {
+	int offset = headerOffset() + tileOffsets::collisionOffset;
+	file.seekg(offset, std::ios::beg);
+	if (!file) {
+		std::cerr << "Failed to read collision from file.";
+		return false;
+	}
+	file.read(reinterpret_cast<char *>(&collision), sizeof(collision));
 	return true;
 }
 
