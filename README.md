@@ -31,17 +31,29 @@ This project utilizes a custom filetype to store/exchange level information. App
 
 ### First kilobyte:
 
-| Value                 | Type       | Size               | Byte offset | About                                                                                                                                           |
-|-----------------------|------------|--------------------|-------------|-------------------------------------------------------------------------------------------------------------------------------------------------|
-| Magic Number          | uint8[8]   | 8                  | 0           | 44 4F 54 4C 45 56 45 4C                                                                                                                         |
-| Major Version Number  | uint8      | 1                  | 8           | Major version number of .level specification                                                                                                    |
-| Minor Version Number  | uint8      | 1                  | 9           | Minor version number of .level specification                                                                                                    |
-| Bugfix Version Number | uint8      | 1                  | 10          | Bugfix/patch version number of .level specification                                                                                             |
-| Timestamp             | uint64     | 8                  | 11          | Timestamp of file creation                                                                                                                      |
-| Level Title           | char[128]  | 128                | 19          | Title of the level                                                                                                                              |
-| Level Width           | uint16     | 2                  | 147         | Number of tiles that span the width of the level                                                                                                |
-| Level Height          | uint16     | 2                  | 149         | Number of tiles that span the height of the level                                                                                               |
-| Padding               | uint8[...] | 1024 - byte offset | 151         | First kilobyte is reserved for file metadata. The size of this padding may reduce as the specification changes and more fields are added above. |
+| Value                 | Type       | Size                  | Byte offset | About                                                                                                                                           |
+|-----------------------|------------|-----------------------|-------------|-------------------------------------------------------------------------------------------------------------------------------------------------|
+| Magic Number          | uint8[8]   | 8                     | 0           | 44 4F 54 4C 45 56 45 4C                                                                                                                         |
+| Major Version Number  | uint8      | 1                     | 8           | Major version number of .level specification                                                                                                    |
+| Minor Version Number  | uint8      | 1                     | 9           | Minor version number of .level specification                                                                                                    |
+| Bugfix Version Number | uint8      | 1                     | 10          | Bugfix/patch version number of .level specification                                                                                             |
+| padding               | uint8[5]   | 5                     | 11          | To align timestamp                                                                                                                              |
+| Timestamp             | uint64     | 8                     | 16          | Timestamp of file creation                                                                                                                      |
+| Level Title           | char[128]  | 128                   | 24          | Title of the level                                                                                                                              |
+| Level Width           | uint16     | 2                     | 152         | Number of tiles that span the width of the level                                                                                                |
+| Level Height          | uint16     | 2                     | 154         | Number of tiles that span the height of the level                                                                                               |
+| padding               | uint8[...] | 1024 - padding offset | 156         | First kilobyte is reserved for file metadata. The size of this padding may reduce as the specification changes and more fields are added above. |
 
 ### Remaining kilobytes:
-Each remaining kilobyte corresponds to a tile within the level, which will be specified here when the tile specification is developed.
+Each remaining kilobyte corresponds to a tile within the level, which will be specified here as the tile specification is developed.
+
+| Value                 | Type       | Size                  | Byte offset | About                                                                                                                                           |
+|-----------------------|------------|-----------------------|-------------|-------------------------------------------------------------------------------------------------------------------------------------------------|
+| xCoordinate           | uint16     | 2                     | 0           | Coordinate of tile on x axis                                                                                                                    |
+| yCoordinate           | uint16     | 2                     | 2           | Coordinate of tile on y axis                                                                                                                    |
+| uniqueID              | uint32     | 4                     | 4           | Unique ID for each tile in the level                                                                                                            |
+| tileType              | char[128]  | 128                   | 8           | directory/texturename examples: "default/default", "plains/grass"                                                                               |
+| collision             | bool       | 1                     | 136         | Whether or not the tile can be collided with                                                                                                    |
+| friction              | float      | 4                     | 137         | Coefficient of friction                                                                                                                         |
+| frictionBool          | bool       | 1                     | 141         | Whether or not friction is turned on                                                                                                            |
+| padding               | uint8[...] | 1024 - padding offset | 142         | Padding                                                                                                                                         |                                                                                                                                   |
