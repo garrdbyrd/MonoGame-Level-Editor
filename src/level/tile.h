@@ -19,8 +19,6 @@ struct tileOffsets {
 	static const int frictionSize     = sizeof(float);
 	static const int collisionSize    = sizeof(bool);
 	static const int frictionBoolSize = sizeof(bool);
-	// Tile size
-	static const int tileSize = 1024;
 
 	// Main
 	static const int xCoordinateOffset  = 0;
@@ -30,6 +28,11 @@ struct tileOffsets {
 	static const int frictionOffset     = tileTypeOffset + tileTypeSize;
 	static const int collisionOffset    = frictionOffset + frictionSize;
 	static const int frictionBoolOffset = collisionOffset + collisionSize;
+
+	// Tile size
+	static const int tileSize = 1024;
+	// The following line minimizes the tile size. Could be useful one day?
+	// static const int tileSize = frictionBoolOffset + frictionBoolSize;
 
 	// Padding
 	static const int paddingOffset = frictionBoolOffset + frictionBoolSize; // Update when other properties are added
@@ -47,7 +50,6 @@ class Tile {
 	~Tile() = default;
 
 	// Main
-	//
 	u_int16_t xCoordinate;
 	u_int16_t yCoordinate;
 	u_int32_t uniqueID;

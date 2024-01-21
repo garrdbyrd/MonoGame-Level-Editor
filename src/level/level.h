@@ -21,8 +21,6 @@ struct levelHeaderOffsets {
 	static const int levelTitleSize     = 128; // arbitrary
 	static const int widthSize          = sizeof(uint16_t);
 	static const int heightSize         = sizeof(uint16_t);
-	// Header size
-	static const int headerSize = 1024;
 
 	// Main
 	static const int magicNumberOffset    = 0;
@@ -34,6 +32,11 @@ struct levelHeaderOffsets {
 	static const int levelTitleOffset     = timestampOffset + timestampSize;
 	static const int widthOffset          = levelTitleOffset + levelTitleSize;
 	static const int heightOffset         = widthOffset + widthSize;
+
+	// Header size
+	static const int headerSize = 1024;
+	// The following line minimizes the header size. Could be useful one day?
+	// static const int headerSize = heightOffset + heightSize + sizeof(std::vector<std::vector<Tile>>);
 
 	// Padding
 	static const int paddingOffset = heightOffset + heightSize; // Update when other properties are added
@@ -51,7 +54,7 @@ class Level {
 	~Level() = default;
 
 	// Header
-	uint8_t magicNumber[8] = {
+	const uint8_t magicNumber[8] = {
 		0x44, 0x4F, 0x54, 0x4C, 0x45, 0x56, 0x45, 0x4C,
 	};
 	uint8_t versionMajor;

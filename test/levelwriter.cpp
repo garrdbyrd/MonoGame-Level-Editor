@@ -9,11 +9,6 @@ int main() {
 	// Header
 	Level level;
 
-	// DOTLEVEL magic number
-	const uint8_t magicNumber[] = {
-		0x44, 0x4F, 0x54, 0x4C, 0x45, 0x56, 0x45, 0x4C,
-	};
-	std::copy(std::begin(magicNumber), std::end(magicNumber), std::begin(level.magicNumber));
 	// Version
 	level.versionMajor  = 0;
 	level.versionMinor  = 1;
