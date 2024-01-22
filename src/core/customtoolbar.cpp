@@ -26,8 +26,8 @@ CustomToolBar::CustomToolBar(QWidget *parent) : QToolBar(parent) {
 }
 
 void CustomToolBar::addTilePickerRefreshAction() {
-	Config settings;
-	QIcon refreshIcon      = QIcon(settings.iconsPath + "/actions/22/refactor.svg");
+	Config   settings;
+	QIcon    refreshIcon   = QIcon(settings.iconsPath + "/actions/22/refactor.svg");
 	QAction *refreshAction = this->addAction(refreshIcon, "Refresh");
 	connect(refreshAction, &QAction::triggered, this, &CustomToolBar::tilePickerRefresh);
 }

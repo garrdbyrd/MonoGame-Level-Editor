@@ -12,12 +12,12 @@ class Config : public QSettings {
 	QString defaultTexturePath;
 	QString iconsPath;
 	// Constants
-	int scrollSpeed;
+	int    scrollSpeed;
 	double zoomScale;
-	int tileMenuColumns;
+	int    tileMenuColumns;
 	// Methods
 	QMap<QString, QVariant> getSettings(const QString &section);
-	QWidget *getSettingWidget(const QString &settingName);
+	QWidget                *getSettingWidget(const QString &settingName);
 
   private:
 	QMap<QString, QWidget *> dialogMap;

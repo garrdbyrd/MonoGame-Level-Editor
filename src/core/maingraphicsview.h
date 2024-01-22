@@ -24,22 +24,22 @@ class MainGraphicsView : public QGraphicsView {
 	void wheelEvent(QWheelEvent *event) override;
 
   private:
-	QPixmap currentTexture;
-	QPixmap nullTexture = QPixmap();
+	QPixmap                                 currentTexture;
+	QPixmap                                 nullTexture = QPixmap();
 	QVector<QVector<QGraphicsPixmapItem *>> grid;
-	int tileSize;
-	bool isLeftDragging;
-	bool isMiddleDragging;
-	QPoint lastMousePosition;
+	int                                     tileSize;
+	bool                                    isLeftDragging;
+	bool                                    isMiddleDragging;
+	QPoint                                  lastMousePosition;
 	// Paint commands
-	bool isPainting = false;
+	bool                         isPainting = false;
 	QList<QGraphicsPixmapItem *> paintedItems;
-	QList<QPixmap> prevPixmaps;
-	void startPainting();
-	void applyPaint(QGraphicsPixmapItem *item);
-	void endPainting();
-	void fitInViewGrid();
-	void resizeEvent(QResizeEvent *event) override;
+	QList<QPixmap>               prevPixmaps;
+	void                         startPainting();
+	void                         applyPaint(QGraphicsPixmapItem *item);
+	void                         endPainting();
+	void                         fitInViewGrid();
+	void                         resizeEvent(QResizeEvent *event) override;
 
   signals:
 	void executeCommand(Command *command);

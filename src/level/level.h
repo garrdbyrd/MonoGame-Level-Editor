@@ -57,12 +57,13 @@ class Level {
 	const uint8_t magicNumber[8] = {
 		0x44, 0x4F, 0x54, 0x4C, 0x45, 0x56, 0x45, 0x4C,
 	};
-	uint8_t versionMajor;
-	uint8_t versionMinor;
-	uint8_t versionBugfix;
-	uint8_t versionPadding[5]; // Padding to align timestamp
+
+	uint8_t  versionMajor;
+	uint8_t  versionMinor;
+	uint8_t  versionBugfix;
+	uint8_t  versionPadding[5]; // Padding to align timestamp
 	uint64_t timestamp;
-	char levelTitle[levelHeaderOffsets::levelTitleSize];
+	char     levelTitle[levelHeaderOffsets::levelTitleSize];
 	uint16_t width;
 	uint16_t height;
 	// Header padding

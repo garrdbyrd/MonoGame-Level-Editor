@@ -7,8 +7,8 @@
 
 class PaintCommand : public Command {
 	QGraphicsPixmapItem *item;
-	QPixmap prevPixmap;
-	QPixmap newPixmap;
+	QPixmap              prevPixmap;
+	QPixmap              newPixmap;
 
   public:
 	PaintCommand(QGraphicsPixmapItem *item, const QPixmap &prevPixmap, const QPixmap &newPixmap);

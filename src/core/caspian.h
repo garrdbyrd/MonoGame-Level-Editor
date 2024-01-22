@@ -25,9 +25,9 @@ class Caspian : public QMainWindow {
 	void resizeEvent(QResizeEvent *event) override;
 
   private:
-	Ui::Caspian *ui;
+	Ui::Caspian     *ui;
 	SelectableLabel *currentSelectedLabel = nullptr;
-	CommandHistory commandHistory;
+	CommandHistory   commandHistory;
 
 	// Methods
 	void populateScrollMenu();

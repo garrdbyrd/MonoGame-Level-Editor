@@ -10,9 +10,9 @@ class SelectableLabel : public QLabel {
   public:
 	explicit SelectableLabel(QWidget *parent = nullptr);
 
-	void setSelected(bool selected);
-	bool isSelected() const;
-	void setTextureFilePath(const QString &filePath) { textureFilePath = filePath; }
+	void    setSelected(bool selected);
+	bool    isSelected() const;
+	void    setTextureFilePath(const QString &filePath) { textureFilePath = filePath; }
 	QString getTextureFilePath() const { return textureFilePath; }
 
   signals:
@@ -22,7 +22,7 @@ class SelectableLabel : public QLabel {
 	void mousePressEvent(QMouseEvent *event) override;
 
   private:
-	bool selected;
+	bool    selected;
 	QString textureFilePath;
 };
 

@@ -53,10 +53,10 @@ class Tile {
 	u_int16_t xCoordinate;
 	u_int16_t yCoordinate;
 	u_int32_t uniqueID;
-	char tileType[tileOffsets::tileTypeSize] = "default";
-	float friction                           = 1.0f;
-	bool collision                           = true;
-	bool frictionBool                        = false;
+	char      tileType[tileOffsets::tileTypeSize] = "default";
+	float     friction                            = 1.0f;
+	bool      collision                           = true;
+	bool      frictionBool                        = false;
 	// Padding
 	uint8_t padding[tileOffsets::tileSize - tileOffsets::paddingOffset];
 
@@ -65,8 +65,8 @@ class Tile {
 
   private:
 	// Methods
-	int headerOffset();
-	int tileSize();
+	int  headerOffset();
+	int  tileSize();
 	bool readXCoordinate(std::ifstream &file);
 	bool readYCoordinate(std::ifstream &file);
 	bool readTileType(std::ifstream &file);

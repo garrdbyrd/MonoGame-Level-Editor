@@ -6,9 +6,9 @@
 #include <QList>
 
 class CompoundPaintCommand : public Command {
-	QList<QGraphicsPixmapItem *> items; // List of affected items
-	QList<QPixmap> prevPixmaps;         // List of previous pixmaps
-	QList<QPixmap> newPixmaps;          // List of new pixmaps
+	QList<QGraphicsPixmapItem *> items;       // List of affected items
+	QList<QPixmap>               prevPixmaps; // List of previous pixmaps
+	QList<QPixmap>               newPixmaps;  // List of new pixmaps
 
   public:
 	CompoundPaintCommand(const QList<QGraphicsPixmapItem *> &items, const QList<QPixmap> &prevPixmaps, const QList<QPixmap> &newPixmaps);

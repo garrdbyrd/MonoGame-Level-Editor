@@ -17,7 +17,7 @@ class preferencesDialog : public QDialog {
 
   private:
 	Ui::preferencesDialog *ui;
-	void populatePreferences();
+	void                   populatePreferences();
 };
 
 #endif // PREFERENCESDIALOG_H

@@ -10,15 +10,15 @@ class FileBrowseWidget : public QWidget {
 	Q_OBJECT
   public:
 	FileBrowseWidget(QWidget *parent = nullptr);
-	QString filePath() const;
-	void setFilePath(const QString &path);
-	QLineEdit *getLineEdit() const;
+	QString      filePath() const;
+	void         setFilePath(const QString &path);
+	QLineEdit   *getLineEdit() const;
 	QPushButton *getBrowseButton() const;
   private slots:
 	void onBrowseButtonClicked();
 
   private:
-	QLineEdit *lineEdit;
+	QLineEdit   *lineEdit;
 	QPushButton *browseButton;
 };
 

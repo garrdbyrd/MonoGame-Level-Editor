@@ -94,8 +94,8 @@ void Caspian::labelClicked(SelectableLabel *label) {
 
 		// Check if the pixmap is valid
 		if (!originalTexture.isNull()) {
-			QGraphicsPixmapItem *item = new QGraphicsPixmapItem(originalTexture);
-			int applicationHeight     = qobject_cast<QLabel *>(sender())->window()->height();
+			QGraphicsPixmapItem *item              = new QGraphicsPixmapItem(originalTexture);
+			int                  applicationHeight = qobject_cast<QLabel *>(sender())->window()->height();
 			;
 			item->setScale(12 * applicationHeight / 1080);
 			ui->selectedGraphicsView->scene()->addItem(item);
@@ -114,9 +114,9 @@ void Caspian::populateScrollMenu() {
 	currentSelectedLabel = nullptr;
 
 	// Initial path information
-	QDir directory(settings.assetPath); //.ini
-	QStringList subDirs = directory.entryList(QDir::Dirs | QDir::NoDotAndDotDot);
-	QGridLayout *layout = qobject_cast<QGridLayout *>(ui->tilePickerWidget->layout());
+	QDir         directory(settings.assetPath); //.ini
+	QStringList  subDirs = directory.entryList(QDir::Dirs | QDir::NoDotAndDotDot);
+	QGridLayout *layout  = qobject_cast<QGridLayout *>(ui->tilePickerWidget->layout());
 
 	// Make sure it's not fucking up
 	if (!layout) {
@@ -152,12 +152,12 @@ void Caspian::populateScrollMenu() {
 		dirLabel->setStyleSheet("font-weight: bold");
 		layout->addWidget(dirLabel, row++, 0, 1, -1);
 
-		QDir subDir(directory.absoluteFilePath(subDirName));
+		QDir        subDir(directory.absoluteFilePath(subDirName));
 		QStringList pngFiles = subDir.entryList(QStringList() << "*.png", QDir::Files);
 
 		foreach (const QString &fileName, pngFiles) {
 			SelectableLabel *imageLabel = new SelectableLabel;
-			QPixmap pixmap(subDir.absoluteFilePath(fileName));
+			QPixmap          pixmap(subDir.absoluteFilePath(fileName));
 			imageLabel->setPixmap(pixmap.scaled(size, size, Qt::KeepAspectRatio));
 			imageLabel->setTextureFilePath(subDir.absoluteFilePath(fileName));
 

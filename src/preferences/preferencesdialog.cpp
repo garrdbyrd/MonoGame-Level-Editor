@@ -23,7 +23,7 @@ void preferencesDialog::populatePreferences() {
 
 	for (QString &sectionName : config.childGroups()) {
 		QScrollArea *preferenceTabScrollArea = new QScrollArea;
-		QWidget *scrollWidget                = new QWidget;
+		QWidget     *scrollWidget            = new QWidget;
 		QFormLayout *layout                  = new QFormLayout(scrollWidget);
 		layout->setLabelAlignment(Qt::AlignBaseline);
 		// layout->setSizeConstraint(QLayout::SetNoConstraint);
@@ -40,15 +40,15 @@ void preferencesDialog::populatePreferences() {
 			// FileBrowseWidget* settingWidget = dynamic_cast<FileBrowseWidget*>(config.getSettingWidget(key));
 			if (settingWidget != nullptr) {
 				// Left widget (label)
-				QLabel *leftLabel       = new QLabel(key);
-				QWidget *leftContainer  = new QWidget;
-				QVBoxLayout *leftLayout = new QVBoxLayout(leftContainer);
+				QLabel      *leftLabel     = new QLabel(key);
+				QWidget     *leftContainer = new QWidget;
+				QVBoxLayout *leftLayout    = new QVBoxLayout(leftContainer);
 				leftLayout->addWidget(leftLabel);
 				leftLayout->setAlignment(Qt::AlignBottom);
 				leftLayout->setContentsMargins(0, 0, 0, 0);
 				// Right widget (custom widget)
-				QWidget *rightContainer  = new QWidget;
-				QVBoxLayout *rightLayout = new QVBoxLayout(rightContainer);
+				QWidget     *rightContainer = new QWidget;
+				QVBoxLayout *rightLayout    = new QVBoxLayout(rightContainer);
 				rightLayout->addWidget(settingWidget);
 				rightLayout->setAlignment(Qt::AlignRight);
 				rightLayout->setContentsMargins(0, 0, 0, 0);
