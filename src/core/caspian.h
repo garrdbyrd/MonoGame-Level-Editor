@@ -15,33 +15,34 @@ class Caspian;
 QT_END_NAMESPACE
 
 class Caspian : public QMainWindow {
-	Q_OBJECT
+  Q_OBJECT
 
-  public:
-	Caspian(QWidget *parent = nullptr);
-	~Caspian();
+public:
+  Caspian(QWidget *parent = nullptr);
+  ~Caspian();
 
-  protected:
-	void resizeEvent(QResizeEvent *event) override;
+protected:
+  void resizeEvent(QResizeEvent *event) override;
 
-  private:
-	Ui::Caspian     *ui;
-	SelectableLabel *currentSelectedLabel = nullptr;
-	CommandHistory   commandHistory;
+private:
+  Ui::Caspian *ui;
+  SelectableLabel *currentSelectedLabel = nullptr;
+  CommandHistory commandHistory;
 
-	// Methods
-	void populateScrollMenu();
-	void setPropertiesTable();
-	void onPreferencesTriggered();
-	void updateActionStates();
+  // Methods
+  void populateScrollMenu();
+  void setPropertiesTable();
+  void onPreferencesTriggered();
+  void updateActionStates();
+  void updateStatusBar(const int x, const int y);
 
-  public slots:
-	void undo();
-	void redo();
-	void recordCommand(Command *command);
+public slots:
+  void undo();
+  void redo();
+  void recordCommand(Command *command);
 
-  private slots:
-	void labelClicked(SelectableLabel *label);
+private slots:
+  void labelClicked(SelectableLabel *label);
 };
 
 #endif // CASPIAN_H
