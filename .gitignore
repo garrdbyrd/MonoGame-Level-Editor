@@ -1,5 +1,6 @@
 caspian
 caspian.pro.user
+caspian.debug
 icons/
 
 test/*.level
