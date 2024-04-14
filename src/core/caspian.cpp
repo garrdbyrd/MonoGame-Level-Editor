@@ -39,6 +39,7 @@ Caspian::Caspian(QWidget *parent) : QMainWindow(parent), ui(new Ui::Caspian) {
   // Actions / Shortcutes
   new QShortcut(Qt::CTRL + Qt::Key_Z, this, SLOT(undo()));
   new QShortcut(Qt::CTRL + Qt::Key_Y, this, SLOT(redo()));
+  new QShortcut(Qt::CTRL + Qt::SHIFT + Qt::Key_Z, this, SLOT(redo()));
 
   // Setup other windows and menu bar shortcuts
   connect(ui->actionPreferences, &QAction::triggered, this,
