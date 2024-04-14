@@ -1,7 +1,7 @@
 #ifndef COMPOUNDPAINTCOMMAND_H
 #define COMPOUNDPAINTCOMMAND_H
 
-#include "command.h"
+#include "commandhistory.h"
 #include <QGraphicsPixmapItem>
 #include <QList>
 

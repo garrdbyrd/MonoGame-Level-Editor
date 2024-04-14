@@ -1,7 +1,7 @@
 #ifndef PAINTCOMMAND_H
 #define PAINTCOMMAND_H
 
-#include "command.h"
+#include "commandhistory.h"
 #include <QGraphicsPixmapItem>
 #include <QPixmap>
 

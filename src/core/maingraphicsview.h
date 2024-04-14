@@ -1,7 +1,7 @@
 #ifndef MAINGRAPHICSVIEW_H
 #define MAINGRAPHICSVIEW_H
 
-#include "command.h"
+#include "commandhistory.h"
 
 #include <QGraphicsPixmapItem>
 #include <QGraphicsView>
