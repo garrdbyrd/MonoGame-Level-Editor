@@ -8,3 +8,5 @@ test/*.chunk
 test/levelwriter
 test/chunkwriter
 test/levelparser
+
+build/
