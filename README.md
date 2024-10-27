@@ -57,3 +57,16 @@ Each remaining kilobyte corresponds to a tile within the level, which will be sp
 | collision             | bool       | 1                     | 140         | Whether or not the tile can be collided with                                                                                                    |
 | frictionBool          | bool       | 1                     | 141         | Whether or not friction is turned on                                                                                                            |
 | padding               | uint8[...] | 1024 - padding offset | 142         | Padding                                                                                                                                         |                                                                                                                                   |
+
+## Build instructions:
+```sh
+mkdir build
+cd build
+qmake
+make
+```
+then run with
+```sh
+./caspian
+```
+in the main directory

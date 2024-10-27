@@ -14,8 +14,10 @@ build/
 *.o
 *.cpp
 *.h
-Makefile
 .qmake.stash
 .cache
+Makefile
+CMakeCache.txt
+CMakeFiles/
 
 stderr.log
