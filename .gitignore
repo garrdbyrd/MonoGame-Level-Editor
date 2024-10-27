@@ -10,3 +10,11 @@ test/chunkwriter
 test/levelparser
 
 build/
+
+*.o
+*.cpp
+*.h
+Makefile
+.qmake.stash
+
+stderr.log
