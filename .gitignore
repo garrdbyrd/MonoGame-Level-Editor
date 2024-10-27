@@ -16,5 +16,6 @@ build/
 *.h
 Makefile
 .qmake.stash
+.cache
 
 stderr.log
