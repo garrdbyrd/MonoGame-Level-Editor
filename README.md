@@ -62,7 +62,7 @@ Each remaining kilobyte corresponds to a tile within the level, which will be sp
 ```sh
 mkdir build
 cd build
-qmake
+qmake ..
 make
 ```
 then run with
@@ -70,3 +70,10 @@ then run with
 ./caspian
 ```
 in the main directory
+
+In order for VS Code to have proper syntax highlighting/"intellisense" via the `clangd` extension, you must generate `compile_commands.json` and put it in the main directory.
+
+You'll need to `sudo pacman -S bear` if you're on Arch, and then
+```sh
+bear -- make
+```
