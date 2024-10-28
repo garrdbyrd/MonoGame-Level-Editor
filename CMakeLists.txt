@@ -38,11 +38,3 @@ target_include_directories(caspian PRIVATE
     ${CMAKE_SOURCE_DIR}/src/level
     ${CMAKE_SOURCE_DIR}/src/preferences
 )
-
-# include all src/ subdirs
-# target_include_directories(caspian PRIVATE
-#     "${CMAKE_SOURCE_DIR}/src/command"
-#     "${CMAKE_SOURCE_DIR}/src/core"
-#     "${CMAKE_SOURCE_DIR}/src/preferences"
-# )
-
