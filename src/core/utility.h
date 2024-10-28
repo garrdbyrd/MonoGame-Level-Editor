@@ -9,4 +9,4 @@
 std::vector<std::string> splitString(const std::string &str, char delim);
 QList<QString> splitString(const QString str, char delim);
 
-#endif // UTILITY_H
+#endif  // UTILITY_H

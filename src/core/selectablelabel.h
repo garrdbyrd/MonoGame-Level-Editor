@@ -5,25 +5,27 @@
 #include <QMouseEvent>
 
 class SelectableLabel : public QLabel {
-	Q_OBJECT
+    Q_OBJECT
 
-  public:
-	explicit SelectableLabel(QWidget *parent = nullptr);
+   public:
+    explicit SelectableLabel(QWidget *parent = nullptr);
 
-	void    setSelected(bool selected);
-	bool    isSelected() const;
-	void    setTextureFilePath(const QString &filePath) { textureFilePath = filePath; }
-	QString getTextureFilePath() const { return textureFilePath; }
+    void setSelected(bool selected);
+    bool isSelected() const;
+    void setTextureFilePath(const QString &filePath) {
+        textureFilePath = filePath;
+    }
+    QString getTextureFilePath() const { return textureFilePath; }
 
-  signals:
-	void clicked(SelectableLabel *label);
+   signals:
+    void clicked(SelectableLabel *label);
 
-  protected:
-	void mousePressEvent(QMouseEvent *event) override;
+   protected:
+    void mousePressEvent(QMouseEvent *event) override;
 
-  private:
-	bool    selected;
-	QString textureFilePath;
+   private:
+    bool selected;
+    QString textureFilePath;
 };
 
-#endif // SELECTABLELABEL_H
+#endif  // SELECTABLELABEL_H

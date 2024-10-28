@@ -1,20 +1,23 @@
 #ifndef COMPOUNDPAINTCOMMAND_H
 #define COMPOUNDPAINTCOMMAND_H
 
-#include "commandhistory.h"
 #include <QGraphicsPixmapItem>
 #include <QList>
+#include "commandhistory.h"
 
 class CompoundPaintCommand : public Command {
-	QList<QGraphicsPixmapItem *> items;       // List of affected items
-	QList<QPixmap>               prevPixmaps; // List of previous pixmaps
-	QList<QPixmap>               newPixmaps;  // List of new pixmaps
+    QList<QGraphicsPixmapItem *> items;  // List of affected items
+    QList<QPixmap> prevPixmaps;          // List of previous pixmaps
+    QList<QPixmap> newPixmaps;           // List of new pixmaps
 
-  public:
-	CompoundPaintCommand(const QList<QGraphicsPixmapItem *> &items, const QList<QPixmap> &prevPixmaps, const QList<QPixmap> &newPixmaps);
+   public:
+    CompoundPaintCommand(
+        const QList<QGraphicsPixmapItem *> &items,
+        const QList<QPixmap> &prevPixmaps,
+        const QList<QPixmap> &newPixmaps);
 
-	void execute() override;
-	void undo() override;
+    void execute() override;
+    void undo() override;
 };
 
-#endif // COMPOUNDPAINTCOMMAND_H
+#endif  // COMPOUNDPAINTCOMMAND_H

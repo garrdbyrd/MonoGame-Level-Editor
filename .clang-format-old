@@ -1,9 +1,33 @@
-# Apply to entire project with: 
-# find . \( -iname "*.cpp" -o -iname "*.h" \) | xargs clang-format -i -style=file
+# BasedOnStyle: LLVM
+# IndentWidth: 4
+# TabWidth: 4
+# # ContinuationIndentWidth: 4
+# PenaltyBreakBeforeFirstCallParameter: 1000
+# ColumnLimit: 160
+# UseTab: ForContinuationAndIndentation
+# InsertTrailingCommas: Wrapped
+# AlignTrailingComments: Always
+# AlignConsecutiveAssignments: true
+# AlignConsecutiveDeclarations: true
+# BinPackArguments: false
+# BinPackParameters: false
+# # ExperimentalAutoDetectBinPacking: true
+# AlignAfterOpenBracket: AlwaysBreak
+# ConstructorInitializerAllOnOneLineOrOnePerLine: true
+# AllowAllConstructorInitializersOnNextLine: false
+# AllowAllParametersOfDeclarationOnNextLine: false
+# AlwaysBreakBeforeMultilineStrings: true
+# AllowAllArgumentsOnNextLine: true
+
+
+# # Apply to entire project with: 
+# # find . \( -iname "*.cpp" -o -iname "*.h" \) | xargs clang-format -i -style=file
+
 ---
 BasedOnStyle: Chromium
 AccessModifierOffset: -1
 AlignAfterOpenBracket: AlwaysBreak
+# AlignAfterOpenBracket: BlockIndent
 AlignArrayOfStructures: None
 AlignConsecutiveAssignments:
   Enabled: false
@@ -89,7 +113,7 @@ BraceWrapping:
   AfterClass: false
   AfterControlStatement: Never
   AfterEnum: false
-  AfterFunction: true
+  AfterFunction: false
   AfterNamespace: false
   AfterObjCDeclaration: false
   AfterStruct: false
@@ -118,10 +142,10 @@ BreakConstructorInitializers: BeforeColon
 BreakInheritanceList: BeforeColon
 BreakStringLiterals: true
 # BreakTemplateDeclarations: Yes
-ColumnLimit: 80
+ColumnLimit: 160
 CommentPragmas: "^ IWYU pragma:"
 CompactNamespaces: false
-ConstructorInitializerIndentWidth: 8
+ConstructorInitializerIndentWidth: 4
 ContinuationIndentWidth: 4
 Cpp11BracedListStyle: true
 DerivePointerAlignment: false

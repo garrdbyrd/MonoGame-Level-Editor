@@ -4,16 +4,16 @@
 #include <QToolBar>
 
 class CustomToolBar : public QToolBar {
-	Q_OBJECT
+    Q_OBJECT
 
-  public:
-	explicit CustomToolBar(QWidget *parent = nullptr);
-	void addTilePickerRefreshAction();
+   public:
+    explicit CustomToolBar(QWidget *parent = nullptr);
+    void addTilePickerRefreshAction();
 
-  signals:
-	void tilePickerRefresh();
+   signals:
+    void tilePickerRefresh();
 
-  private:
+   private:
 };
 
-#endif // CUSTOMTOOLBAR_H
+#endif  // CUSTOMTOOLBAR_H

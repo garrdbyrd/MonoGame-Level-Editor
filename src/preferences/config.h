@@ -5,22 +5,22 @@
 #include <QString>
 
 class Config : public QSettings {
-  public:
-	Config();
-	// Paths
-	QString assetPath;
-	QString defaultTexturePath;
-	QString iconsPath;
-	// Constants
-	int    scrollSpeed;
-	double zoomScale;
-	int    tileMenuColumns;
-	// Methods
-	QMap<QString, QVariant> getSettings(const QString &section);
-	QWidget                *getSettingWidget(const QString &settingName);
+   public:
+    Config();
+    // Paths
+    QString assetPath;
+    QString defaultTexturePath;
+    QString iconsPath;
+    // Constants
+    int scrollSpeed;
+    double zoomScale;
+    int tileMenuColumns;
+    // Methods
+    QMap<QString, QVariant> getSettings(const QString &section);
+    QWidget *getSettingWidget(const QString &settingName);
 
-  private:
-	QMap<QString, QWidget *> dialogMap;
+   private:
+    QMap<QString, QWidget *> dialogMap;
 };
 
-#endif // CONFIG_H
+#endif  // CONFIG_H

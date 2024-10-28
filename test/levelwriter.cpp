@@ -6,56 +6,57 @@
 #include "../src/level/tile.h"
 
 int main() {
-	// Header
-	Level level;
+    // Header
+    Level level;
 
-	// Version
-	level.versionMajor  = 0;
-	level.versionMinor  = 1;
-	level.versionBugfix = 0;
-	// Timestamp
-	level.timestamp = static_cast<uint64_t>(time(nullptr));
-	// Title
-	level.setLevelTitle("Example Level Title");
-	level.width  = 16;
-	level.height = 9;
+    // Version
+    level.versionMajor = 0;
+    level.versionMinor = 1;
+    level.versionBugfix = 0;
+    // Timestamp
+    level.timestamp = static_cast<uint64_t>(time(nullptr));
+    // Title
+    level.setLevelTitle("Example Level Title");
+    level.width = 16;
+    level.height = 9;
 
-	// Open a file in binary mode
-	std::ofstream outputFile("test/example.level", std::ios::binary);
+    // Open a file in binary mode
+    std::ofstream outputFile("test/example.level", std::ios::binary);
 
-	if (!outputFile) {
-		std::cerr << "Error opening file for writing.\n";
-		return 1;
-	}
+    if (!outputFile) {
+        std::cerr << "Error opening file for writing.\n";
+        return 1;
+    }
 
-	// Init grid
-	Tile tempTile;
-	level.initializeGrid(tempTile);
+    // Init grid
+    Tile tempTile;
+    level.initializeGrid(tempTile);
 
-	// Write the level
-	// Header + vector
-	outputFile.write(reinterpret_cast<const char *>(&level), sizeof(level));
-	for (const auto &row : level.grid) {
-		for (const auto &tile : row) {
-			outputFile.write(reinterpret_cast<const char *>(&tile), sizeof(tile));
-		}
-	}
+    // Write the level
+    // Header + vector
+    outputFile.write(reinterpret_cast<const char *>(&level), sizeof(level));
+    for (const auto &row : level.grid) {
+        for (const auto &tile : row) {
+            outputFile.write(
+                reinterpret_cast<const char *>(&tile), sizeof(tile));
+        }
+    }
 
-	// Check for write errors
-	if (!outputFile) {
-		std::cerr << "Error writing to file.\n";
-		outputFile.close();
-		return 1;
-	}
+    // Check for write errors
+    if (!outputFile) {
+        std::cerr << "Error writing to file.\n";
+        outputFile.close();
+        return 1;
+    }
 
-	// Check for write errors again
-	if (!outputFile) {
-		std::cerr << "Error writing additional data to file.\n";
-		outputFile.close();
-		return 1;
-	}
+    // Check for write errors again
+    if (!outputFile) {
+        std::cerr << "Error writing additional data to file.\n";
+        outputFile.close();
+        return 1;
+    }
 
-	// Close the file
-	outputFile.close();
-	return 0;
+    // Close the file
+    outputFile.close();
+    return 0;
 }

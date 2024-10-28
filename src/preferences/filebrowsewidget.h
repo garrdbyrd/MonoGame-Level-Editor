@@ -7,19 +7,19 @@
 #include <QWidget>
 
 class FileBrowseWidget : public QWidget {
-	Q_OBJECT
-  public:
-	FileBrowseWidget(QWidget *parent = nullptr);
-	QString      filePath() const;
-	void         setFilePath(const QString &path);
-	QLineEdit   *getLineEdit() const;
-	QPushButton *getBrowseButton() const;
-  private slots:
-	void onBrowseButtonClicked();
+    Q_OBJECT
+   public:
+    FileBrowseWidget(QWidget *parent = nullptr);
+    QString filePath() const;
+    void setFilePath(const QString &path);
+    QLineEdit *getLineEdit() const;
+    QPushButton *getBrowseButton() const;
+   private slots:
+    void onBrowseButtonClicked();
 
-  private:
-	QLineEdit   *lineEdit;
-	QPushButton *browseButton;
+   private:
+    QLineEdit *lineEdit;
+    QPushButton *browseButton;
 };
 
-#endif // FILEBROWSEWIDGET_H
+#endif  // FILEBROWSEWIDGET_H

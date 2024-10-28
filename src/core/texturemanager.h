@@ -7,21 +7,21 @@
 #include <map>
 
 class TextureManager {
-public:
-  TextureManager();
-  ~TextureManager();
-  // Methods
-  QPixmap *getTexture(const QString &key);
-  void loadTexture(const QString &key, const QString &filePath);
-  void unloadTexture(const QString &key);
-  void loadAllTextures(const QString &directoryPath);
-  void addStringTexturePair(const QString name, const QPixmap *texture);
+   public:
+    TextureManager();
+    ~TextureManager();
+    // Methods
+    QPixmap *getTexture(const QString &key);
+    void loadTexture(const QString &key, const QString &filePath);
+    void unloadTexture(const QString &key);
+    void loadAllTextures(const QString &directoryPath);
+    void addStringTexturePair(const QString name, const QPixmap *texture);
 
-  std::map<QString, QPixmap *> textureMap;
-  QList<QString> subDirList;
+    std::map<QString, QPixmap *> textureMap;
+    QList<QString> subDirList;
 
-  // private:
-  //   QMap<QString, QPixmap *> textureMap;
+    // private:
+    //   QMap<QString, QPixmap *> textureMap;
 };
 
-#endif // TEXTUREMANAGER_H
+#endif  // TEXTUREMANAGER_H
