@@ -5,7 +5,8 @@
 #include <QList>
 #include "commandhistory.h"
 
-class CompoundPaintCommand : public Command {
+class CompoundPaintCommand : public Command
+{
     QList<QGraphicsPixmapItem *> items;  // List of affected items
     QList<QPixmap> prevPixmaps;          // List of previous pixmaps
     QList<QPixmap> newPixmaps;           // List of new pixmaps
@@ -14,7 +15,8 @@ class CompoundPaintCommand : public Command {
     CompoundPaintCommand(
         const QList<QGraphicsPixmapItem *> &items,
         const QList<QPixmap> &prevPixmaps,
-        const QList<QPixmap> &newPixmaps);
+        const QList<QPixmap> &newPixmaps
+    );
 
     void execute() override;
     void undo() override;

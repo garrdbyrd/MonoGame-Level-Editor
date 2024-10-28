@@ -1,18 +1,21 @@
 #include "commandhistory.h"
 
-CommandHistory::~CommandHistory() {
+CommandHistory::~CommandHistory()
+{
     clearStack(undoStack);
     clearStack(redoStack);
 }
 
-void CommandHistory::executeCommand(Command *command) {
+void CommandHistory::executeCommand(Command *command)
+{
     command->execute();
     undoStack.push(command);
     clearStack(redoStack);  // Clear redo stack as new command invalidates
                             // the redo history
 }
 
-void CommandHistory::undo() {
+void CommandHistory::undo()
+{
     if (!undoStack.empty()) {
         Command *command = undoStack.top();
         undoStack.pop();
@@ -21,7 +24,8 @@ void CommandHistory::undo() {
     }
 }
 
-void CommandHistory::redo() {
+void CommandHistory::redo()
+{
     if (!redoStack.empty()) {
         Command *command = redoStack.top();
         redoStack.pop();
@@ -30,7 +34,8 @@ void CommandHistory::redo() {
     }
 }
 
-void CommandHistory::clearStack(std::stack<Command *> &stack) {
+void CommandHistory::clearStack(std::stack<Command *> &stack)
+{
     while (!stack.empty()) {
         delete stack.top();  // Assumes CommandHistory owns the commands
                              // and should delete them
@@ -38,10 +43,12 @@ void CommandHistory::clearStack(std::stack<Command *> &stack) {
     }
 }
 
-bool CommandHistory::isUndoStackEmpty() {
+bool CommandHistory::isUndoStackEmpty()
+{
     return undoStack.empty();
 }
 
-bool CommandHistory::isRedoStackEmpty() {
+bool CommandHistory::isRedoStackEmpty()
+{
     return redoStack.empty();
 }

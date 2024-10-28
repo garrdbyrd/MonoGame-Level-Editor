@@ -3,7 +3,8 @@
 #include <QString>
 #include <sstream>
 
-std::vector<std::string> splitString(const std::string &str, char delim) {
+std::vector<std::string> splitString(const std::string &str, char delim)
+{
     std::vector<std::string> tokens;
     std::stringstream ss(str);
     std::string item;
@@ -15,7 +16,8 @@ std::vector<std::string> splitString(const std::string &str, char delim) {
     return tokens;
 }
 
-QList<QString> splitString(const QString str, char delim) {
+QList<QString> splitString(const QString str, char delim)
+{
     QList<QString> tokens;
     QString delimiter = QString(delim);
     int startIndex = 0;

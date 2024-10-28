@@ -5,7 +5,8 @@
 #include <QPixmap>
 #include "commandhistory.h"
 
-class PaintCommand : public Command {
+class PaintCommand : public Command
+{
     QGraphicsPixmapItem *item;
     QPixmap prevPixmap;
     QPixmap newPixmap;
@@ -14,7 +15,8 @@ class PaintCommand : public Command {
     PaintCommand(
         QGraphicsPixmapItem *item,
         const QPixmap &prevPixmap,
-        const QPixmap &newPixmap);
+        const QPixmap &newPixmap
+    );
     void execute() override;
     void undo() override;
 };

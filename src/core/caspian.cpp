@@ -29,7 +29,8 @@
 #include "texturemanager.h"
 #include "utility.h"
 
-Caspian::Caspian(QWidget *parent) : QMainWindow(parent), ui(new Ui::Caspian) {
+Caspian::Caspian(QWidget *parent) : QMainWindow(parent), ui(new Ui::Caspian)
+{
     ui->setupUi(this);
 
     // Boot logic
@@ -41,7 +42,8 @@ Caspian::Caspian(QWidget *parent) : QMainWindow(parent), ui(new Ui::Caspian) {
         toolbar,
         &CustomToolBar::tilePickerRefresh,
         this,
-        &Caspian::populateScrollMenu);
+        &Caspian::populateScrollMenu
+    );
     this->addToolBar(toolbar);
 
     // Actions / Shortcuts
@@ -54,7 +56,8 @@ Caspian::Caspian(QWidget *parent) : QMainWindow(parent), ui(new Ui::Caspian) {
         ui->actionPreferences,
         &QAction::triggered,
         this,
-        &Caspian::onPreferencesTriggered);
+        &Caspian::onPreferencesTriggered
+    );
     connect(ui->actionUndo, &QAction::triggered, this, &Caspian::undo);
     connect(ui->actionRedo, &QAction::triggered, this, &Caspian::redo);
     updateActionStates();
@@ -72,13 +75,15 @@ Caspian::Caspian(QWidget *parent) : QMainWindow(parent), ui(new Ui::Caspian) {
         mainGraphicsView,
         &MainGraphicsView::executeCommand,
         this,
-        &Caspian::recordCommand);
+        &Caspian::recordCommand
+    );
 
     QPixmap defaultTexture(settings.defaultTexturePath);
     mainGraphicsView->setCurrentTexture(defaultTexture);
     mainGraphicsView->setupGrid(
-        12, 20, 16);  // Change '16' if textures are not 16x16. It
-                      // should just be a multiple of your texture size.
+        12, 20, 16
+    );  // Change '16' if textures are not 16x16. It
+        // should just be a multiple of your texture size.
     mainGraphicsView->noCurrentTexture();
 
     this->populateScrollMenu();
@@ -89,14 +94,17 @@ Caspian::Caspian(QWidget *parent) : QMainWindow(parent), ui(new Ui::Caspian) {
         mainGraphicsView,
         &MainGraphicsView::mouseCoordinates,
         this,
-        &Caspian::updateStatusBar);
+        &Caspian::updateStatusBar
+    );
 }
 
-Caspian::~Caspian() {
+Caspian::~Caspian()
+{
     delete ui;
 }
 
-void Caspian::labelClicked(SelectableLabel *label) {
+void Caspian::labelClicked(SelectableLabel *label)
+{
     MainGraphicsView *mainGraphicsView =
         dynamic_cast<MainGraphicsView *>(ui->mainGraphicsView);
     if (currentSelectedLabel) {
@@ -143,7 +151,8 @@ void Caspian::labelClicked(SelectableLabel *label) {
     }
 }
 
-void Caspian::populateScrollMenu() {
+void Caspian::populateScrollMenu()
+{
     // Import settings
     Config settings;
 
@@ -210,7 +219,8 @@ void Caspian::populateScrollMenu() {
                 QPixmap textureIcon(*value);
 
                 imageLabel->setPixmap(
-                    textureIcon.scaled(size, size, Qt::KeepAspectRatio));
+                    textureIcon.scaled(size, size, Qt::KeepAspectRatio)
+                );
                 // imageLabel->setTextureFilePath(subDir.absoluteFilePath(key));
                 // // Deals with painting
 
@@ -219,7 +229,8 @@ void Caspian::populateScrollMenu() {
                     imageLabel,
                     &SelectableLabel::clicked,
                     this,
-                    &Caspian::labelClicked);
+                    &Caspian::labelClicked
+                );
                 layout->addWidget(imageLabel, row, column);
 
                 column++;
@@ -269,18 +280,21 @@ void Caspian::populateScrollMenu() {
     // }
 }
 
-void Caspian::resizeEvent(QResizeEvent *event) {
+void Caspian::resizeEvent(QResizeEvent *event)
+{
     QMainWindow::resizeEvent(event);
     populateScrollMenu();
 }
 
-void Caspian::setPropertiesTable() {
+void Caspian::setPropertiesTable()
+{
     QStringList headers;
     headers << "Property"
             << "Value";
     ui->selectedProperties->setHorizontalHeaderLabels(headers);
     ui->selectedProperties->horizontalHeader()->setDefaultAlignment(
-        Qt::AlignLeft);
+        Qt::AlignLeft
+    );
 
     // Chunk to make column 1 read-only
     int rowCount = ui->selectedProperties->rowCount();
@@ -308,7 +322,8 @@ void Caspian::setPropertiesTable() {
 }
 
 // Status Bar
-void Caspian::updateStatusBar(const int x, const int y) {
+void Caspian::updateStatusBar(const int x, const int y)
+{
     // Format the point as a string
     if (0 <= x && 0 <= y) {
         QString statusMessage = QString("X: %1, Y: %2").arg(x).arg(y);
@@ -320,28 +335,33 @@ void Caspian::updateStatusBar(const int x, const int y) {
 }
 
 // Other windows
-void Caspian::onPreferencesTriggered() {
+void Caspian::onPreferencesTriggered()
+{
     preferencesDialog dialog(this);
     dialog.exec();
 }
 
 // Actions/shortcuts
-void Caspian::undo() {
+void Caspian::undo()
+{
     commandHistory.undo();
     updateActionStates();
 }
 
-void Caspian::redo() {
+void Caspian::redo()
+{
     commandHistory.redo();
     updateActionStates();
 }
 
-void Caspian::recordCommand(Command *command) {
+void Caspian::recordCommand(Command *command)
+{
     commandHistory.executeCommand(command);
     updateActionStates();
 }
 
-void Caspian::updateActionStates() {
+void Caspian::updateActionStates()
+{
     ui->actionUndo->setEnabled(!commandHistory.isUndoStackEmpty());
     ui->actionRedo->setEnabled(!commandHistory.isRedoStackEmpty());
 }

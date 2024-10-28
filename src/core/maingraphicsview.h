@@ -7,7 +7,8 @@
 #include <QGraphicsView>
 #include <QInputEvent>
 
-class MainGraphicsView : public QGraphicsView {
+class MainGraphicsView : public QGraphicsView
+{
     Q_OBJECT
 
    public:

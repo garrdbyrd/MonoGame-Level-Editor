@@ -9,12 +9,14 @@
 #include <QResizeEvent>
 
 QT_BEGIN_NAMESPACE
-namespace Ui {
+namespace Ui
+{
 class Caspian;
 }
 QT_END_NAMESPACE
 
-class Caspian : public QMainWindow {
+class Caspian : public QMainWindow
+{
     Q_OBJECT
 
    public:

@@ -6,7 +6,8 @@
 #include <QSpinBox>
 #include <QWidget>
 
-class SpinBoxWidget : public QWidget {
+class SpinBoxWidget : public QWidget
+{
     Q_OBJECT
 
    public:
@@ -14,7 +15,8 @@ class SpinBoxWidget : public QWidget {
         int minValue = 0,
         int maxValue = 100,
         int stepSize = 1,
-        QWidget *parent = nullptr);
+        QWidget *parent = nullptr
+    );
     int value() const;
     void setValue(int val);
     void setRange(int minValue, int maxValue);

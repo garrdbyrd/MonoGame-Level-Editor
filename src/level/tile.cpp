@@ -4,7 +4,8 @@
 
 #include "tile.h"
 
-bool Tile::readFromFile(const std::string &filename, u_int32_t offset) {
+bool Tile::readFromFile(const std::string &filename, u_int32_t offset)
+{
     std::ifstream file(filename, std::ios::binary);
     if (!file) {
         std::cerr << "Error opening file: " << filename << std::endl;
@@ -14,7 +15,8 @@ bool Tile::readFromFile(const std::string &filename, u_int32_t offset) {
     std::vector<char> buffer(tileSize());  // Buffer for tiles
     file.seekg(
         tileSize() * offset + headerOffset(),
-        std::ios::beg);  // Offset for other tiles
+        std::ios::beg
+    );  // Offset for other tiles
 
     if (!file) {
         std::cerr << "Error seeking to offset in file: " << offset << std::endl;
@@ -54,15 +56,18 @@ bool Tile::readFromFile(const std::string &filename, u_int32_t offset) {
     return true;
 }
 
-int Tile::headerOffset() {
+int Tile::headerOffset()
+{
     return 1024;
 }
 
-int Tile::tileSize() {
+int Tile::tileSize()
+{
     return 1024;
 }
 
-bool Tile::readXCoordinate(std::ifstream &file) {
+bool Tile::readXCoordinate(std::ifstream &file)
+{
     int offset = headerOffset();
     file.seekg(offset, std::ios::beg);
     if (!file) {
@@ -73,7 +78,8 @@ bool Tile::readXCoordinate(std::ifstream &file) {
     return true;
 }
 
-bool Tile::readYCoordinate(std::ifstream &file) {
+bool Tile::readYCoordinate(std::ifstream &file)
+{
     int offset = headerOffset() + tileOffsets::yCoordinateOffset;
     file.seekg(offset, std::ios::beg);
     if (!file) {
@@ -84,7 +90,8 @@ bool Tile::readYCoordinate(std::ifstream &file) {
     return true;
 }
 
-bool Tile::readTileType(std::ifstream &file) {
+bool Tile::readTileType(std::ifstream &file)
+{
     int offset = headerOffset() + tileOffsets::tileTypeOffset;
     file.seekg(offset, std::ios::beg);
     if (!file) {
@@ -100,7 +107,8 @@ bool Tile::readTileType(std::ifstream &file) {
     return true;
 }
 
-bool Tile::readFriction(std::ifstream &file) {
+bool Tile::readFriction(std::ifstream &file)
+{
     int offset = headerOffset() + tileOffsets::frictionOffset;
     file.seekg(offset, std::ios::beg);
     if (!file) {
@@ -111,7 +119,8 @@ bool Tile::readFriction(std::ifstream &file) {
     return true;
 }
 
-bool Tile::readCollision(std::ifstream &file) {
+bool Tile::readCollision(std::ifstream &file)
+{
     int offset = headerOffset() + tileOffsets::collisionOffset;
     file.seekg(offset, std::ios::beg);
     if (!file) {
@@ -122,7 +131,8 @@ bool Tile::readCollision(std::ifstream &file) {
     return true;
 }
 
-bool Tile::readFrictionBool(std::ifstream &file) {
+bool Tile::readFrictionBool(std::ifstream &file)
+{
     int offset = headerOffset() + tileOffsets::frictionBoolOffset;
     file.seekg(offset, std::ios::beg);
     if (!file) {

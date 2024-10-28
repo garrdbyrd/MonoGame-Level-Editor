@@ -4,7 +4,8 @@
 #include <QLabel>
 #include <QMouseEvent>
 
-class SelectableLabel : public QLabel {
+class SelectableLabel : public QLabel
+{
     Q_OBJECT
 
    public:
@@ -12,7 +13,8 @@ class SelectableLabel : public QLabel {
 
     void setSelected(bool selected);
     bool isSelected() const;
-    void setTextureFilePath(const QString &filePath) {
+    void setTextureFilePath(const QString &filePath)
+    {
         textureFilePath = filePath;
     }
     QString getTextureFilePath() const { return textureFilePath; }

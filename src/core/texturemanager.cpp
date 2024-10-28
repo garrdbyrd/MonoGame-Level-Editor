@@ -10,7 +10,8 @@
 
 TextureManager::TextureManager() {}
 
-TextureManager::~TextureManager() {
+TextureManager::~TextureManager()
+{
     // qDeleteAll(textureMap);
     // textureMap.clear();
     for (auto &pair : textureMap) {
@@ -19,11 +20,13 @@ TextureManager::~TextureManager() {
     textureMap.clear();
 }
 
-QPixmap *TextureManager::getTexture(const QString &key) {
+QPixmap *TextureManager::getTexture(const QString &key)
+{
     // return textureMap.value(key, nullptr);
 }
 
-void TextureManager::loadTexture(const QString &key, const QString &filePath) {
+void TextureManager::loadTexture(const QString &key, const QString &filePath)
+{
     // if (!textureMap.contains(key)) {
     //   QPixmap *textureMap = new QPixmap(filePath);
     //   if (textureMap->isNull()) {
@@ -34,20 +37,24 @@ void TextureManager::loadTexture(const QString &key, const QString &filePath) {
     // }
 }
 
-void TextureManager::unloadTexture(const QString &key) {
+void TextureManager::unloadTexture(const QString &key)
+{
     // QPixmap *texture = textureMap.take(key);
     // delete texture;
 }
 
 void TextureManager::addStringTexturePair(
     const QString textureName,
-    const QPixmap *textureLoc) {
+    const QPixmap *textureLoc
+)
+{
     if (!(textureMap.find(textureName) != textureMap.end())) {
         textureMap[textureName] = const_cast<QPixmap *>(textureLoc);
     }
 }
 
-void TextureManager::loadAllTextures(const QString &directoryPath) {
+void TextureManager::loadAllTextures(const QString &directoryPath)
+{
     QDir directory(directoryPath);
     QStringList subDirs =
         directory.entryList(QDir::Dirs | QDir::NoDotAndDotDot);

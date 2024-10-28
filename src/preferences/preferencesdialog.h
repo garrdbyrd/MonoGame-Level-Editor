@@ -4,11 +4,13 @@
 #include <QDialog>
 #include <QWidget>
 
-namespace Ui {
+namespace Ui
+{
 class preferencesDialog;
 }
 
-class preferencesDialog : public QDialog {
+class preferencesDialog : public QDialog
+{
     Q_OBJECT
 
    public:

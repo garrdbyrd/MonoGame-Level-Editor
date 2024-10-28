@@ -6,7 +6,8 @@
 #include <QPushButton>
 #include <QWidget>
 
-class FileBrowseWidget : public QWidget {
+class FileBrowseWidget : public QWidget
+{
     Q_OBJECT
    public:
     FileBrowseWidget(QWidget *parent = nullptr);

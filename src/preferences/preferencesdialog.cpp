@@ -12,16 +12,19 @@
 #include <QVBoxLayout>
 
 preferencesDialog::preferencesDialog(QWidget *parent)
-        : QDialog(parent), ui(new Ui::preferencesDialog) {
+    : QDialog(parent), ui(new Ui::preferencesDialog)
+{
     ui->setupUi(this);
     populatePreferences();
 }
 
-preferencesDialog::~preferencesDialog() {
+preferencesDialog::~preferencesDialog()
+{
     delete ui;
 }
 
-void preferencesDialog::populatePreferences() {
+void preferencesDialog::populatePreferences()
+{
     Config config;
 
     for (QString &sectionName : config.childGroups()) {

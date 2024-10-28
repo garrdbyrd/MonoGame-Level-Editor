@@ -52,7 +52,8 @@ struct levelHeaderOffsets {
 // see: https://github.com/clangd/clangd/issues/1167
 #pragma clang diagnostic ignored "-Wpragma-pack"
 #pragma pack(push, 1)
-class Level {
+class Level
+{
    public:
     // Constructor/Destructor
     Level() = default;
@@ -102,6 +103,7 @@ class Level {
 
 static_assert(
     offsetof(Level, grid) ==
-    levelHeaderOffsets::headerSize - sizeof(std::vector<std::vector<Tile>>));
+    levelHeaderOffsets::headerSize - sizeof(std::vector<std::vector<Tile>>)
+);
 
 #endif  // LEVEL_H

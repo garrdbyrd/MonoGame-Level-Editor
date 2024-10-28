@@ -2,7 +2,8 @@
 
 #include "../src/level/level.h"
 
-void parseLevel() {
+void parseLevel()
+{
     Level level;
     if (level.readFromFile("test/example.level")) {
         std::cout << 'v' << static_cast<int>(level.versionMajor) << "."
@@ -15,7 +16,8 @@ void parseLevel() {
     }
 }
 
-int main() {
+int main()
+{
     parseLevel();
     return 0;
 }

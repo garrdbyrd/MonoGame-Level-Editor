@@ -7,7 +7,8 @@
 #include <QScrollBar>
 #include <QWheelEvent>
 
-MainGraphicsView::MainGraphicsView(QWidget *parent) : QGraphicsView(parent) {
+MainGraphicsView::MainGraphicsView(QWidget *parent) : QGraphicsView(parent)
+{
     setMouseTracking(true);
 
     isMiddleDragging = false;
@@ -18,7 +19,8 @@ MainGraphicsView::MainGraphicsView(QWidget *parent) : QGraphicsView(parent) {
 ////////////////
 // Grid setup //
 ////////////////
-void MainGraphicsView::setupGrid(int rows, int cols, int tileSize) {
+void MainGraphicsView::setupGrid(int rows, int cols, int tileSize)
+{
     this->tileSize = tileSize;
 
     for (int row = 0; row < rows; ++row) {
@@ -33,18 +35,21 @@ void MainGraphicsView::setupGrid(int rows, int cols, int tileSize) {
     }
 }
 
-void MainGraphicsView::setCurrentTexture(const QPixmap &texture) {
+void MainGraphicsView::setCurrentTexture(const QPixmap &texture)
+{
     currentTexture = texture;
 }
 
-void MainGraphicsView::noCurrentTexture() {
+void MainGraphicsView::noCurrentTexture()
+{
     currentTexture = nullTexture;
 }
 
 ////////////////////
 // Mouse controls //
 ////////////////////
-void MainGraphicsView::mousePressEvent(QMouseEvent *event) {
+void MainGraphicsView::mousePressEvent(QMouseEvent *event)
+{
     QPointF scenePoint = mapToScene(event->pos());
     int row = static_cast<uint>(scenePoint.y()) / tileSize;
     int col = static_cast<uint>(scenePoint.x()) / tileSize;
@@ -71,7 +76,8 @@ void MainGraphicsView::mousePressEvent(QMouseEvent *event) {
     QGraphicsView::mousePressEvent(event);
 }
 
-void MainGraphicsView::wheelEvent(QWheelEvent *event) {
+void MainGraphicsView::wheelEvent(QWheelEvent *event)
+{
     Config settings;
     const int scrollAmount = settings.scrollSpeed;
     const double scaleFactor = settings.zoomScale;
@@ -97,19 +103,22 @@ void MainGraphicsView::wheelEvent(QWheelEvent *event) {
         // Horizontal scrolling with Shift + scroll
         horizontalScrollBar()->setValue(
             horizontalScrollBar()->value() -
-            (event->angleDelta().y() / 120) * scrollAmount);
+            (event->angleDelta().y() / 120) * scrollAmount
+        );
     } else {
         // Vertical scrolling without modifiers
         verticalScrollBar()->setValue(
             verticalScrollBar()->value() -
-            (event->angleDelta().y() / 120) * scrollAmount);
+            (event->angleDelta().y() / 120) * scrollAmount
+        );
     }
 
     // Reset the anchor to the default
     setTransformationAnchor(QGraphicsView::NoAnchor);
 }
 
-void MainGraphicsView::mouseMoveEvent(QMouseEvent *event) {
+void MainGraphicsView::mouseMoveEvent(QMouseEvent *event)
+{
     QPointF scenePoint = mapToScene(event->pos());
     int row = static_cast<uint>(scenePoint.y()) / tileSize;
     int col = static_cast<uint>(scenePoint.x()) / tileSize;
@@ -124,7 +133,8 @@ void MainGraphicsView::mouseMoveEvent(QMouseEvent *event) {
         QPoint delta = event->pos() - lastMousePosition;
         lastMousePosition = event->pos();
         horizontalScrollBar()->setValue(
-            horizontalScrollBar()->value() - delta.x());
+            horizontalScrollBar()->value() - delta.x()
+        );
         verticalScrollBar()->setValue(verticalScrollBar()->value() - delta.y());
     }
     if (row >= 0 && row < grid.size() && col >= 0 && col < grid[row].size()) {
@@ -134,7 +144,8 @@ void MainGraphicsView::mouseMoveEvent(QMouseEvent *event) {
     }
 }
 
-void MainGraphicsView::mouseReleaseEvent(QMouseEvent *event) {
+void MainGraphicsView::mouseReleaseEvent(QMouseEvent *event)
+{
     if (event->button() == Qt::LeftButton) {
         isLeftDragging = false;
         if (isPainting) {
@@ -150,37 +161,44 @@ void MainGraphicsView::mouseReleaseEvent(QMouseEvent *event) {
 }
 
 // Paint
-void MainGraphicsView::startPainting() {
+void MainGraphicsView::startPainting()
+{
     paintedItems.clear();
     prevPixmaps.clear();
 }
 
-void MainGraphicsView::applyPaint(QGraphicsPixmapItem *item) {
+void MainGraphicsView::applyPaint(QGraphicsPixmapItem *item)
+{
     if (!paintedItems.contains(item)) {
         paintedItems.append(item);
         prevPixmaps.append(item->pixmap());
         item->setPixmap(
-            currentTexture.scaled(tileSize, tileSize, Qt::KeepAspectRatio));
+            currentTexture.scaled(tileSize, tileSize, Qt::KeepAspectRatio)
+        );
     }
 }
 
-void MainGraphicsView::endPainting() {
+void MainGraphicsView::endPainting()
+{
     if (!paintedItems.isEmpty()) {
         QList<QPixmap> newPixmaps;
         for (auto item : qAsConst(paintedItems)) {
             newPixmaps.append(item->pixmap());
         }
         emit executeCommand(
-            new CompoundPaintCommand(paintedItems, prevPixmaps, newPixmaps));
+            new CompoundPaintCommand(paintedItems, prevPixmaps, newPixmaps)
+        );
     }
 }
 
-void MainGraphicsView::resizeEvent(QResizeEvent *event) {
+void MainGraphicsView::resizeEvent(QResizeEvent *event)
+{
     QGraphicsView::resizeEvent(event);
 }
 
 // Unused for now
-void MainGraphicsView::fitInViewGrid() {
+void MainGraphicsView::fitInViewGrid()
+{
     if (grid.isEmpty() || grid[0].isEmpty())
         return;
 

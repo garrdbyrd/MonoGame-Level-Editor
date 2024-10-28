@@ -4,7 +4,8 @@
 #include <QSettings>
 #include <QString>
 
-class Config : public QSettings {
+class Config : public QSettings
+{
    public:
     Config();
     // Paths

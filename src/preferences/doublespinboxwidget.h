@@ -6,7 +6,8 @@
 #include <QLabel>
 #include <QWidget>
 
-class DoubleSpinBoxWidget : public QWidget {
+class DoubleSpinBoxWidget : public QWidget
+{
     Q_OBJECT
 
    public:
@@ -14,7 +15,8 @@ class DoubleSpinBoxWidget : public QWidget {
         double minValue = 0,
         double maxValue = 1,
         double stepSize = 0.05,
-        QWidget *parent = nullptr);
+        QWidget *parent = nullptr
+    );
     double value() const;
     void setValue(double val);
     void setRange(double minValue, double maxValue);

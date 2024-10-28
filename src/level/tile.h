@@ -45,7 +45,8 @@ struct tileOffsets {
 // see: https://github.com/clangd/clangd/issues/1167
 #pragma clang diagnostic ignored "-Wpragma-pack"
 #pragma pack(push, 1)
-class Tile {
+class Tile
+{
    public:
     // Constructor/Destructor
     Tile() = default;

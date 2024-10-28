@@ -2,9 +2,12 @@
 #include <QGraphicsDropShadowEffect>
 
 SelectableLabel::SelectableLabel(QWidget *parent)
-        : QLabel(parent), selected(false) {}
+    : QLabel(parent), selected(false)
+{
+}
 
-void SelectableLabel::setSelected(bool selected) {
+void SelectableLabel::setSelected(bool selected)
+{
     this->selected = selected;
     if (selected) {
         auto effect = new QGraphicsDropShadowEffect(this);
@@ -17,15 +20,17 @@ void SelectableLabel::setSelected(bool selected) {
     }
 }
 
-bool SelectableLabel::isSelected() const {
+bool SelectableLabel::isSelected() const
+{
     return selected;
 }
 
-void SelectableLabel::mousePressEvent(QMouseEvent *event) {
+void SelectableLabel::mousePressEvent(QMouseEvent *event)
+{
     if (event->button() == Qt::LeftButton) {
         setSelected(!isSelected());
         emit clicked(this);
     }
-    QLabel::mousePressEvent(
-        event);  // Ensures the base class event handling still occurs
+    QLabel::mousePressEvent(event
+    );  // Ensures the base class event handling still occurs
 }

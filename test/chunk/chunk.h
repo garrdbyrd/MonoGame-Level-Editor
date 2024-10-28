@@ -3,7 +3,8 @@
 
 #include <cstdint>
 
-class Chunk {
+class Chunk
+{
    public:
     const uint8_t magicNumbers[8] = {
         0x44,

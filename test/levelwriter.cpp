@@ -5,7 +5,8 @@
 #include "../src/level/level.h"
 #include "../src/level/tile.h"
 
-int main() {
+int main()
+{
     // Header
     Level level;
 
@@ -38,7 +39,8 @@ int main() {
     for (const auto &row : level.grid) {
         for (const auto &tile : row) {
             outputFile.write(
-                reinterpret_cast<const char *>(&tile), sizeof(tile));
+                reinterpret_cast<const char *>(&tile), sizeof(tile)
+            );
         }
     }
 

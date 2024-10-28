@@ -1,7 +1,8 @@
 #include "customtoolbar.h"
 #include "config.h"
 
-CustomToolBar::CustomToolBar(QWidget *parent) : QToolBar(parent) {
+CustomToolBar::CustomToolBar(QWidget *parent) : QToolBar(parent)
+{
     this->setStyleSheet(
         "QToolBar {"
         "background-color: #1B1E20;"
@@ -18,7 +19,8 @@ CustomToolBar::CustomToolBar(QWidget *parent) : QToolBar(parent) {
         "padding: 0px;"
         "spacing: 0px;"
         "icon-size: 18px;"
-        "}");
+        "}"
+    );
     // this->setFixedHeight(32);
     // this->setIconSize(QSize(18,18));
     this->setMovable(false);
@@ -26,7 +28,8 @@ CustomToolBar::CustomToolBar(QWidget *parent) : QToolBar(parent) {
     addTilePickerRefreshAction();
 }
 
-void CustomToolBar::addTilePickerRefreshAction() {
+void CustomToolBar::addTilePickerRefreshAction()
+{
     Config settings;
     QIcon refreshIcon = QIcon(settings.iconsPath + "/actions/22/refactor.svg");
     QAction *refreshAction = this->addAction(refreshIcon, "Refresh");
@@ -34,5 +37,6 @@ void CustomToolBar::addTilePickerRefreshAction() {
         refreshAction,
         &QAction::triggered,
         this,
-        &CustomToolBar::tilePickerRefresh);
+        &CustomToolBar::tilePickerRefresh
+    );
 }

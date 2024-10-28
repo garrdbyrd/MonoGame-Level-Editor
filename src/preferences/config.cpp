@@ -6,17 +6,20 @@
 #include <QLineEdit>
 
 Config::Config()
-        : QSettings("caspian-local/preferences.ini", QSettings::IniFormat) {
+    : QSettings("caspian-local/preferences.ini", QSettings::IniFormat)
+{
     // Main
     QSettings::setDefaultFormat(QSettings::IniFormat);
     QSettings::setPath(
-        QSettings::IniFormat, QSettings::UserScope, "caspian-local");
+        QSettings::IniFormat, QSettings::UserScope, "caspian-local"
+    );
     // Paths
     assetPath =
         this->value("FilePaths/AssetPath", "caspian-local/assets").toString();
     defaultTexturePath = this->value(
                                  "FilePaths/DefaultTexture",
-                                 "caspian-local/assets/default/default.png")
+                                 "caspian-local/assets/default/default.png"
+    )
                              .toString();
     iconsPath =
         this->value("FilePaths/IconsPath", "/usr/share/icons/breeze-dark")
@@ -37,7 +40,8 @@ Config::Config()
     dialogMap["TileMenuColumns"] = new SpinBoxWidget(1, 8, 1);
 }
 
-QMap<QString, QVariant> Config::getSettings(const QString &section) {
+QMap<QString, QVariant> Config::getSettings(const QString &section)
+{
     QMap<QString, QVariant> settingsMap;
 
     // Begin reading from the specified section
@@ -54,6 +58,7 @@ QMap<QString, QVariant> Config::getSettings(const QString &section) {
     return settingsMap;
 }
 
-QWidget *Config::getSettingWidget(const QString &settingName) {
+QWidget *Config::getSettingWidget(const QString &settingName)
+{
     return dialogMap.value(settingName, nullptr);
 }

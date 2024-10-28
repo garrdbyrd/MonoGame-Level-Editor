@@ -2,9 +2,10 @@
 #include <QFileDialog>
 
 FileBrowseWidget::FileBrowseWidget(QWidget *parent)
-        : QWidget(parent),
-          lineEdit(new QLineEdit(this)),
-          browseButton(new QPushButton("Browse", this)) {
+    : QWidget(parent),
+      lineEdit(new QLineEdit(this)),
+      browseButton(new QPushButton("Browse", this))
+{
     // Set up the layout
     QHBoxLayout *layout = new QHBoxLayout(this);
     layout->addWidget(lineEdit);
@@ -15,18 +16,22 @@ FileBrowseWidget::FileBrowseWidget(QWidget *parent)
         browseButton,
         &QPushButton::clicked,
         this,
-        &FileBrowseWidget::onBrowseButtonClicked);
+        &FileBrowseWidget::onBrowseButtonClicked
+    );
 }
 
-QString FileBrowseWidget::filePath() const {
+QString FileBrowseWidget::filePath() const
+{
     return lineEdit->text();
 }
 
-void FileBrowseWidget::setFilePath(const QString &path) {
+void FileBrowseWidget::setFilePath(const QString &path)
+{
     lineEdit->setText(path);
 }
 
-void FileBrowseWidget::onBrowseButtonClicked() {
+void FileBrowseWidget::onBrowseButtonClicked()
+{
     QString selectedFile =
         QFileDialog::getOpenFileName(this, tr("Select File"));
     if (!selectedFile.isEmpty()) {
@@ -34,10 +39,12 @@ void FileBrowseWidget::onBrowseButtonClicked() {
     }
 }
 
-QLineEdit *FileBrowseWidget::getLineEdit() const {
+QLineEdit *FileBrowseWidget::getLineEdit() const
+{
     return lineEdit;
 }
 
-QPushButton *FileBrowseWidget::getBrowseButton() const {
+QPushButton *FileBrowseWidget::getBrowseButton() const
+{
     return browseButton;
 }

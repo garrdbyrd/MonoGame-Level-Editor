@@ -3,18 +3,23 @@
 PaintCommand::PaintCommand(
     QGraphicsPixmapItem *item,
     const QPixmap &prevPixmap,
-    const QPixmap &newPixmap)
-        : item(item), prevPixmap(prevPixmap), newPixmap(newPixmap) {}
+    const QPixmap &newPixmap
+)
+    : item(item), prevPixmap(prevPixmap), newPixmap(newPixmap)
+{
+}
 
 // Execute the painting action
-void PaintCommand::execute() {
+void PaintCommand::execute()
+{
     if (item) {
         item->setPixmap(newPixmap);
     }
 }
 
 // Undo the painting action
-void PaintCommand::undo() {
+void PaintCommand::undo()
+{
     if (item) {
         item->setPixmap(prevPixmap);
     }

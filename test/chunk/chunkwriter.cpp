@@ -4,7 +4,8 @@
 
 #include "chunkheader.cpp"
 
-int main() {
+int main()
+{
     // Header
     ChunkHeader header;
 
@@ -22,7 +23,8 @@ int main() {
     std::copy(
         std::begin(magicNumbers),
         std::end(magicNumbers),
-        std::begin(header.magicNumbers));
+        std::begin(header.magicNumbers)
+    );
     // Version
     header.versionMajor = 0;
     header.versionMinor = 1;

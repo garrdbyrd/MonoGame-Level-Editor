@@ -6,7 +6,8 @@
 #include <QString>
 #include <map>
 
-class TextureManager {
+class TextureManager
+{
    public:
     TextureManager();
     ~TextureManager();
