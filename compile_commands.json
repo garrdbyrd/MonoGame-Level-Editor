@@ -33,9 +33,9 @@
       "commandhistory.o",
       "src/command/commandhistory.cpp"
     ],
-    "directory": "/home/blackbox/youtube/MonoGame-Level-Editor",
-    "file": "/home/blackbox/youtube/MonoGame-Level-Editor/src/command/commandhistory.cpp",
-    "output": "/home/blackbox/youtube/MonoGame-Level-Editor/commandhistory.o"
+    "directory": ".",
+    "file": "src/command/commandhistory.cpp",
+    "output": "commandhistory.o"
   },
   {
     "arguments": [
@@ -71,9 +71,9 @@
       "compoundpaintcommand.o",
       "src/command/compoundpaintcommand.cpp"
     ],
-    "directory": "/home/blackbox/youtube/MonoGame-Level-Editor",
-    "file": "/home/blackbox/youtube/MonoGame-Level-Editor/src/command/compoundpaintcommand.cpp",
-    "output": "/home/blackbox/youtube/MonoGame-Level-Editor/compoundpaintcommand.o"
+    "directory": ".",
+    "file": "src/command/compoundpaintcommand.cpp",
+    "output": "compoundpaintcommand.o"
   },
   {
     "arguments": [
@@ -109,9 +109,9 @@
       "caspian.o",
       "src/core/caspian.cpp"
     ],
-    "directory": "/home/blackbox/youtube/MonoGame-Level-Editor",
-    "file": "/home/blackbox/youtube/MonoGame-Level-Editor/src/core/caspian.cpp",
-    "output": "/home/blackbox/youtube/MonoGame-Level-Editor/caspian.o"
+    "directory": ".",
+    "file": "src/core/caspian.cpp",
+    "output": "caspian.o"
   },
   {
     "arguments": [
@@ -147,9 +147,9 @@
       "customtoolbar.o",
       "src/core/customtoolbar.cpp"
     ],
-    "directory": "/home/blackbox/youtube/MonoGame-Level-Editor",
-    "file": "/home/blackbox/youtube/MonoGame-Level-Editor/src/core/customtoolbar.cpp",
-    "output": "/home/blackbox/youtube/MonoGame-Level-Editor/customtoolbar.o"
+    "directory": ".",
+    "file": "src/core/customtoolbar.cpp",
+    "output": "customtoolbar.o"
   },
   {
     "arguments": [
@@ -185,9 +185,9 @@
       "main.o",
       "src/core/main.cpp"
     ],
-    "directory": "/home/blackbox/youtube/MonoGame-Level-Editor",
-    "file": "/home/blackbox/youtube/MonoGame-Level-Editor/src/core/main.cpp",
-    "output": "/home/blackbox/youtube/MonoGame-Level-Editor/main.o"
+    "directory": ".",
+    "file": "src/core/main.cpp",
+    "output": "main.o"
   },
   {
     "arguments": [
@@ -223,9 +223,9 @@
       "maingraphicsview.o",
       "src/core/maingraphicsview.cpp"
     ],
-    "directory": "/home/blackbox/youtube/MonoGame-Level-Editor",
-    "file": "/home/blackbox/youtube/MonoGame-Level-Editor/src/core/maingraphicsview.cpp",
-    "output": "/home/blackbox/youtube/MonoGame-Level-Editor/maingraphicsview.o"
+    "directory": ".",
+    "file": "src/core/maingraphicsview.cpp",
+    "output": "maingraphicsview.o"
   },
   {
     "arguments": [
@@ -261,9 +261,9 @@
       "selectablelabel.o",
       "src/core/selectablelabel.cpp"
     ],
-    "directory": "/home/blackbox/youtube/MonoGame-Level-Editor",
-    "file": "/home/blackbox/youtube/MonoGame-Level-Editor/src/core/selectablelabel.cpp",
-    "output": "/home/blackbox/youtube/MonoGame-Level-Editor/selectablelabel.o"
+    "directory": ".",
+    "file": "src/core/selectablelabel.cpp",
+    "output": "selectablelabel.o"
   },
   {
     "arguments": [
@@ -299,9 +299,9 @@
       "texturemanager.o",
       "src/core/texturemanager.cpp"
     ],
-    "directory": "/home/blackbox/youtube/MonoGame-Level-Editor",
-    "file": "/home/blackbox/youtube/MonoGame-Level-Editor/src/core/texturemanager.cpp",
-    "output": "/home/blackbox/youtube/MonoGame-Level-Editor/texturemanager.o"
+    "directory": ".",
+    "file": "src/core/texturemanager.cpp",
+    "output": "texturemanager.o"
   },
   {
     "arguments": [
@@ -337,9 +337,9 @@
       "utility.o",
       "src/core/utility.cpp"
     ],
-    "directory": "/home/blackbox/youtube/MonoGame-Level-Editor",
-    "file": "/home/blackbox/youtube/MonoGame-Level-Editor/src/core/utility.cpp",
-    "output": "/home/blackbox/youtube/MonoGame-Level-Editor/utility.o"
+    "directory": ".",
+    "file": "src/core/utility.cpp",
+    "output": "utility.o"
   },
   {
     "arguments": [
@@ -375,9 +375,9 @@
       "config.o",
       "src/preferences/config.cpp"
     ],
-    "directory": "/home/blackbox/youtube/MonoGame-Level-Editor",
-    "file": "/home/blackbox/youtube/MonoGame-Level-Editor/src/preferences/config.cpp",
-    "output": "/home/blackbox/youtube/MonoGame-Level-Editor/config.o"
+    "directory": ".",
+    "file": "src/preferences/config.cpp",
+    "output": "config.o"
   },
   {
     "arguments": [
@@ -413,9 +413,9 @@
       "doublespinboxwidget.o",
       "src/preferences/doublespinboxwidget.cpp"
     ],
-    "directory": "/home/blackbox/youtube/MonoGame-Level-Editor",
-    "file": "/home/blackbox/youtube/MonoGame-Level-Editor/src/preferences/doublespinboxwidget.cpp",
-    "output": "/home/blackbox/youtube/MonoGame-Level-Editor/doublespinboxwidget.o"
+    "directory": ".",
+    "file": "src/preferences/doublespinboxwidget.cpp",
+    "output": "doublespinboxwidget.o"
   },
   {
     "arguments": [
@@ -451,9 +451,9 @@
       "filebrowsewidget.o",
       "src/preferences/filebrowsewidget.cpp"
     ],
-    "directory": "/home/blackbox/youtube/MonoGame-Level-Editor",
-    "file": "/home/blackbox/youtube/MonoGame-Level-Editor/src/preferences/filebrowsewidget.cpp",
-    "output": "/home/blackbox/youtube/MonoGame-Level-Editor/filebrowsewidget.o"
+    "directory": ".",
+    "file": "src/preferences/filebrowsewidget.cpp",
+    "output": "filebrowsewidget.o"
   },
   {
     "arguments": [
@@ -489,9 +489,9 @@
       "preferencesdialog.o",
       "src/preferences/preferencesdialog.cpp"
     ],
-    "directory": "/home/blackbox/youtube/MonoGame-Level-Editor",
-    "file": "/home/blackbox/youtube/MonoGame-Level-Editor/src/preferences/preferencesdialog.cpp",
-    "output": "/home/blackbox/youtube/MonoGame-Level-Editor/preferencesdialog.o"
+    "directory": ".",
+    "file": "src/preferences/preferencesdialog.cpp",
+    "output": "preferencesdialog.o"
   },
   {
     "arguments": [
@@ -527,9 +527,9 @@
       "spinboxwidget.o",
       "src/preferences/spinboxwidget.cpp"
     ],
-    "directory": "/home/blackbox/youtube/MonoGame-Level-Editor",
-    "file": "/home/blackbox/youtube/MonoGame-Level-Editor/src/preferences/spinboxwidget.cpp",
-    "output": "/home/blackbox/youtube/MonoGame-Level-Editor/spinboxwidget.o"
+    "directory": ".",
+    "file": "src/preferences/spinboxwidget.cpp",
+    "output": "spinboxwidget.o"
   },
   {
     "arguments": [
@@ -565,9 +565,9 @@
       "moc_caspian.o",
       "moc_caspian.cpp"
     ],
-    "directory": "/home/blackbox/youtube/MonoGame-Level-Editor",
-    "file": "/home/blackbox/youtube/MonoGame-Level-Editor/moc_caspian.cpp",
-    "output": "/home/blackbox/youtube/MonoGame-Level-Editor/moc_caspian.o"
+    "directory": ".",
+    "file": "moc_caspian.cpp",
+    "output": "moc_caspian.o"
   },
   {
     "arguments": [
@@ -603,9 +603,9 @@
       "moc_customtoolbar.o",
       "moc_customtoolbar.cpp"
     ],
-    "directory": "/home/blackbox/youtube/MonoGame-Level-Editor",
-    "file": "/home/blackbox/youtube/MonoGame-Level-Editor/moc_customtoolbar.cpp",
-    "output": "/home/blackbox/youtube/MonoGame-Level-Editor/moc_customtoolbar.o"
+    "directory": ".",
+    "file": "moc_customtoolbar.cpp",
+    "output": "moc_customtoolbar.o"
   },
   {
     "arguments": [
@@ -641,9 +641,9 @@
       "moc_maingraphicsview.o",
       "moc_maingraphicsview.cpp"
     ],
-    "directory": "/home/blackbox/youtube/MonoGame-Level-Editor",
-    "file": "/home/blackbox/youtube/MonoGame-Level-Editor/moc_maingraphicsview.cpp",
-    "output": "/home/blackbox/youtube/MonoGame-Level-Editor/moc_maingraphicsview.o"
+    "directory": ".",
+    "file": "moc_maingraphicsview.cpp",
+    "output": "moc_maingraphicsview.o"
   },
   {
     "arguments": [
@@ -679,9 +679,9 @@
       "moc_selectablelabel.o",
       "moc_selectablelabel.cpp"
     ],
-    "directory": "/home/blackbox/youtube/MonoGame-Level-Editor",
-    "file": "/home/blackbox/youtube/MonoGame-Level-Editor/moc_selectablelabel.cpp",
-    "output": "/home/blackbox/youtube/MonoGame-Level-Editor/moc_selectablelabel.o"
+    "directory": ".",
+    "file": "moc_selectablelabel.cpp",
+    "output": "moc_selectablelabel.o"
   },
   {
     "arguments": [
@@ -717,9 +717,9 @@
       "moc_doublespinboxwidget.o",
       "moc_doublespinboxwidget.cpp"
     ],
-    "directory": "/home/blackbox/youtube/MonoGame-Level-Editor",
-    "file": "/home/blackbox/youtube/MonoGame-Level-Editor/moc_doublespinboxwidget.cpp",
-    "output": "/home/blackbox/youtube/MonoGame-Level-Editor/moc_doublespinboxwidget.o"
+    "directory": ".",
+    "file": "moc_doublespinboxwidget.cpp",
+    "output": "moc_doublespinboxwidget.o"
   },
   {
     "arguments": [
@@ -755,9 +755,9 @@
       "moc_filebrowsewidget.o",
       "moc_filebrowsewidget.cpp"
     ],
-    "directory": "/home/blackbox/youtube/MonoGame-Level-Editor",
-    "file": "/home/blackbox/youtube/MonoGame-Level-Editor/moc_filebrowsewidget.cpp",
-    "output": "/home/blackbox/youtube/MonoGame-Level-Editor/moc_filebrowsewidget.o"
+    "directory": ".",
+    "file": "moc_filebrowsewidget.cpp",
+    "output": "moc_filebrowsewidget.o"
   },
   {
     "arguments": [
@@ -793,9 +793,9 @@
       "moc_preferencesdialog.o",
       "moc_preferencesdialog.cpp"
     ],
-    "directory": "/home/blackbox/youtube/MonoGame-Level-Editor",
-    "file": "/home/blackbox/youtube/MonoGame-Level-Editor/moc_preferencesdialog.cpp",
-    "output": "/home/blackbox/youtube/MonoGame-Level-Editor/moc_preferencesdialog.o"
+    "directory": ".",
+    "file": "moc_preferencesdialog.cpp",
+    "output": "moc_preferencesdialog.o"
   },
   {
     "arguments": [
@@ -831,8 +831,8 @@
       "moc_spinboxwidget.o",
       "moc_spinboxwidget.cpp"
     ],
-    "directory": "/home/blackbox/youtube/MonoGame-Level-Editor",
-    "file": "/home/blackbox/youtube/MonoGame-Level-Editor/moc_spinboxwidget.cpp",
-    "output": "/home/blackbox/youtube/MonoGame-Level-Editor/moc_spinboxwidget.o"
+    "directory": ".",
+    "file": "moc_spinboxwidget.cpp",
+    "output": "moc_spinboxwidget.o"
   }
 ]
