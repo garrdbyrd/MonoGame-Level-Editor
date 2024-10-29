@@ -11,9 +11,9 @@ test/levelparser
 
 build/
 
-*.o
-*.cpp
-*.h
+/*.o
+/*.cpp
+/*.h
 .qmake.stash
 .cache
 Makefile
