@@ -8,7 +8,7 @@
 
 class TextureManager
 {
-   public:
+    public:
     TextureManager();
     ~TextureManager();
     // Methods

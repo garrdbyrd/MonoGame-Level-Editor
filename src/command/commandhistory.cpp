@@ -1,4 +1,5 @@
 #include "commandhistory.h"
+#include "caspian.h"
 
 CommandHistory::~CommandHistory()
 {
@@ -51,4 +52,10 @@ bool CommandHistory::isUndoStackEmpty()
 bool CommandHistory::isRedoStackEmpty()
 {
     return redoStack.empty();
+}
+
+void Caspian::recordCommand(Command *command)
+{
+    commandHistory.executeCommand(command);
+    updateActionStates();
 }

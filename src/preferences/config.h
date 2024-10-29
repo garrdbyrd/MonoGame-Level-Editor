@@ -6,7 +6,7 @@
 
 class Config : public QSettings
 {
-   public:
+    public:
     Config();
     // Paths
     QString assetPath;
@@ -20,7 +20,7 @@ class Config : public QSettings
     QMap<QString, QVariant> getSettings(const QString &section);
     QWidget *getSettingWidget(const QString &settingName);
 
-   private:
+    private:
     QMap<QString, QWidget *> dialogMap;
 };
 

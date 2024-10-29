@@ -9,16 +9,16 @@
 class FileBrowseWidget : public QWidget
 {
     Q_OBJECT
-   public:
+    public:
     FileBrowseWidget(QWidget *parent = nullptr);
     QString filePath() const;
     void setFilePath(const QString &path);
     QLineEdit *getLineEdit() const;
     QPushButton *getBrowseButton() const;
-   private slots:
+    private slots:
     void onBrowseButtonClicked();
 
-   private:
+    private:
     QLineEdit *lineEdit;
     QPushButton *browseButton;
 };

@@ -47,7 +47,7 @@ struct tileOffsets {
 #pragma pack(push, 1)
 class Tile
 {
-   public:
+    public:
     // Constructor/Destructor
     Tile() = default;
     ~Tile() = default;
@@ -66,7 +66,7 @@ class Tile
     // Methods
     bool readFromFile(const std::string &filename, u_int32_t offset);
 
-   private:
+    private:
     // Methods
     int headerOffset();
     int tileSize();

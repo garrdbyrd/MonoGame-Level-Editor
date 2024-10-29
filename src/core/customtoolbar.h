@@ -7,14 +7,14 @@ class CustomToolBar : public QToolBar
 {
     Q_OBJECT
 
-   public:
+    public:
     explicit CustomToolBar(QWidget *parent = nullptr);
     void addTilePickerRefreshAction();
 
-   signals:
+    signals:
     void tilePickerRefresh();
 
-   private:
+    private:
 };
 
 #endif  // CUSTOMTOOLBAR_H

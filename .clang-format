@@ -2,7 +2,7 @@
 # find . \( -iname "*.cpp" -o -iname "*.h" \) | xargs clang-format -i -style=file
 ---
 BasedOnStyle: Chromium
-AccessModifierOffset: -1
+AccessModifierOffset: 0
 AlignAfterOpenBracket: BlockIndent
 AlignArrayOfStructures: None
 AlignConsecutiveAssignments:

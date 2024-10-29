@@ -5,7 +5,7 @@
 
 class Chunk
 {
-   public:
+    public:
     const uint8_t magicNumbers[8] = {
         0x44,
         0x4F,
@@ -20,7 +20,7 @@ class Chunk
     uint8_t versionMinor;
     uint8_t versionBugfix;
 
-   private:
+    private:
 };
 
 #endif  // CHUNK_H

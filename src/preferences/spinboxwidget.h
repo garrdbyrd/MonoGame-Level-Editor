@@ -10,7 +10,7 @@ class SpinBoxWidget : public QWidget
 {
     Q_OBJECT
 
-   public:
+    public:
     explicit SpinBoxWidget(
         int minValue = 0,
         int maxValue = 100,
@@ -24,7 +24,7 @@ class SpinBoxWidget : public QWidget
     void setMaximum(int maxValue);
     void stepSize(int stepSize);
 
-   private:
+    private:
     QSpinBox *spinBox;
 };
 

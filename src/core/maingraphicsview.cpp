@@ -1,8 +1,13 @@
 #include "maingraphicsview.h"
+#include "caspian.h"
 #include "compoundpaintcommand.h"
+#include "config.h"
+#include "ui_caspian.h"
+
 #include "config.h"
 
 #include <QGraphicsScene>
+#include <QGridLayout>
 #include <QMouseEvent>
 #include <QScrollBar>
 #include <QWheelEvent>
@@ -224,3 +229,23 @@ void MainGraphicsView::fitInViewGrid()
     this->scale(scaleFactor, scaleFactor);
     this->centerOn(gridWidth / 2.0, gridHeight / 2.0);
 }
+
+// MainGraphicsView *Caspian::setupMainGraphicsView(Config &settings)
+// {
+//     QGridLayout *layout = new QGridLayout(ui->tilePickerWidget);
+//     ui->tilePickerWidget->setLayout(layout);
+
+//     QGraphicsScene *scene = new QGraphicsScene(this);
+//     ui->selectedGraphicsView->setScene(scene);
+
+//     MainGraphicsView *mainGraphicsView =
+//         dynamic_cast<MainGraphicsView *>(ui->mainGraphicsView);
+
+//     QPixmap defaultTexture(settings.defaultTexturePath);
+//     mainGraphicsView->setCurrentTexture(defaultTexture);
+//     mainGraphicsView->setupGrid(
+//         12, 20, 16
+//     );  // Change '16' if textures are not 16x16. It
+//         // should just be a multiple of your texture size.
+//     mainGraphicsView->noCurrentTexture();
+// }

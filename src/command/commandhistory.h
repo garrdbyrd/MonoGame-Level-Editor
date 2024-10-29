@@ -5,7 +5,7 @@
 
 class Command
 {
-   public:
+    public:
     virtual ~Command() = default;
     virtual void execute() = 0;
     virtual void undo() = 0;
@@ -13,7 +13,7 @@ class Command
 
 class CommandHistory
 {
-   public:
+    public:
     CommandHistory() = default;
     ~CommandHistory();
 
@@ -23,7 +23,7 @@ class CommandHistory
     bool isUndoStackEmpty();
     bool isRedoStackEmpty();
 
-   private:
+    private:
     std::stack<Command *> undoStack;
     std::stack<Command *> redoStack;
 

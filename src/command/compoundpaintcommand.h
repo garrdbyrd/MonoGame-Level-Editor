@@ -11,7 +11,7 @@ class CompoundPaintCommand : public Command
     QList<QPixmap> prevPixmaps;          // List of previous pixmaps
     QList<QPixmap> newPixmaps;           // List of new pixmaps
 
-   public:
+    public:
     CompoundPaintCommand(
         const QList<QGraphicsPixmapItem *> &items,
         const QList<QPixmap> &prevPixmaps,

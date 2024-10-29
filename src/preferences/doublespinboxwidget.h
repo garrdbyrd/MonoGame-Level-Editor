@@ -10,7 +10,7 @@ class DoubleSpinBoxWidget : public QWidget
 {
     Q_OBJECT
 
-   public:
+    public:
     explicit DoubleSpinBoxWidget(
         double minValue = 0,
         double maxValue = 1,
@@ -24,7 +24,7 @@ class DoubleSpinBoxWidget : public QWidget
     void setMaximum(double maxValue);
     void stepSize(double stepSize);
 
-   private:
+    private:
     QDoubleSpinBox *doubleSpinBox;
 };
 

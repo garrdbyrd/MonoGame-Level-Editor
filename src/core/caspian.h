@@ -4,6 +4,7 @@
 #include <commandhistory.h>
 #include <maingraphicsview.h>
 #include <selectablelabel.h>
+#include "config.h"
 
 #include <QMainWindow>
 #include <QResizeEvent>
@@ -19,14 +20,14 @@ class Caspian : public QMainWindow
 {
     Q_OBJECT
 
-   public:
+    public:
     Caspian(QWidget *parent = nullptr);
     ~Caspian();
 
-   protected:
+    protected:
     void resizeEvent(QResizeEvent *event) override;
 
-   private:
+    private:
     Ui::Caspian *ui;
     SelectableLabel *currentSelectedLabel = nullptr;
     CommandHistory commandHistory;
@@ -37,13 +38,18 @@ class Caspian : public QMainWindow
     void onPreferencesTriggered();
     void updateActionStates();
     void updateStatusBar(const int x, const int y);
+    // MainGraphicsView *setupMainGraphicsView(Config &settings);
+    // void recordCommand(Command *command);
 
-   public slots:
+    public slots:
     void undo();
     void redo();
     void recordCommand(Command *command);
+    void setupShortcuts();
+    void setupToolbar();
+    void setupStatusBar(MainGraphicsView *mainGraphicsView);
 
-   private slots:
+    private slots:
     void labelClicked(SelectableLabel *label);
 };
 

@@ -11,7 +11,7 @@ class PaintCommand : public Command
     QPixmap prevPixmap;
     QPixmap newPixmap;
 
-   public:
+    public:
     PaintCommand(
         QGraphicsPixmapItem *item,
         const QPixmap &prevPixmap,

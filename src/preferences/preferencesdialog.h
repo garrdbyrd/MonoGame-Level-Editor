@@ -13,11 +13,11 @@ class preferencesDialog : public QDialog
 {
     Q_OBJECT
 
-   public:
+    public:
     explicit preferencesDialog(QWidget *parent = nullptr);
     ~preferencesDialog();
 
-   private:
+    private:
     Ui::preferencesDialog *ui;
     void populatePreferences();
 };

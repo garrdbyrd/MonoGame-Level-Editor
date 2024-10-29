@@ -54,7 +54,7 @@ struct levelHeaderOffsets {
 #pragma pack(push, 1)
 class Level
 {
-   public:
+    public:
     // Constructor/Destructor
     Level() = default;
     ~Level() = default;
@@ -92,7 +92,7 @@ class Level
     bool readFromFile(const std::string &filename);
     void initializeGrid(const Tile &defaultTile);
 
-   private:
+    private:
     // Methods
     bool readMagicNumber(std::ifstream &file);
     bool readVersionInfo(std::ifstream &file);

@@ -11,20 +11,20 @@ class MainGraphicsView : public QGraphicsView
 {
     Q_OBJECT
 
-   public:
+    public:
     MainGraphicsView(QWidget *parent = nullptr);
     void update();
     void setCurrentTexture(const QPixmap &texture);
     void noCurrentTexture();
     void setupGrid(int rows, int cols, int tileSize);
 
-   protected:
+    protected:
     void mousePressEvent(QMouseEvent *event) override;
     void mouseMoveEvent(QMouseEvent *event) override;
     void mouseReleaseEvent(QMouseEvent *event) override;
     void wheelEvent(QWheelEvent *event) override;
 
-   private:
+    private:
     QPixmap currentTexture;
     QPixmap nullTexture = QPixmap();
     QVector<QVector<QGraphicsPixmapItem *>> grid;
@@ -42,7 +42,7 @@ class MainGraphicsView : public QGraphicsView
     void fitInViewGrid();
     void resizeEvent(QResizeEvent *event) override;
 
-   signals:
+    signals:
     void executeCommand(Command *command);
     void mouseCoordinates(const int x, const int y);
 };
