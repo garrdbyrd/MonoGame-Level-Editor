@@ -27,3 +27,16 @@ void Caspian::updateActionStates()
     ui->actionUndo->setEnabled(!commandHistory.isUndoStackEmpty());
     ui->actionRedo->setEnabled(!commandHistory.isRedoStackEmpty());
 }
+
+void Caspian::setupActions()
+{
+    connect(
+        ui->actionPreferences,
+        &QAction::triggered,
+        this,
+        &Caspian::onPreferencesTriggered
+    );
+    connect(ui->actionUndo, &QAction::triggered, this, &Caspian::undo);
+    connect(ui->actionRedo, &QAction::triggered, this, &Caspian::redo);
+    updateActionStates();
+}
