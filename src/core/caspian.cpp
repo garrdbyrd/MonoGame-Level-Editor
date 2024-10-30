@@ -21,8 +21,6 @@
 
 #include "./ui_caspian.h"
 #include "config.h"
-#include "customtoolbar.h"
-#include "maingraphicsview.h"
 
 Caspian::Caspian(QWidget *parent) : QMainWindow(parent), ui(new Ui::Caspian)
 {
@@ -35,7 +33,7 @@ Caspian::Caspian(QWidget *parent) : QMainWindow(parent), ui(new Ui::Caspian)
     setupMainGraphicsView(settings);
     populateScrollMenu();
     setPropertiesTable();
-    setupStatusBar(mainGraphicsView);
+    setupStatusBar();
 }
 
 Caspian::~Caspian()

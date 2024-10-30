@@ -44,7 +44,7 @@ class Caspian : public QMainWindow
     // void recordCommand(Command *command);
     void setupShortcuts();
     void setupToolbar();
-    void setupStatusBar(MainGraphicsView *mainGraphicsView);
+    void setupStatusBar();
     void setupActions();
 
     public slots:

@@ -2,7 +2,7 @@
 #include <QString>
 #include "caspian.h"
 
-void Caspian::setupStatusBar(MainGraphicsView *mainGraphicsView)
+void Caspian::setupStatusBar()
 {
     connect(
         mainGraphicsView,
