@@ -20,17 +20,16 @@
 #include <cstdio>
 
 #include "./ui_caspian.h"
-#include "config.h"
 
 Caspian::Caspian(QWidget *parent) : QMainWindow(parent), ui(new Ui::Caspian)
 {
     ui->setupUi(this);
-    Config settings;
+
     setupToolbar();
     setupActions();
     updateActionStates();
     setupShortcuts();
-    setupMainGraphicsView(settings);
+    setupMainGraphicsView();
     populateScrollMenu();
     setPropertiesTable();
     setupStatusBar();

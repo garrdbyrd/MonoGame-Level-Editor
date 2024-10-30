@@ -6,7 +6,6 @@
 #include <QDebug>
 #include <QPixmap>
 #include <QString>
-#include <iostream>
 
 TextureManager::TextureManager() {}
 

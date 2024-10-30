@@ -12,6 +12,33 @@
 #include <QScrollBar>
 #include <QWheelEvent>
 
+void Caspian::setupMainGraphicsView()
+{
+    mainGraphicsView = ui->mainGraphicsView;
+    QGridLayout *layout = new QGridLayout(ui->tilePickerWidget);
+    ui->tilePickerWidget->setLayout(layout);
+
+    QGraphicsScene *scene = new QGraphicsScene(this);
+    ui->selectedGraphicsView->setScene(scene);
+
+    MainGraphicsView *mainGraphicsView =
+        dynamic_cast<MainGraphicsView *>(ui->mainGraphicsView);
+    connect(
+        mainGraphicsView,
+        &MainGraphicsView::executeCommand,
+        this,
+        &Caspian::recordCommand
+    );
+
+    QPixmap defaultTexture(settings.defaultTexturePath);
+    mainGraphicsView->setCurrentTexture(defaultTexture);
+    mainGraphicsView->setupGrid(
+        12, 20, 16
+    );  // Change '16' if textures are not 16x16. It
+        // should just be a multiple of your texture size.
+    mainGraphicsView->noCurrentTexture();
+}
+
 MainGraphicsView::MainGraphicsView(QWidget *parent) : QGraphicsView(parent)
 {
     setMouseTracking(true);

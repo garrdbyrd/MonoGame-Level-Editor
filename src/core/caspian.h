@@ -32,6 +32,7 @@ class Caspian : public QMainWindow
     SelectableLabel *currentSelectedLabel = nullptr;
     CommandHistory commandHistory;
     MainGraphicsView *mainGraphicsView;
+    Config settings;
     // MainGraphicsView *mainGraphicsView;
 
     // Methods
@@ -40,7 +41,7 @@ class Caspian : public QMainWindow
     void onPreferencesTriggered();
     void updateActionStates();
     void updateStatusBar(const int x, const int y);
-    void setupMainGraphicsView(Config &settings);
+    void setupMainGraphicsView();
     // void recordCommand(Command *command);
     void setupShortcuts();
     void setupToolbar();

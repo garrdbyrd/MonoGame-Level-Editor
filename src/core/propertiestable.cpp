@@ -1,8 +1,6 @@
-#include "caspian.h"
-
 #include <cstdio>
-
 #include "./ui_caspian.h"
+#include "caspian.h"
 
 void Caspian::setPropertiesTable()
 {
