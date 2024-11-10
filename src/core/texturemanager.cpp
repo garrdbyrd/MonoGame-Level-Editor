@@ -1,9 +1,8 @@
 #include "texturemanager.h"
 
+#include <QDebug>
 #include <QDir>
 #include <QDirIterator>
-// #include <QMap>
-#include <QDebug>
 #include <QPixmap>
 #include <QString>
 

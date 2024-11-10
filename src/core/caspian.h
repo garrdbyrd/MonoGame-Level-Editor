@@ -33,7 +33,6 @@ class Caspian : public QMainWindow
     CommandHistory commandHistory;
     MainGraphicsView *mainGraphicsView;
     Config settings;
-    // MainGraphicsView *mainGraphicsView;
 
     // Methods
     void populateScrollMenu();
@@ -42,7 +41,6 @@ class Caspian : public QMainWindow
     void updateActionStates();
     void updateStatusBar(const int x, const int y);
     void setupMainGraphicsView();
-    // void recordCommand(Command *command);
     void setupShortcuts();
     void setupToolbar();
     void setupStatusBar();
