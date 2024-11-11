@@ -23,6 +23,7 @@ class Caspian : public QMainWindow
     public:
     Caspian(QWidget *parent = nullptr);
     ~Caspian();
+    TextureManager textureManager;
 
     protected:
     void resizeEvent(QResizeEvent *event) override;
@@ -34,17 +35,21 @@ class Caspian : public QMainWindow
     MainGraphicsView *mainGraphicsView;
     Config settings;
 
-    // Methods
-    void populateScrollMenu();
-    void setPropertiesTable();
-    void onPreferencesTriggered();
-    void updateActionStates();
-    void updateStatusBar(const int x, const int y);
+    // Init
     void setupMainGraphicsView();
     void setupShortcuts();
     void setupToolbar();
     void setupStatusBar();
     void setupActions();
+    void populateScrollMenu();
+    void setPropertiesTable();
+
+    // Preferences
+    void onPreferencesTriggered();
+
+    // Other Methods
+    void updateActionStates();
+    void updateStatusBar(const int x, const int y);
 
     public slots:
     void undo();

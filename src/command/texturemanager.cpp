@@ -3,24 +3,32 @@
 #include <QDebug>
 #include <QDir>
 #include <QDirIterator>
+#include <QMap>
 #include <QPixmap>
 #include <QString>
+#include "qpixmap.h"
 
-TextureManager::TextureManager() {}
+TextureManager::TextureManager()
+{
+    QMap<QString, QPixmap> textureMap;
+}
 
 TextureManager::~TextureManager()
 {
     // qDeleteAll(textureMap);
     // textureMap.clear();
-    for (auto &pair : textureMap) {
-        delete pair.second;
-    }
-    textureMap.clear();
 }
 
-QPixmap *TextureManager::getTexture(const QString &key)
+QPixmap TextureManager::getTexture(const QString &textureKey)
 {
-    // return textureMap.value(key, nullptr);
+    if (textureMap.contains(textureKey)) {
+        QPixmap pixmap = textureMap.value(textureKey);
+        if (pixmap.isNull()) {
+            qWarning() << "Pixmap for key" << textureKey << "is null.";
+        }
+        return pixmap;
+    }
+    return QPixmap();
 }
 
 void TextureManager::loadTexture(const QString &key, const QString &filePath)
@@ -46,9 +54,9 @@ void TextureManager::addStringTexturePair(
     const QPixmap *textureLoc
 )
 {
-    if (!(textureMap.find(textureName) != textureMap.end())) {
-        textureMap[textureName] = const_cast<QPixmap *>(textureLoc);
-    }
+    // if (!(textureMap.find(textureName) != textureMap.end())) {
+    //     textureMap[textureName] = const_cast<QPixmap *>(textureLoc);
+    // }
 }
 
 void TextureManager::loadAllTextures(const QString &directoryPath)
@@ -64,12 +72,8 @@ void TextureManager::loadAllTextures(const QString &directoryPath)
         for (const QString &fileName : pngFiles) {
             QString accessibleName =
                 subDirName + "/" + QFileInfo(fileName).baseName();
-            QPixmap *pixmap = new QPixmap(subDir.absoluteFilePath(fileName));
-            if (!pixmap->isNull()) {
-                addStringTexturePair(accessibleName, pixmap);
-            } else {
-                delete pixmap;
-            }
+            QString filePath = subDir.absoluteFilePath(fileName);
+            textureMap[accessibleName] = filePath;
         }
     }
 }

@@ -2,6 +2,7 @@
 #define MAINGRAPHICSVIEW_H
 
 #include "commandhistory.h"
+#include "texturemanager.h"
 
 #include <QGraphicsPixmapItem>
 #include <QGraphicsView>
@@ -14,9 +15,11 @@ class MainGraphicsView : public QGraphicsView
     public:
     MainGraphicsView(QWidget *parent = nullptr);
     void update();
-    void setCurrentTexture(const QPixmap &texture);
+    void setCurrentTexture(const QString &textureKey);
     void noCurrentTexture();
     void setupGrid(int rows, int cols, int tileSize);
+    // TextureManager textureManager;
+    void setTextureManager(TextureManager *textureManager);
 
     protected:
     void mousePressEvent(QMouseEvent *event) override;
@@ -25,6 +28,7 @@ class MainGraphicsView : public QGraphicsView
     void wheelEvent(QWheelEvent *event) override;
 
     private:
+    TextureManager *textureManager = nullptr;
     QPixmap currentTexture;
     QPixmap nullTexture = QPixmap();
     QVector<QVector<QGraphicsPixmapItem *>> grid;
@@ -35,7 +39,9 @@ class MainGraphicsView : public QGraphicsView
     // Paint commands
     bool isPainting = false;
     QList<QGraphicsPixmapItem *> paintedItems;
-    QList<QPixmap> prevPixmaps;
+    // QList<QPixmap> prevPixmaps;
+    QList<QString> prevTextureKeys;
+    QString currentTextureKey;
     void startPainting();
     void applyPaint(QGraphicsPixmapItem *item);
     void endPainting();

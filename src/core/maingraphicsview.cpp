@@ -6,6 +6,7 @@
 
 #include "config.h"
 
+#include <QDebug>
 #include <QGraphicsScene>
 #include <QGridLayout>
 #include <QMouseEvent>
@@ -15,14 +16,18 @@
 void Caspian::setupMainGraphicsView()
 {
     mainGraphicsView = ui->mainGraphicsView;
+    // mainGraphicsView(textureManager, ui->centralwidget);
+    // mainGraphicsView->textureManager = this->textureManager;
+    mainGraphicsView->setTextureManager(&this->textureManager);
     QGridLayout *layout = new QGridLayout(ui->tilePickerWidget);
+
     ui->tilePickerWidget->setLayout(layout);
 
     QGraphicsScene *scene = new QGraphicsScene(this);
     ui->selectedGraphicsView->setScene(scene);
 
-    MainGraphicsView *mainGraphicsView =
-        dynamic_cast<MainGraphicsView *>(ui->mainGraphicsView);
+    // MainGraphicsView *mainGraphicsView = dynamic_cast<MainGraphicsView
+    // *>(ui->mainGraphicsView);
     connect(
         mainGraphicsView,
         &MainGraphicsView::executeCommand,
@@ -30,8 +35,10 @@ void Caspian::setupMainGraphicsView()
         &Caspian::recordCommand
     );
 
-    QPixmap defaultTexture(settings.defaultTexturePath);
-    mainGraphicsView->setCurrentTexture(defaultTexture);
+    // QPixmap defaultTexture(settings.defaultTexturePath);
+    textureManager.loadAllTextures(settings.assetPath);
+    qWarning() << "Default texture" << settings.defaultTexturePath;
+    mainGraphicsView->setCurrentTexture("default/default");
     mainGraphicsView->setupGrid(
         12, 20, 16
     );  // Change '16' if textures are not 16x16. It
@@ -46,6 +53,11 @@ MainGraphicsView::MainGraphicsView(QWidget *parent) : QGraphicsView(parent)
     isMiddleDragging = false;
     QGraphicsScene *scene = new QGraphicsScene(this);
     setScene(scene);
+}
+
+void MainGraphicsView::setTextureManager(TextureManager *textureManager)
+{
+    this->textureManager = textureManager;
 }
 
 ////////////////
@@ -67,14 +79,17 @@ void MainGraphicsView::setupGrid(int rows, int cols, int tileSize)
     }
 }
 
-void MainGraphicsView::setCurrentTexture(const QPixmap &texture)
+void MainGraphicsView::setCurrentTexture(const QString &textureKey)
 {
-    currentTexture = texture;
+    currentTextureKey = textureKey;
+    qWarning() << "Default texture" << textureKey;
+    currentTexture = textureManager->getTexture(textureKey);
 }
 
 void MainGraphicsView::noCurrentTexture()
 {
     currentTexture = nullTexture;
+    currentTextureKey.clear();
 }
 
 ////////////////////
@@ -192,34 +207,44 @@ void MainGraphicsView::mouseReleaseEvent(QMouseEvent *event)
     }
 }
 
-// Paint
+//////////////
+// Painting //
+//////////////
 void MainGraphicsView::startPainting()
 {
     paintedItems.clear();
-    prevPixmaps.clear();
+    // prevPixmaps.clear();
+    prevTextureKeys.clear();
 }
 
 void MainGraphicsView::applyPaint(QGraphicsPixmapItem *item)
 {
     if (!paintedItems.contains(item)) {
         paintedItems.append(item);
-        prevPixmaps.append(item->pixmap());
-        item->setPixmap(
-            currentTexture.scaled(tileSize, tileSize, Qt::KeepAspectRatio)
-        );
+        // prevPixmaps.append(item->pixmap());
+        prevTextureKeys.append(item->data(0).toString());
+
+        // item->setPixmap(
+        //     currentTexture.scaled(tileSize, tileSize, Qt::KeepAspectRatio)
+        // );
+        item->setPixmap(textureManager->getTexture(currentTextureKey)
+                            .scaled(tileSize, tileSize, Qt::KeepAspectRatio));
+        item->setData(0, currentTextureKey);
     }
 }
 
 void MainGraphicsView::endPainting()
 {
     if (!paintedItems.isEmpty()) {
-        QList<QPixmap> newPixmaps;
-        for (auto item : qAsConst(paintedItems)) {
-            newPixmaps.append(item->pixmap());
+        QList<QString> newTextureKeys;
+        for (auto _ : qAsConst(paintedItems)) {
+            newTextureKeys.append(currentTextureKey);
         }
-        emit executeCommand(
-            new CompoundPaintCommand(paintedItems, prevPixmaps, newPixmaps)
-        );
+        emit executeCommand(new CompoundPaintCommand(
+            *textureManager, paintedItems, prevTextureKeys, newTextureKeys
+        ));
+        paintedItems.clear();
+        prevTextureKeys.clear();
     }
 }
 

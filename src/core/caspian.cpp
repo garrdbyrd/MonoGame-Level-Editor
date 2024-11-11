@@ -20,6 +20,7 @@
 #include <cstdio>
 
 #include "./ui_caspian.h"
+#include "texturemanager.h"
 
 Caspian::Caspian(QWidget *parent) : QMainWindow(parent), ui(new Ui::Caspian)
 {
@@ -33,6 +34,8 @@ Caspian::Caspian(QWidget *parent) : QMainWindow(parent), ui(new Ui::Caspian)
     populateScrollMenu();
     setPropertiesTable();
     setupStatusBar();
+    // Texture manager
+    textureManager.loadAllTextures("caspian-local/assets");
 }
 
 Caspian::~Caspian()

@@ -7,6 +7,7 @@
 
 #include "./ui_caspian.h"
 #include "config.h"
+#include "qchar.h"
 #include "selectablelabel.h"
 #include "texturemanager.h"
 #include "utility.h"
@@ -64,9 +65,11 @@ void Caspian::populateScrollMenu()
         dirLabel->setStyleSheet("font-weight: bold");
         layout->addWidget(dirLabel, row++, 0, 1, -1);
 
-        for (const auto &pair : textureManager.textureMap) {
-            const QString key = pair.first;
-            const QPixmap *value = pair.second;
+        for (auto item = textureManager.textureMap.begin();
+             item != textureManager.textureMap.end();
+             ++item) {
+            const QString key = item.key();
+
             const QList<QString> keyDirList = splitString(key, '/');
 
             std::ofstream errfile;
@@ -76,13 +79,11 @@ void Caspian::populateScrollMenu()
 
             if (keyDirList[0] == subDirName) {
                 SelectableLabel *imageLabel = new SelectableLabel;
-                QPixmap textureIcon(*value);
 
+                QPixmap textureIcon = textureManager.getTexture(key);
                 imageLabel->setPixmap(
                     textureIcon.scaled(size, size, Qt::KeepAspectRatio)
                 );
-                // imageLabel->setTextureFilePath(subDir.absoluteFilePath(key));
-                // // Deals with painting
 
                 imageLabel->setAccessibleName(key);
                 connect(
@@ -164,12 +165,14 @@ void Caspian::labelClicked(SelectableLabel *label)
         // QPixmap originalTexture(texturePath);
         int applicationHeight =
             qobject_cast<QLabel *>(sender())->window()->height();
-        ;
+
+        QString textureKey = label->accessibleName();
         QPixmap scaledTexture =
             label->pixmap().scaledToHeight(192 * applicationHeight / 1080);
 
-        if (mainGraphicsView && !scaledTexture.isNull()) {
-            mainGraphicsView->setCurrentTexture(scaledTexture);
+        if (mainGraphicsView && !textureKey.isEmpty() &&
+            !scaledTexture.isNull()) {
+            mainGraphicsView->setCurrentTexture(textureKey);
         }
 
         // Check if the pixmap is valid
